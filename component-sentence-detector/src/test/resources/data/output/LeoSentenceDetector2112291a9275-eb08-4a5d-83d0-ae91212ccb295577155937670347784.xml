@@ -2,7 +2,7 @@
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
     <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
     <primitive>true</primitive>
-    <annotatorImplementationName>gov.va.queri.sent.ae.LeoSentenceDetector</annotatorImplementationName>
+    <annotatorImplementationName>clinicalnlp.sent.ae.LeoSentenceDetector</annotatorImplementationName>
     <analysisEngineMetaData>
         <name>LeoSentenceDetector2112291a9275-eb08-4a5d-83d0-ae91212ccb29</name>
         <configurationParameters>
@@ -65,7 +65,7 @@
             <nameValuePair>
                 <name>sentModelPath</name>
                 <value>
-                    <string>classpath:models/sd-med-model.zip</string>
+                    <string>classpath:clinicalnlp.models/sd-med-model.zip</string>
                 </value>
             </nameValuePair>
             <nameValuePair>

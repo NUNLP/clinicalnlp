@@ -2,7 +2,7 @@
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
     <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
     <primitive>true</primitive>
-    <annotatorImplementationName>gov.va.queri.dsl.ae.LeoDSLAnnotator</annotatorImplementationName>
+    <annotatorImplementationName>clinicalnlp.dsl.ae.LeoDSLAnnotator</annotatorImplementationName>
     <analysisEngineMetaData>
         <name>LeoDSLAnnotator2112d77e3f3f-994d-433f-9aac-b6ed0a528be9</name>
         <configurationParameters>

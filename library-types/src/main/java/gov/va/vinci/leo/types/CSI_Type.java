@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Tue Sep 27 22:40:32 CDT 2016 */
+/* First created by JCasGen Mon Oct 24 09:31:51 CDT 2016 */
 package gov.va.vinci.leo.types;
 
 import org.apache.uima.jcas.JCas;
@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** CSI Annotation
- * Updated by JCasGen Tue Sep 27 22:40:32 CDT 2016
+ * Updated by JCasGen Mon Oct 24 09:31:51 CDT 2016
  * @generated */
 public class CSI_Type extends Annotation_Type {
   /** @generated 

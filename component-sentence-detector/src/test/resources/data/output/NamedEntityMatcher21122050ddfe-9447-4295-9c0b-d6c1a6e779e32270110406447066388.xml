@@ -2,7 +2,7 @@
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
     <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
     <primitive>true</primitive>
-    <annotatorImplementationName>gov.va.queri.sent.ae.NamedEntityMatcher</annotatorImplementationName>
+    <annotatorImplementationName>clinicalnlp.sent.ae.NamedEntityMatcher</annotatorImplementationName>
     <analysisEngineMetaData>
         <name>NamedEntityMatcher21122050ddfe-9447-4295-9c0b-d6c1a6e779e3</name>
         <configurationParameters>

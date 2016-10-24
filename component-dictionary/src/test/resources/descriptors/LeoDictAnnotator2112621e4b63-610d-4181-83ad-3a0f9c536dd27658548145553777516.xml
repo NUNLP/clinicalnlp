@@ -2,7 +2,7 @@
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
     <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
     <primitive>true</primitive>
-    <annotatorImplementationName>gov.va.queri.dict.ae.LeoDictAnnotator</annotatorImplementationName>
+    <annotatorImplementationName>clinicalnlp.dict.ae.LeoDictAnnotator</annotatorImplementationName>
     <analysisEngineMetaData>
         <name>LeoDictAnnotator2112621e4b63-610d-4181-83ad-3a0f9c536dd2</name>
         <configurationParameters>
@@ -83,7 +83,7 @@
             <nameValuePair>
                 <name>tokenModelPath</name>
                 <value>
-                    <string>classpath:models/en-token.bin</string>
+                    <string>classpath:clinicalnlp.models/en-token.bin</string>
                 </value>
             </nameValuePair>
             <nameValuePair>

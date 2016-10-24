@@ -56,6 +56,7 @@ project(':') {
     task wrapper(type: Wrapper) { gradleVersion = '2.1' }
     dependencies {
         compile project(':library-types')
+        compile project(':library-models')
         compile project(':component-groovy-dsl')
         compile project(':component-segmenter')
         compile project(':component-context')
@@ -64,6 +65,8 @@ project(':') {
         compile project(':component-dictionary')
         compile project(':component-chunker')
         compile project(':component-wsd')
+
+        testCompile project(':library-test')
     }
 }
 

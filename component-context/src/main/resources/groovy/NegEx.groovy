@@ -1,8 +1,6 @@
-import gov.va.queri.dsl.AnnotationMatcher
+import clinicalnlp.dsl.AnnotationMatcher
 import gov.va.vinci.leo.sentence.types.Sentence
 import org.apache.uima.jcas.JCas
-import org.apache.uima.jcas.tcas.Annotation
-
 import gov.va.queri.types.NamedEntityMention
 import gov.va.queri.types.NegationScope
 import gov.va.queri.types.NegationScopeTerminator
@@ -11,7 +9,7 @@ import gov.va.queri.types.PostNegationTrigger
 import gov.va.queri.types.PreNegationTrigger
 import gov.va.queri.types.PseudoNegationTrigger
 
-import static gov.va.queri.dsl.UIMA_DSL.*
+import static clinicalnlp.dsl.UIMA_DSL.*
 
 // ----------------------------------------------------------------------------
 // get the jcas instance
