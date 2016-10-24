@@ -14,6 +14,7 @@ import edu.mit.jwi.item.POS
 import edu.mit.jwi.item.Pointer
 import edu.mit.jwi.morph.WordnetStemmer
 import groovy.util.logging.Log4j
+import org.junit.Ignore
 import org.junit.Test
 
 @Log4j

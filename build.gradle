@@ -64,7 +64,6 @@ project(':') {
         compile project(':component-dictionary')
         compile project(':component-chunker')
         compile project(':component-wsd')
-        compile project(':application-colon-polyps')
     }
 }
 
@@ -152,18 +151,6 @@ project(':component-wsd') {
         compile 'de.tudarmstadt.ukp.dkpro.wsd:de.tudarmstadt.ukp.dkpro.wsd.core:1.2.0'
         testCompile project(':library-test')
         testCompile project(':component-dictionary')
-    }
-}
-
-project(':application-colon-polyps') {
-    dependencies {
-        compile project(':library-types')
-        compile project(':component-dictionary')
-        compile project(':component-sentence-detector')
-        compile project(':component-tokenizer')
-        compile project(':component-chunker')
-        testCompile project(':library-test')
-        testCompile 'gov.va.vinci:leo-aucompare:2016.07.1'
     }
 }
 

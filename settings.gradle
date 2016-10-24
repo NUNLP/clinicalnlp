@@ -11,5 +11,3 @@ include 'component-dictionary'
 include 'component-chunker'
 include 'component-wsd'
 
-include 'application-colon-polyps'
-
