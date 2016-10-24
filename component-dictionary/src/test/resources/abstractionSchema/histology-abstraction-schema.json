@@ -1,0 +1,53 @@
+{
+      "predicate":"has_cancer_histology",
+      "display_name":"Cancer Histology",
+      "abstractor_object_type":"list",
+      "preferred_name":"cancer histology",
+      "predicate_variants":[
+
+      ],
+      "object_values":[
+         {
+            "value":"glioblastoma, nos",
+            "properties":{
+               "type":"Rpt",
+               "select_for":"Brain, CNS, and Pituitary"
+            },
+            "vocabulary_code":"9440/3",
+            "vocabulary":"ICD-O-3",
+            "vocabulary_version":"2011 Updates to ICD-O-3",
+            "object_value_variants":[
+               {
+                  "value":"glioblastoma"
+               },
+               {
+                  "value":"gbm"
+               },
+               {
+                  "value":"spongioblastoma multiforme"
+               }
+            ]
+         },
+         {
+            "value":"meningioma, nos",
+            "properties":{
+               "type":"Rpt",
+               "select_for":"Brain, CNS, and Pituitary"
+            },
+            "vocabulary_code":"9530/0",
+            "vocabulary":"ICD-O-3",
+            "vocabulary_version":"2011 Updates to ICD-O-3",
+            "object_value_variants":[
+               {
+                  "value":"meningioma"
+               },
+               {
+                  "value":"leptomeningioma"
+               },
+               {
+                  "value":"meningeal fibroblastoma"
+               }
+            ]
+         }
+      ]
+   }

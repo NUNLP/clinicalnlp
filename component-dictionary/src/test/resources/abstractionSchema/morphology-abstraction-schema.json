@@ -1,0 +1,49 @@
+{
+      "predicate":"has_cancer_site",
+      "display_name":"Cancer Morphology",
+      "abstractor_object_type":"list",
+      "preferred_name":"cancer morphology",
+      "predicate_variants":[
+      ],
+      "object_values":[
+         {
+            "value":"spine",
+            "properties":{
+               "type":"Rpt",
+               "select_for":""
+            },
+            "vocabulary_code":"9440/3",
+            "vocabulary":"ICD-O-3",
+            "vocabulary_version":"2011 Updates to ICD-O-3",
+            "object_value_variants":[
+               {
+                  "value":"spine"
+               },
+               {
+                  "value":"spinal"
+               },
+               {
+                  "value":"spinal cord"
+               }
+            ]
+         },
+         {
+            "value":"brain",
+            "properties":{
+               "type":"Rpt",
+               "select_for":""
+            },
+            "vocabulary_code":"9440/3",
+            "vocabulary":"ICD-O-3",
+            "vocabulary_version":"2011 Updates to ICD-O-3",
+            "object_value_variants":[
+               {
+                  "value":"brain"
+               },
+               {
+                  "value":"meninges"
+               }
+            ]
+         }
+      ]
+   }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+    <primitive>false</primitive>
+    <delegateAnalysisEngineSpecifiers>
+        <delegateAnalysisEngine key="NamedEntityMatcher21122050ddfe-9447-4295-9c0b-d6c1a6e779e3">
+            <import location="/H:/Code/queri-leo-components/component-sentence-detector/src/test/resources/data/output/NamedEntityMatcher21122050ddfe-9447-4295-9c0b-d6c1a6e779e32270110406447066388.xml"/>
+        </delegateAnalysisEngine>
+        <delegateAnalysisEngine key="LeoDSLAnnotator2112aeea46ed-4625-4248-aede-fd1458a1a5d6">
+            <import location="/H:/Code/queri-leo-components/component-sentence-detector/src/test/resources/data/output/LeoDSLAnnotator2112aeea46ed-4625-4248-aede-fd1458a1a5d64652372683797202729.xml"/>
+        </delegateAnalysisEngine>
+        <delegateAnalysisEngine key="LeoSentenceDetector2112291a9275-eb08-4a5d-83d0-ae91212ccb29">
+            <import location="/H:/Code/queri-leo-components/component-sentence-detector/src/test/resources/data/output/LeoSentenceDetector2112291a9275-eb08-4a5d-83d0-ae91212ccb295577155937670347784.xml"/>
+        </delegateAnalysisEngine>
+    </delegateAnalysisEngineSpecifiers>
+    <analysisEngineMetaData>
+        <name>leoAggregate</name>
+        <configurationParameters/>
+        <configurationParameterSettings/>
+        <flowConstraints>
+            <fixedFlow>
+                <node>NamedEntityMatcher21122050ddfe-9447-4295-9c0b-d6c1a6e779e3</node>
+                <node>LeoDSLAnnotator2112aeea46ed-4625-4248-aede-fd1458a1a5d6</node>
+                <node>LeoSentenceDetector2112291a9275-eb08-4a5d-83d0-ae91212ccb29</node>
+            </fixedFlow>
+        </flowConstraints>
+        <capabilities/>
+        <operationalProperties>
+            <modifiesCas>true</modifiesCas>
+            <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+            <outputsNewCASes>false</outputsNewCASes>
+        </operationalProperties>
+    </analysisEngineMetaData>
+</analysisEngineDescription>

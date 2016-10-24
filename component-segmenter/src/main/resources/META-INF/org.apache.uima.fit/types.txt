@@ -1,0 +1,2 @@
+classpath*:gov/va/queri/types/CoreTypeSystem.xml
+

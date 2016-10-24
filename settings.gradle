@@ -1,0 +1,15 @@
+include 'library-types'
+include 'library-models'
+include 'library-test'
+
+include 'component-groovy-dsl'
+include 'component-segmenter'
+include 'component-context'
+include 'component-sentence-detector'
+include 'component-tokenizer'
+include 'component-dictionary'
+include 'component-chunker'
+include 'component-wsd'
+
+include 'application-colon-polyps'
+

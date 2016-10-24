@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+    <primitive>false</primitive>
+    <delegateAnalysisEngineSpecifiers>
+        <delegateAnalysisEngine key="LeoDSLAnnotator211291cfb7bf-b2b4-4b23-9340-6e24823f9255">
+            <import location="/H:/Code/queri-leo-components/component-segmenter/src/test/resources/data/output/LeoDSLAnnotator211291cfb7bf-b2b4-4b23-9340-6e24823f92554980388414404743608.xml"/>
+        </delegateAnalysisEngine>
+    </delegateAnalysisEngineSpecifiers>
+    <analysisEngineMetaData>
+        <name>leoAggregate</name>
+        <configurationParameters/>
+        <configurationParameterSettings/>
+        <flowConstraints>
+            <fixedFlow>
+                <node>LeoDSLAnnotator211291cfb7bf-b2b4-4b23-9340-6e24823f9255</node>
+            </fixedFlow>
+        </flowConstraints>
+        <capabilities/>
+        <operationalProperties>
+            <modifiesCas>true</modifiesCas>
+            <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+            <outputsNewCASes>false</outputsNewCASes>
+        </operationalProperties>
+    </analysisEngineMetaData>
+</analysisEngineDescription>

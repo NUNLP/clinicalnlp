@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+    <primitive>false</primitive>
+    <delegateAnalysisEngineSpecifiers>
+        <delegateAnalysisEngine key="LeoDSLAnnotator2112201e6483-8f09-489b-a6b9-f7f28a77dcf1">
+            <import location="/H:/Code/queri-leo-components/component-dictionary/src/test/resources/descriptors/LeoDSLAnnotator2112201e6483-8f09-489b-a6b9-f7f28a77dcf15216472899757536504.xml"/>
+        </delegateAnalysisEngine>
+        <delegateAnalysisEngine key="LeoSentenceDetector211261c48c06-e8c9-4abc-842f-ac549ff6cf74">
+            <import location="/H:/Code/queri-leo-components/component-dictionary/src/test/resources/descriptors/LeoSentenceDetector211261c48c06-e8c9-4abc-842f-ac549ff6cf74886530753126580186.xml"/>
+        </delegateAnalysisEngine>
+        <delegateAnalysisEngine key="LeoTokenAnnotator2112c9ed818c-a105-4b68-baaf-ee19603fc591">
+            <import location="/H:/Code/queri-leo-components/component-dictionary/src/test/resources/descriptors/LeoTokenAnnotator2112c9ed818c-a105-4b68-baaf-ee19603fc5915017219534341828871.xml"/>
+        </delegateAnalysisEngine>
+        <delegateAnalysisEngine key="LeoDictAnnotator2112621e4b63-610d-4181-83ad-3a0f9c536dd2">
+            <import location="/H:/Code/queri-leo-components/component-dictionary/src/test/resources/descriptors/LeoDictAnnotator2112621e4b63-610d-4181-83ad-3a0f9c536dd27658548145553777516.xml"/>
+        </delegateAnalysisEngine>
+    </delegateAnalysisEngineSpecifiers>
+    <analysisEngineMetaData>
+        <name>leoAggregate</name>
+        <configurationParameters/>
+        <configurationParameterSettings/>
+        <flowConstraints>
+            <fixedFlow>
+                <node>LeoDSLAnnotator2112201e6483-8f09-489b-a6b9-f7f28a77dcf1</node>
+                <node>LeoSentenceDetector211261c48c06-e8c9-4abc-842f-ac549ff6cf74</node>
+                <node>LeoTokenAnnotator2112c9ed818c-a105-4b68-baaf-ee19603fc591</node>
+                <node>LeoDictAnnotator2112621e4b63-610d-4181-83ad-3a0f9c536dd2</node>
+            </fixedFlow>
+        </flowConstraints>
+        <capabilities/>
+        <operationalProperties>
+            <modifiesCas>true</modifiesCas>
+            <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+            <outputsNewCASes>false</outputsNewCASes>
+        </operationalProperties>
+    </analysisEngineMetaData>
+</analysisEngineDescription>

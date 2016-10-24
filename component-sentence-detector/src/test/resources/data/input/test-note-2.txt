@@ -1,0 +1,25 @@
+SPECIMEN A: Left breast axillary node, level #1, cps 400
+SPECIMEN B: Left axillary node #2, level 1, cps 450
+PRE-OP DIAGNOSIS: Left breast Ca
+SPECIMEN C: Left axillary sentinel node level 1, cps 710
+SPECIMEN D: Left axillary  non-sentinel node #4
+SPECIMEN E: Left breast lumpectomy
+FINAL DIAGNOSIS:
+A)  Left axillary level 1 sentinel lymph node (40 cps):
+     - Lymph node with no evidence of tumor.
+B)  Left axillary level 1 sentinel lymph node (450 cps):
+     - Lymph node with no evidence of tumor.
+C)  Left axillary sentinel lymph node (710 cps):
+     - Lymph node with no evidence of tumor.
+D)  Left axillary non-sentinel lymph node:
+     - Lymph node with no evidence of tumor.
+E)  Left breast, lumpectomy:
+- Breast tissue with healing biopsy site, florid proliferative
+breast disease and multifocal lobular carcinoma in-situ.
+- No residual invasive carcinoma or ductal carcinoma in-situ
+identified.
+COMMENT:  (E) The previous biopsies (GHS03-5466) are reviewed and
+show ductal carcinoma in-situ and multiple foci of infiltrating of
+carcinoma with features of infiltrating lobular carcinoma.  An exact
+tumor size is difficult to ascertain, but is estimated at
+approximately 1.5 cm.

@@ -1,0 +1,12 @@
+**/build/
+**/.gradle/
+**/.idea/
+**/bin/
+**/amq/
+**/out/
+src/test/java/
+**/.DS_Store
+**/*~
+**/*.log
+**/*.mdmp
+**/*.xmi
