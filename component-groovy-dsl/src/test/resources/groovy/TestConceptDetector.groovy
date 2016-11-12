@@ -1,4 +1,4 @@
-import gov.va.queri.types.NamedEntityMention
+import clinicalnlp.types.NamedEntityMention
 import org.apache.uima.jcas.JCas
 
 import java.util.regex.Matcher

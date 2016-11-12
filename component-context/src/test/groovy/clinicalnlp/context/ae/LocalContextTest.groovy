@@ -23,7 +23,7 @@ import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 
-import gov.va.queri.types.NamedEntityMention
+import clinicalnlp.types.NamedEntityMention
 
 @Log4j
 class LocalContextTest {

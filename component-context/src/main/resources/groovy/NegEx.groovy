@@ -1,13 +1,13 @@
 import clinicalnlp.dsl.AnnotationMatcher
 import gov.va.vinci.leo.sentence.types.Sentence
 import org.apache.uima.jcas.JCas
-import gov.va.queri.types.NamedEntityMention
-import gov.va.queri.types.NegationScope
-import gov.va.queri.types.NegationScopeTerminator
-import gov.va.queri.types.NegationTrigger
-import gov.va.queri.types.PostNegationTrigger
-import gov.va.queri.types.PreNegationTrigger
-import gov.va.queri.types.PseudoNegationTrigger
+import clinicalnlp.types.NamedEntityMention
+import clinicalnlp.types.NegationScope
+import clinicalnlp.types.NegationScopeTerminator
+import clinicalnlp.types.NegationTrigger
+import clinicalnlp.types.PostNegationTrigger
+import clinicalnlp.types.PreNegationTrigger
+import clinicalnlp.types.PseudoNegationTrigger
 
 import static clinicalnlp.dsl.UIMA_DSL.*
 

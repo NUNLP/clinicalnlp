@@ -1,9 +1,4 @@
-import gov.va.queri.types.Segment
-import org.apache.uima.jcas.JCas
-
-import java.util.regex.Pattern
-
-JCas jcas = (JCas) getBinding().getProperty('jcas')
+import clinicalnlp.types.Segment
 
 // Match segment headings
 matcher = jcas.documentText =~ ~/(?m)(?s)FINAL DIAGNOSIS:(.+)COMMENT:/

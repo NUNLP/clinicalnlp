@@ -1,6 +1,6 @@
 package clinicalnlp.dsl
 
-import gov.va.queri.types.NamedEntityMention
+import clinicalnlp.types.NamedEntityMention
 import gov.va.vinci.leo.AnnotationLibrarian
 import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
@@ -48,7 +48,7 @@ class UIMA_DSL_Test {
     @BeforeClass
     public static void setupClass() {
         // TODO: make sure static initializtion always occurs, remove need for this call
-        Class.forName('gov.va.queri.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.UIMA_DSL')
     }
 
     @Before

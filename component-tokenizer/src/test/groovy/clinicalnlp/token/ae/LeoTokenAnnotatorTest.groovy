@@ -2,7 +2,7 @@ package clinicalnlp.token.ae
 
 import clinicalnlp.dsl.ae.LeoDSLAnnotator
 import clinicalnlp.sent.ae.LeoSentenceDetector
-import gov.va.queri.types.Token
+import clinicalnlp.types.Token
 import gov.va.vinci.leo.descriptors.LeoAEDescriptor
 import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription
 import groovy.util.logging.Log4j
@@ -55,7 +55,7 @@ class LeoTokenAnnotatorTest {
         Patient does not have measles.
         """
 
-        LeoTypeSystemDescription types = new LeoTypeSystemDescription('gov.va.queri.types.CoreTypeSystem', true)
+        LeoTypeSystemDescription types = new LeoTypeSystemDescription('clinicalnlp.types.CoreTypeSystem', true)
 
         // pipeline descriptor
         LeoAEDescriptor pipeline = new LeoAEDescriptor()
@@ -67,14 +67,14 @@ class LeoTokenAnnotatorTest {
         )
         pipeline.addDelegate(
                 new LeoSentenceDetector()
-                        .setSentModelPath('classpath:clinicalnlp.models/sd-med-model.zip')
+                        .setSentModelPath('classpath:clinicalnlp/models/sd-med-model.zip')
                         .setLeoTypeSystemDescription(types)
                         .getLeoAEDescriptor()
         )
         pipeline.addDelegate(
                 new LeoTokenAnnotator()
                         .setContainerTypeName('gov.va.vinci.leo.sentence.types.Sentence')
-                        .setTokenModelPath('classpath:clinicalnlp.models/en-token.bin')
+                        .setTokenModelPath('classpath:clinicalnlp/models/en-token.bin')
                         .setLeoTypeSystemDescription(types)
                         .getLeoAEDescriptor()
         )

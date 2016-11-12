@@ -2,7 +2,7 @@ package clinicalnlp.seg.ae
 
 import clinicalnlp.dsl.ae.LeoDSLAnnotator
 
-import gov.va.queri.types.Segment
+import clinicalnlp.types.Segment
 import gov.va.vinci.leo.descriptors.LeoAEDescriptor
 import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription
 import groovy.util.logging.Log4j
@@ -60,7 +60,7 @@ class LeoSegmenterTest {
         """
 
         // type descriptor
-        LeoTypeSystemDescription types = new LeoTypeSystemDescription('gov/va/queri/types/CoreTypeSystem', true)
+        LeoTypeSystemDescription types = new LeoTypeSystemDescription('clinicalnlp/types/CoreTypeSystem', true)
 
         // pipeline descriptor
         LeoAEDescriptor pipeline = new LeoAEDescriptor()

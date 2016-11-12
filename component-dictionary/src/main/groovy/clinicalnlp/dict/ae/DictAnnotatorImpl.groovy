@@ -1,16 +1,11 @@
 package clinicalnlp.dict.ae
 
-import clinicalnlp.dict.AbstractionSchema
-import clinicalnlp.dict.DictEntry
-import clinicalnlp.dict.DictModel
-import clinicalnlp.dict.DictModelFactory
-import clinicalnlp.dict.TokenMatch
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.common.io.Resources
 import clinicalnlp.dict.*
 import clinicalnlp.dict.stringdist.MinEditDist
 import clinicalnlp.dsl.UIMA_DSL
 import clinicalnlp.types.DictMatch
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.common.io.Resources
 import opennlp.tools.tokenize.TokenizerME
 import org.apache.uima.jcas.JCas
 import org.apache.uima.jcas.tcas.Annotation

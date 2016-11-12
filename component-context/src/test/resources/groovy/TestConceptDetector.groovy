@@ -1,4 +1,4 @@
-import gov.va.queri.types.NamedEntityMention
+import clinicalnlp.types.NamedEntityMention
 import gov.va.vinci.leo.sentence.types.Sentence
 import org.apache.uima.jcas.JCas
 

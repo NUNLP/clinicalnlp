@@ -1,14 +1,12 @@
 package clinicalnlp.token.ae
 
-import com.ibm.icu.text.BreakIterator
 import clinicalnlp.types.Token
+import com.ibm.icu.text.BreakIterator
 import groovy.util.logging.Log4j
 import org.apache.uima.UimaContext
-import org.apache.uima.analysis_engine.AnalysisEngineDescription
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase
 import org.apache.uima.fit.descriptor.ConfigurationParameter
-import org.apache.uima.fit.factory.AnalysisEngineFactory
 import org.apache.uima.jcas.JCas
 import org.apache.uima.jcas.tcas.Annotation
 import org.apache.uima.resource.ResourceInitializationException

@@ -1,7 +1,7 @@
 package clinicalnlp.sent.ae
 
 import com.google.common.io.Resources
-import gov.va.queri.types.Segment
+import clinicalnlp.types.Segment
 import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
 import opennlp.tools.sentdetect.SentenceDetectorME
@@ -34,7 +34,7 @@ class SentenceDetectorImpl {
 
         if (segScriptFile) {
             CompilerConfiguration config = new CompilerConfiguration()
-            config.setScriptBaseClass("gov.va.queri.dsl.UIMA_DSL")
+            config.setScriptBaseClass('clinicalnlp.dsl.UIMA_DSL')
             GroovyShell shell = new GroovyShell(config)
             def scriptContents = Resources.toString(Resources.getResource(segScriptFile),
                     org.apache.commons.io.Charsets.UTF_8)
@@ -139,10 +139,10 @@ class SentenceDetectorImpl {
         if(!validRange.containsInteger(anchorStart) ||
                 !validRange.containsInteger(anchorEnd) ||
                 (anchorStart > anchorEnd)) {
-            throw new IllegalArgumentException("Invalid anchor indices," +
-                    "start: " + anchorStart +
-                    " end: " + anchorEnd +
-                    " size: " + text.length());
+            throw new IllegalArgumentException('Invalid anchor indices,' +
+                    'start: ' + anchorStart +
+                    ' end: ' + anchorEnd +
+                    ' size: ' + text.length());
         }
         //Get the spans in the text
         int start = (anchorStart >= spanSize)? anchorStart - spanSize : 0;

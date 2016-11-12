@@ -3,8 +3,8 @@ package clinicalnlp.dict.ae
 import clinicalnlp.dsl.ae.LeoDSLAnnotator
 import clinicalnlp.sent.ae.LeoSentenceDetector
 import clinicalnlp.token.ae.LeoTokenAnnotator
-import gov.va.queri.types.DictMatch
-import gov.va.queri.types.Token
+import clinicalnlp.types.DictMatch
+import clinicalnlp.types.Token
 import gov.va.vinci.leo.descriptors.LeoAEDescriptor
 import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription
 import groovy.util.logging.Log4j
@@ -24,7 +24,7 @@ class LeoDictAnnotatorTest {
 
     @BeforeClass
     public static void setupClass() {
-        Class.forName('gov.va.queri.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.UIMA_DSL')
         BasicConfigurator.configure()
     }
 
@@ -52,7 +52,7 @@ class LeoDictAnnotatorTest {
         But I can't rule out meningioma in the brain and spinal cord.
         """
 
-        LeoTypeSystemDescription types = new LeoTypeSystemDescription('gov.va.queri.types.CoreTypeSystem', true)
+        LeoTypeSystemDescription types = new LeoTypeSystemDescription('clinicalnlp.types.CoreTypeSystem', true)
 
         // pipeline descriptor
         LeoAEDescriptor pipeline = new LeoAEDescriptor()
@@ -64,23 +64,23 @@ class LeoDictAnnotatorTest {
         )
         pipeline.addDelegate(
                 new LeoSentenceDetector()
-                        .setSentModelPath('classpath:clinicalnlp.models/sd-med-model.zip')
+                        .setSentModelPath('classpath:clinicalnlp/models/sd-med-model.zip')
                         .setLeoTypeSystemDescription(types)
                         .getLeoAEDescriptor()
         )
         pipeline.addDelegate(
                 new LeoTokenAnnotator()
                         .setContainerTypeName('gov.va.vinci.leo.sentence.types.Sentence')
-                        .setTokenModelPath('classpath:clinicalnlp.models/en-token.bin')
+                        .setTokenModelPath('classpath:clinicalnlp/models/en-token.bin')
                         .setLeoTypeSystemDescription(types)
                         .getLeoAEDescriptor()
         )
         pipeline.addDelegate(
                 new LeoDictAnnotator()
                         .setDictionaryPath('/abstractionSchema/histology-abstraction-schema.json')
-                        .setTokenModelPath('classpath:clinicalnlp.models/en-token.bin')
+                        .setTokenModelPath('classpath:clinicalnlp/models/en-token.bin')
                         .setContainerClassName('gov.va.vinci.leo.sentence.types.Sentence')
-                        .setTokenClassName('gov.va.queri.types.Token')
+                        .setTokenClassName('clinicalnlp.types.Token')
                         .setLongestMatch(true)
                         .setTolerance(1.0)
                         .setLeoTypeSystemDescription(types)

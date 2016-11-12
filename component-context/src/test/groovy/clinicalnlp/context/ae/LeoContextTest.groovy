@@ -2,7 +2,7 @@ package clinicalnlp.context.ae
 
 import clinicalnlp.dsl.ae.LeoDSLAnnotator
 import clinicalnlp.context.reader.TestCollectionReader
-import gov.va.queri.types.NamedEntityMention
+import clinicalnlp.types.NamedEntityMention
 import gov.va.vinci.leo.descriptors.LeoAEDescriptor
 import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription
 import org.apache.uima.aae.client.UimaAsBaseCallbackListener
@@ -41,7 +41,7 @@ class LeoContextTest {
 
         // pipeline descriptor
         LeoTypeSystemDescription types = new LeoTypeSystemDescription(
-                'gov/va/queri/types/CoreTypeSystem', true)
+                'clinicalnlp/types/CoreTypeSystem', true)
         LeoAEDescriptor pipeline = new LeoAEDescriptor()
         pipeline.addDelegate(
                 new LeoDSLAnnotator()

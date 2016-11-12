@@ -3,8 +3,8 @@ package clinicalnlp.sent.ae
 import com.google.common.base.Charsets
 import com.google.common.io.Resources
 import clinicalnlp.dsl.ae.LocalDSLAnnotator
-import gov.va.queri.types.NamedEntityMention
-import gov.va.queri.types.Segment
+import clinicalnlp.types.NamedEntityMention
+import clinicalnlp.types.Segment
 import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
 import opennlp.uima.util.UimaUtil
@@ -24,6 +24,7 @@ import org.apache.uima.resource.ExternalResourceDescription
 import org.apache.uima.resource.ResourceInitializationException
 import org.junit.Before
 import org.junit.BeforeClass
+import org.junit.Ignore
 import org.junit.Test
 
 import java.util.regex.Matcher
@@ -64,7 +65,7 @@ class LocalSentenceDetectorTest {
     
     @BeforeClass
     public static void setupClass() {
-        Class.forName('gov.va.queri.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.UIMA_DSL')
         BasicConfigurator.configure()
     }
     
@@ -80,7 +81,7 @@ class LocalSentenceDetectorTest {
                 'opennlp.uima.SentenceType', Sentence.name,
                 'opennlp.uima.ContainerType', Segment.name)
         ExternalResourceFactory.createDependencyAndBind(desc, UimaUtil.MODEL_PARAMETER,
-                opennlp.uima.sentdetect.SentenceModelResourceImpl, 'file:clinicalnlp.models/sd-med-model.zip')
+                opennlp.uima.sentdetect.SentenceModelResourceImpl, 'file:clinicalnlp/models/sd-med-model.zip')
         AnalysisEngine engine = AnalysisEngineFactory.createEngine(desc)
         assert engine != null
     }
@@ -89,7 +90,7 @@ class LocalSentenceDetectorTest {
     public void smokeTest() {
         // construct the pipeline
         ExternalResourceDescription extDesc = ExternalResourceFactory.createExternalResourceDescription(
-                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp.models/sd-med-model.zip")
+                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
             add(createEngineDescription(
@@ -118,7 +119,7 @@ class LocalSentenceDetectorTest {
     public void testWithNoOptions() {
         // construct the pipeline
         ExternalResourceDescription extDesc = ExternalResourceFactory.createExternalResourceDescription(
-                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp.models/sd-med-model.zip")
+                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
             add(createEngineDescription(LocalDSLAnnotator,
@@ -149,7 +150,7 @@ class LocalSentenceDetectorTest {
     public void testWithSegmentSelected() {
         // construct the pipeline
         ExternalResourceDescription extDesc = ExternalResourceFactory.createExternalResourceDescription(
-                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp.models/sd-med-model.zip")
+                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
             add(createEngineDescription(LocalDSLAnnotator,
@@ -182,7 +183,7 @@ class LocalSentenceDetectorTest {
     public void testWithSentenceBreakingPattern() {
         // construct the pipeline
         ExternalResourceDescription extDesc = ExternalResourceFactory.createExternalResourceDescription(
-                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp.models/sd-med-model.zip")
+                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
             add(createEngineDescription(LocalDSLAnnotator,
@@ -214,7 +215,7 @@ class LocalSentenceDetectorTest {
     public void testWithNewlineSentenceBreakingPattern() {
         // construct the pipeline
         ExternalResourceDescription extDesc = ExternalResourceFactory.createExternalResourceDescription(
-                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp.models/sd-med-model.zip")
+                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
             add(createEngineDescription(LocalDSLAnnotator,
@@ -253,7 +254,7 @@ class LocalSentenceDetectorTest {
 
         // construct the pipeline
         ExternalResourceDescription extDesc = ExternalResourceFactory.createExternalResourceDescription(
-                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp.models/sd-med-model.zip")
+                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
             add(createEngineDescription(NamedEntityMentionMatcher,

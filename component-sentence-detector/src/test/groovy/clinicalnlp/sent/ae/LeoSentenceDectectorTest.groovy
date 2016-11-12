@@ -3,7 +3,7 @@ package clinicalnlp.sent.ae
 import clinicalnlp.dsl.ae.LeoDSLAnnotator
 import clinicalnlp.listener.TestListener
 import clinicalnlp.reader.TestCollectionReader
-import gov.va.queri.types.NamedEntityMention
+import clinicalnlp.types.NamedEntityMention
 import gov.va.vinci.leo.descriptors.LeoAEDescriptor
 import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription
 import gov.va.vinci.leo.sentence.types.Sentence
@@ -53,7 +53,7 @@ class LeoSentenceDectectorTest {
         """
 
         // type descriptor
-        LeoTypeSystemDescription types = new LeoTypeSystemDescription('gov/va/queri/types/CoreTypeSystem', true)
+        LeoTypeSystemDescription types = new LeoTypeSystemDescription('clinicalnlp/types/CoreTypeSystem', true)
 
         // pipeline descriptor
         LeoAEDescriptor pipeline = new LeoAEDescriptor()
@@ -106,7 +106,7 @@ class LeoSentenceDectectorTest {
         """
 
         // type descriptor
-        LeoTypeSystemDescription types = new LeoTypeSystemDescription('gov/va/queri/types/CoreTypeSystem', true)
+        LeoTypeSystemDescription types = new LeoTypeSystemDescription('clinicalnlp/types/CoreTypeSystem', true)
 
         // pipeline descriptor
         LeoAEDescriptor pipeline = new LeoAEDescriptor()
@@ -125,7 +125,7 @@ class LeoSentenceDectectorTest {
         pipeline.addDelegate(
                 new LeoSentenceDetector()
                         .setAnchorTypes([NamedEntityMention.canonicalName])
-                        .setSentModelPath('classpath:clinicalnlp.models/sd-med-model.zip')
+                        .setSentModelPath('classpath:clinicalnlp/models/sd-med-model.zip')
                         .setLeoTypeSystemDescription(types)
                         .getLeoAEDescriptor()
         )

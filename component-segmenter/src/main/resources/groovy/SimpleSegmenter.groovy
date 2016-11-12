@@ -1,4 +1,4 @@
-import gov.va.queri.types.Segment
+import clinicalnlp.types.Segment
 import org.apache.uima.jcas.JCas
 
 JCas jcas = (JCas) getProperty('jcas')

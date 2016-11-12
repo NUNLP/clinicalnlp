@@ -2,7 +2,6 @@ package clinicalnlp.dict.ae
 
 import clinicalnlp.dict.DictModel
 import clinicalnlp.dict.DictModelFactory
-import gov.va.queri.dict.*
 import gov.va.vinci.leo.ae.LeoBaseAnnotator
 import gov.va.vinci.leo.descriptors.LeoConfigurationParameter
 import groovy.util.logging.Log4j
@@ -100,7 +99,7 @@ public class LeoDictAnnotator extends LeoBaseAnnotator {
 
         // TODO: use external resource, same as one supplied to tokenizer annotator
         DefaultResourceLoader loader = new DefaultResourceLoader(ClassLoader.getSystemClassLoader());
-        Resource resource = loader.getResource('classpath:clinicalnlp.models/en-token.bin');
+        Resource resource = loader.getResource('classpath:clinicalnlp/models/en-token.bin');
 
         this.impl = new DictAnnotatorImpl()
         this.impl.initialize(this.dictionaryPath,

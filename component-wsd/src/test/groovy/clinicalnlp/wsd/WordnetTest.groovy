@@ -5,16 +5,9 @@ import edu.mit.jwi.IDictionary
 import edu.mit.jwi.IRAMDictionary
 import edu.mit.jwi.RAMDictionary
 import edu.mit.jwi.data.ILoadPolicy
-import edu.mit.jwi.item.IIndexWord
-import edu.mit.jwi.item.ISynset
-import edu.mit.jwi.item.ISynsetID
-import edu.mit.jwi.item.IWord
-import edu.mit.jwi.item.IWordID
-import edu.mit.jwi.item.POS
-import edu.mit.jwi.item.Pointer
+import edu.mit.jwi.item.*
 import edu.mit.jwi.morph.WordnetStemmer
 import groovy.util.logging.Log4j
-import org.junit.Ignore
 import org.junit.Test
 
 @Log4j

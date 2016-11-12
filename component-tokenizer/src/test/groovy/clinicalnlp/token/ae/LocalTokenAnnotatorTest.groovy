@@ -1,6 +1,6 @@
 package clinicalnlp.token.ae
 
-import gov.va.queri.types.Token
+import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
 import org.apache.log4j.BasicConfigurator
@@ -19,7 +19,7 @@ class LocalTokenAnnotatorTest {
     @BeforeClass
     public static void setupClass() {
         BasicConfigurator.configure()
-        Class.forName('gov.va.queri.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.UIMA_DSL')
     }
 
     @Test
@@ -50,10 +50,10 @@ class LocalTokenAnnotatorTest {
     public void smokeTest() {
 		
 		ExternalResourceDescription tokenModelRes = ExternalResourceFactory.createExternalResourceDescription(
-			 opennlp.uima.tokenize.TokenizerModelResourceImpl, "file:clinicalnlp.models/en-token.bin")
+			 opennlp.uima.tokenize.TokenizerModelResourceImpl, "file:clinicalnlp/models/en-token.bin")
 
         ExternalResourceDescription posModelRes = ExternalResourceFactory.createExternalResourceDescription(
-            opennlp.uima.postag.POSModelResourceImpl, "file:clinicalnlp.models/mayo-pos.zip")
+            opennlp.uima.postag.POSModelResourceImpl, "file:clinicalnlp/models/mayo-pos.zip")
 		
         AnalysisEngineDescription desc = AnalysisEngineFactory.createEngineDescription(
             LocalTokenAnnotator,
@@ -61,7 +61,7 @@ class LocalTokenAnnotatorTest {
             'gov.va.vinci.leo.sentence.types.Sentence',
             LocalTokenAnnotator.TOKEN_MODEL_KEY, tokenModelRes,
             LocalTokenAnnotator.POS_MODEL_KEY, posModelRes,
-            LocalTokenAnnotator.PARAM_LEMMATIZER_DICT, '/clinicalnlp.models/en-lemmatizer.dict',
+            LocalTokenAnnotator.PARAM_LEMMATIZER_DICT, '/clinicalnlp/models/en-lemmatizer.dict',
             LocalTokenAnnotator.PARAM_USE_STEMMER, true,
             LocalTokenAnnotator.PARAM_SPLIT_PATTERN, $///$
         )

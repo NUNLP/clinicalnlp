@@ -1,6 +1,6 @@
 package clinicalnlp.sent.ae
 
-import gov.va.queri.types.NamedEntityMention
+import clinicalnlp.types.NamedEntityMention
 import gov.va.vinci.leo.ae.LeoBaseAnnotator
 import gov.va.vinci.leo.descriptors.LeoConfigurationParameter
 import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription

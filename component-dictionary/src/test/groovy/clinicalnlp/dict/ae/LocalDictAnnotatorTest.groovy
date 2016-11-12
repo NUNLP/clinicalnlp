@@ -3,9 +3,9 @@ package clinicalnlp.dict.ae
 import clinicalnlp.dict.DictModelFactory
 import clinicalnlp.sent.ae.LocalSentenceDetector
 import clinicalnlp.token.ae.LocalTokenAnnotator
-import gov.va.queri.types.DictMatch
-import gov.va.queri.types.Segment
-import gov.va.queri.types.Token
+import clinicalnlp.types.DictMatch
+import clinicalnlp.types.Segment
+import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
 import org.apache.log4j.BasicConfigurator
@@ -26,7 +26,7 @@ import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 class LocalDictAnnotatorTest {
     @BeforeClass
     public static void setupClass() {
-        Class.forName('gov.va.queri.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.UIMA_DSL')
         BasicConfigurator.configure()
     }
 
@@ -46,10 +46,10 @@ class LocalDictAnnotatorTest {
         // Construct the pipeline
         // -------------------------------------------------------------------
         ExternalResourceDescription tokenResDesc = ExternalResourceFactory.createExternalResourceDescription(
-            opennlp.uima.tokenize.TokenizerModelResourceImpl, "file:clinicalnlp.models/en-token.bin")
+            opennlp.uima.tokenize.TokenizerModelResourceImpl, "file:clinicalnlp/models/en-token.bin")
 
         ExternalResourceDescription sentResDesc = ExternalResourceFactory.createExternalResourceDescription(
-            opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp.models/sd-med-model.zip")
+            opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
 
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
@@ -68,7 +68,7 @@ class LocalDictAnnotatorTest {
                 LocalDictAnnotator.PARAM_CONTAINER_CLASS,
                 'gov.va.vinci.leo.sentence.types.Sentence',
                 LocalDictAnnotator.PARAM_TOKEN_CLASS,
-                'gov.va.queri.types.Token',
+                'clinicalnlp.types.Token',
                 LocalDictAnnotator.PARAM_LONGEST_MATCH, true,
                 LocalDictAnnotator.TOKEN_MODEL_KEY, tokenResDesc,
                 LocalDictAnnotator.PARAM_DICTIONARY_PATH,
@@ -133,10 +133,10 @@ class LocalDictAnnotatorTest {
 
         // construct the pipeline
         ExternalResourceDescription tokenResDesc = ExternalResourceFactory.createExternalResourceDescription(
-            opennlp.uima.tokenize.TokenizerModelResourceImpl.class, "file:clinicalnlp.models/en-token.bin")
+            opennlp.uima.tokenize.TokenizerModelResourceImpl.class, "file:clinicalnlp/models/en-token.bin")
 
         ExternalResourceDescription sentResDesc = ExternalResourceFactory.createExternalResourceDescription(
-            opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp.models/sd-med-model.zip")
+            opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
 
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
@@ -153,7 +153,7 @@ class LocalDictAnnotatorTest {
                 LocalDictAnnotator.PARAM_CONTAINER_CLASS,
                 'gov.va.vinci.leo.sentence.types.Sentence',
                 LocalDictAnnotator.PARAM_TOKEN_CLASS,
-                'gov.va.queri.types.Token',
+                'clinicalnlp.types.Token',
                 LocalDictAnnotator.PARAM_TOLERANCE, new Float(0),
                 LocalDictAnnotator.TOKEN_MODEL_KEY, tokenResDesc,
                 LocalDictAnnotator.PARAM_DICTIONARY_PATH,
@@ -181,7 +181,7 @@ class LocalDictAnnotatorTest {
         assert matches.size() == 0
 
         // run the pipeline again with looser tolerance
-        engine.setConfigParameterValue('gov.va.queri.dict.ae.LocalDictAnnotator/tolerance', new Float(2.0))
+        engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/tolerance', new Float(2.0))
         engine.reconfigure()
 
         jcas.reset()

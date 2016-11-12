@@ -1,7 +1,7 @@
 package clinicalnlp.seg.ae
 
 import clinicalnlp.dsl.ae.LocalDSLAnnotator
-import gov.va.queri.types.Segment
+import clinicalnlp.types.Segment
 import groovy.util.logging.Log4j
 import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level

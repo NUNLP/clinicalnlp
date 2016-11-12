@@ -1,7 +1,7 @@
 package clinicalnlp.dsl
 
-import gov.va.queri.types.NamedEntityMention
-import gov.va.queri.types.Token
+import clinicalnlp.types.NamedEntityMention
+import clinicalnlp.types.Token
 import groovy.util.logging.Log4j
 import org.junit.Test
 

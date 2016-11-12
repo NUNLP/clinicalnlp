@@ -1,6 +1,6 @@
 package clinicalnlp.dsl.ae
 
-import gov.va.queri.types.NamedEntityMention
+import clinicalnlp.types.NamedEntityMention
 import gov.va.vinci.leo.descriptors.LeoAEDescriptor
 import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription
 import org.apache.uima.aae.client.UimaAsBaseCallbackListener
@@ -42,7 +42,7 @@ class LeoDSLAnnotatorTest {
                 new LeoDSLAnnotator()
                         .setScriptFileName('groovy/TestConceptDetector.groovy')
                         .setSBindingScriptFileName('groovy/TestBindingScript.groovy')
-                        .setLeoTypeSystemDescription(new LeoTypeSystemDescription('gov.va.queri.types.CoreTypeSystem', true))
+                        .setLeoTypeSystemDescription(new LeoTypeSystemDescription('clinicalnlp.types.CoreTypeSystem', true))
                         .getLeoAEDescriptor()
         )
         pipeline.setIsAsync(false)

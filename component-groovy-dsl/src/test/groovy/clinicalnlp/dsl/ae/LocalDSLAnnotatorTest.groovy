@@ -1,6 +1,6 @@
 package clinicalnlp.dsl.ae
 
-import gov.va.queri.types.NamedEntityMention
+import clinicalnlp.types.NamedEntityMention
 import gov.va.vinci.leo.sentence.types.Sentence
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.fit.factory.AggregateBuilder

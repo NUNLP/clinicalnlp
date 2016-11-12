@@ -1,6 +1,6 @@
 package clinicalnlp.dsl
 
-import gov.va.queri.types.NamedEntityMention
+import clinicalnlp.types.NamedEntityMention
 import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
 import org.apache.log4j.Level
@@ -51,7 +51,7 @@ class AnnotationMatcherTest {
     }
     @BeforeClass
     public static void setupClass() {
-        Class.forName('gov.va.queri.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.UIMA_DSL')
     }
 
     @Before
