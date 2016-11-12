@@ -8,10 +8,12 @@ import edu.mit.jwi.data.ILoadPolicy
 import edu.mit.jwi.item.*
 import edu.mit.jwi.morph.WordnetStemmer
 import groovy.util.logging.Log4j
+import org.junit.Ignore
 import org.junit.Test
 
 @Log4j
 class WordnetTest {
+    @Ignore
     @Test
     public void testDictionary() throws IOException {
         // construct the URL to the Wordnet dictionary directory
