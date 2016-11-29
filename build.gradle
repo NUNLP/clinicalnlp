@@ -1,9 +1,9 @@
 allprojects {
     apply plugin: 'java'
     apply plugin: 'groovy'
-    apply plugin: 'maven-publish'
+    apply plugin: 'maven'
 
-    group 'queri'
+    group 'clinicalnlp'
     version '1.0-SNAPSHOT'
 
     repositories {
@@ -36,7 +36,7 @@ allprojects {
         compile 'de.tudarmstadt.ukp.dkpro.core:de.tudarmstadt.ukp.dkpro.core:1.8.0'
 //        compile 'edu.stanford.nlp:stanford-corenlp:3.6.0'
 //        compile 'net.sourceforge.owlapi:owlapi-api:5.0.3'
-//        compile 'org.drools:drools:7.0.0.Beta1'
+//        compile 'org.drools:drools:7.0.0.Beta3'
         compile 'gov.va.vinci.leo:leo-core:2016.05.2'
         compile 'gov.va.vinci.leo:leo-base:2016.05.2'
         compile 'gov.va.vinci:leo-sentence:2016.05.0'
