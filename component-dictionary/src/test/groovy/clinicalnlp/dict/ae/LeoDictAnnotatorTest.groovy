@@ -23,13 +23,13 @@ class LeoDictAnnotatorTest {
     private Process process = null;
 
     @BeforeClass
-    public static void setupClass() {
+    static void setupClass() {
         Class.forName('clinicalnlp.dsl.UIMA_DSL')
         BasicConfigurator.configure()
     }
 
     @Before
-    public void startService() {
+    void startService() {
         log.setLevel(Level.INFO)
         String UIMA_HOME = System.getenv('UIMA_HOME')
         String OS_NAME = System.getProperty("os.name")
@@ -39,13 +39,13 @@ class LeoDictAnnotatorTest {
     }
 
     @After
-    public void stopService() {
+    void stopService() {
         this.process.destroy()
         this.process = null
     }
 
     @Test
-    public void smokeTest() {
+    void smokeTest() {
 
         String text = """\
         The patient has a diagnosis of spongioblastoma multiforme.  GBM does not have a good prognosis.
