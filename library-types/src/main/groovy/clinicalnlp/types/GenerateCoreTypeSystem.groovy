@@ -6,6 +6,7 @@ import gov.va.vinci.leo.regex.ae.RegexAnnotator
 import gov.va.vinci.leo.types.TypeLibrarian
 import gov.va.vinci.leo.window.ae.WindowAnnotator
 import org.apache.uima.resource.metadata.impl.TypeDescription_impl
+
 //-----------------------------------------------------------------------------
 // Leo types
 //-----------------------------------------------------------------------------
@@ -16,8 +17,7 @@ types.addType(TypeLibrarian.getValidationAnnotationTypeSystemDescription())
 types.addTypeSystemDescription(new WindowAnnotator().getLeoTypeSystemDescription())
 types.addTypeSystemDescription(new RegexAnnotator().getLeoTypeSystemDescription())
 types.addTypeSystemDescription(new AnnotationPatternAnnotator().getLeoTypeSystemDescription())
-types.addTypeSystemDescription(new LeoTypeSystemDescription('gov.va.vinci.leo.sentence.types.SentenceAnnotatorType',
-        true))
+types.addTypeSystemDescription(new LeoTypeSystemDescription('gov.va.vinci.leo.sentence.types.SentenceAnnotatorType', true))
 
 //-----------------------------------------------------------------------------
 // Token types
@@ -97,5 +97,5 @@ types.addType(dictMatch)
 //-----------------------------------------------------------------------------
 // Generate source and descriptors
 //-----------------------------------------------------------------------------
-types.toXML('src/main/resources/gov/va/queri/types/CoreTypeSystem.xml')
+types.toXML('src/main/resources/clinicalnlp/types/CoreTypeSystem.xml')
 types.jCasGen('src/main/java/', 'build/classes')

@@ -10,7 +10,7 @@ import org.apache.uima.jcas.JCas
 import org.apache.uima.resource.ResourceInitializationException
 
 @Log4j
-public class LeoDSLAnnotator extends LeoBaseAnnotator {
+class LeoDSLAnnotator extends LeoBaseAnnotator {
 
 	@LeoConfigurationParameter(mandatory = true)
 	protected String scriptFileName
@@ -31,13 +31,13 @@ public class LeoDSLAnnotator extends LeoBaseAnnotator {
 	private DSLAnnotatorImpl impl = new DSLAnnotatorImpl()
 
 	@Override
-	public void initialize(UimaContext aContext) throws ResourceInitializationException {
+	void initialize(UimaContext aContext) throws ResourceInitializationException {
 		super.initialize(aContext)
 		this.impl.initialize(this.bindingScriptFileName, this.scriptFileName)
 	}
 
 	@Override
-	public void annotate(JCas aJCas) throws AnalysisEngineProcessException {
+	void annotate(JCas aJCas) throws AnalysisEngineProcessException {
 		this.impl.process(aJCas)
 	}
 

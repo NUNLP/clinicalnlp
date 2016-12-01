@@ -6,22 +6,22 @@ import groovy.util.logging.Log4j
 import org.junit.Test
 
 class PatternElement {
-    public PatternElement or(PatternElement b) {
+    PatternElement or(PatternElement b) {
         return new PatternElement()
     }
-    public PatternElement and(PatternElement b) {
+    PatternElement and(PatternElement b) {
         return new PatternElement()
     }
-    public PatternElement plus(PatternElement b) {
+    PatternElement plus(PatternElement b) {
         return new PatternElement()
     }
-    public PatternElement multiply(PatternElement b) {
+    PatternElement multiply(PatternElement b) {
         return new PatternElement()
     }
-    public PatternElement positive(PatternElement b) {
+    PatternElement positive(PatternElement b) {
         return this
     }
-    public PatternElement negative(PatternElement b) {
+    PatternElement negative(PatternElement b) {
         return this
     }
 }
@@ -29,7 +29,7 @@ class PatternElement {
 @Log4j
 class UIMA_DSL2_Test {
     @Test
-    public void scratch() {
+    void scratch() {
         def node = new NodeBuilder().regex() {
             atom(name:'t1', 'type':Token, text:/the/, pos:'DT')
             atom(name:'t2', 'type':Token, text:/cat/, pos:'NN')
@@ -51,42 +51,42 @@ class UIMA_DSL2_Test {
         println node.atom.@name
     }
 
-    @Test public void testOr() {
+    @Test void testOr() {
         PatternElement a = new PatternElement()
         PatternElement b = new PatternElement()
         PatternElement c = (a|b)
         assert c != null
     }
 
-    @Test public void testAnd() {
+    @Test void testAnd() {
         PatternElement a = new PatternElement()
         PatternElement b = new PatternElement()
         PatternElement c = (a&b)
         assert c != null
     }
-    @Test public void testPlus() {
+    @Test void testPlus() {
         PatternElement a = new PatternElement()
         PatternElement b = new PatternElement()
         PatternElement c = (a+b)
         assert c != null
     }
-    @Test public void testMultiply() {
+    @Test void testMultiply() {
         PatternElement a = new PatternElement()
         PatternElement b = new PatternElement()
         PatternElement c = (a*b)
         assert c != null
     }
-    @Test public void testPositive() {
+    @Test void testPositive() {
         PatternElement a = new PatternElement()
         PatternElement b = +a
         assert b != null
     }
-    @Test public void testNegative() {
+    @Test void testNegative() {
         PatternElement a = new PatternElement()
         PatternElement b = -a
         assert b != null
     }
-    @Test public void testEquation() {
+    @Test void testEquation() {
         PatternElement a = new PatternElement()
         PatternElement b = new PatternElement()
         PatternElement c = new PatternElement()

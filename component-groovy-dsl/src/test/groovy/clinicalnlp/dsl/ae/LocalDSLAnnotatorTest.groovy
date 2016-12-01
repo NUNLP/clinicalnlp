@@ -14,7 +14,7 @@ import org.junit.Test
 class LocalDSLAnnotatorTest {
 
     @Test
-    public void smokeTest() {
+    void smokeTest() {
         def text = """\
         Patient has fever but no cough and pneumonia is ruled out.
         There is no increase in weakness.

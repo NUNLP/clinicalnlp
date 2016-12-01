@@ -24,7 +24,7 @@ import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
 @Log4j
 class UIMA_DSL_Test {
-    public static class NamedEntityMentionMatcher extends JCasAnnotator_ImplBase {
+    static class NamedEntityMentionMatcher extends JCasAnnotator_ImplBase {
         @Override
         public void process(JCas jCas) throws AnalysisEngineProcessException {
             Matcher matcher = jCas.documentText =~ /([A-Z].+\.)/
@@ -46,18 +46,18 @@ class UIMA_DSL_Test {
     }
 
     @BeforeClass
-    public static void setupClass() {
+    static void setupClass() {
         // TODO: make sure static initializtion always occurs, remove need for this call
         Class.forName('clinicalnlp.dsl.UIMA_DSL')
     }
 
     @Before
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         log.setLevel(Level.INFO)
     }
 
     @Test
-    public void testJCasCreate() {
+    void testJCasCreate() {
         def sentence = """
 Patient has fever but no cough and pneumonia is ruled out.
 The patient does not have pneumonia or sepsis.
@@ -167,7 +167,7 @@ The patient does not have pneumonia or sepsis.
     }
 
     @Test
-    public void testAnnotationLibrarian() {
+    void testAnnotationLibrarian() {
         // -------------------------------------------------------------------
         // build and run a pipeline to generate annotations
         // -------------------------------------------------------------------

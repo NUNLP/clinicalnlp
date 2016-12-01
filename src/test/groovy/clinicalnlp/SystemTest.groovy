@@ -6,7 +6,7 @@ import org.junit.Test
 @Log4j
 class SystemTest {
     @Test
-    public void startService() {
+    void startService() {
         String UIMA_HOME = System.getenv('UIMA_HOME')
         assert UIMA_HOME != null
         String OS_NAME = System.getProperty("os.name")

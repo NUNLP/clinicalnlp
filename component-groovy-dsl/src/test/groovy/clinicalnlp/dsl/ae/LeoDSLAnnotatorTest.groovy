@@ -15,7 +15,7 @@ class LeoDSLAnnotatorTest {
     private static Process process = null;
 
     @BeforeClass
-    public static void startService() {
+    static void startService() {
         String UIMA_HOME = System.getenv('UIMA_HOME')
         String OS_NAME = System.getProperty('os.name')
         String ext = OS_NAME == 'Mac OS X' ? 'sh' : 'bat'
@@ -24,12 +24,12 @@ class LeoDSLAnnotatorTest {
    }
 
     @AfterClass
-    public static void stopService() {
+    static void stopService() {
         this.process.destroy()
     }
 
     @Test
-    public void smokeTest() {
+    void smokeTest() {
         def text = """\
         Patient has fever but no cough and pneumonia is ruled out.
         There is no increase in weakness.

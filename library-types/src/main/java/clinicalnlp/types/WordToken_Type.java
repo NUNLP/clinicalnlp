@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Mon Oct 24 09:31:51 CDT 2016 */
+/* First created by JCasGen Thu Dec 01 10:19:00 CST 2016 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas;
@@ -11,7 +11,7 @@ import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 
 /** 
- * Updated by JCasGen Mon Oct 24 09:31:51 CDT 2016
+ * Updated by JCasGen Thu Dec 01 10:19:00 CST 2016
  * @generated */
 public class WordToken_Type extends Token_Type {
   /** @generated 

@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Mon Oct 24 09:31:51 CDT 2016 */
+/* First created by JCasGen Thu Dec 01 10:19:00 CST 2016 */
 package gov.va.vinci.leo.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** Validation Annotations
- * Updated by JCasGen Mon Oct 24 09:31:51 CDT 2016
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_987c88e1-5fea-4090-9887-35a648dbe6636873996385252787908.xml
+ * Updated by JCasGen Thu Dec 01 10:19:00 CST 2016
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_9c746650-7fc5-4251-84ba-a95f2e2f8a7e5732350469364197911.xml
  * @generated */
 public class ValidationAnnotation extends Annotation {
   /** @generated

@@ -7,7 +7,7 @@ import org.apache.uima.jcas.JCas
 import org.apache.uima.resource.ResourceInitializationException
 
 @Log4j
-public class LocalDSLAnnotator extends org.apache.uima.fit.component.JCasAnnotator_ImplBase {
+class LocalDSLAnnotator extends org.apache.uima.fit.component.JCasAnnotator_ImplBase {
 
     public static final String PARAM_SCRIPT_FILE = 'scriptFileName'
     public static final String PARAM_BINDING_SCRIPT_FILE = 'bindingScriptFileName'
@@ -23,13 +23,13 @@ public class LocalDSLAnnotator extends org.apache.uima.fit.component.JCasAnnotat
     private DSLAnnotatorImpl impl = new DSLAnnotatorImpl()
 
     @Override
-    public void initialize(UimaContext aContext) throws ResourceInitializationException {
+    void initialize(UimaContext aContext) throws ResourceInitializationException {
         super.initialize(aContext)
         this.impl.initialize(this.bindingScriptFileName, this.scriptFileName)
     }
 
     @Override
-    public void process(JCas aJCas) {
+    void process(JCas aJCas) {
         this.impl.process(aJCas)
     }
 }

@@ -22,9 +22,9 @@ import static org.junit.Assert.assertEquals
 
 @Log4j
 class AnnotationMatcherTest {
-    public static class NamedEntityMentionMatcher extends JCasAnnotator_ImplBase {
+    static class NamedEntityMentionMatcher extends JCasAnnotator_ImplBase {
         @Override
-        public void process(JCas jCas) throws AnalysisEngineProcessException {
+        void process(JCas jCas) throws AnalysisEngineProcessException {
             Matcher matcher = jCas.documentText =~ /([A-Z].+\.)/
             matcher.each {
                 Sentence sent = new Sentence(jCas)
@@ -43,24 +43,24 @@ class AnnotationMatcherTest {
         }
     }
 
-    public static class NamedEntityMentionMatcher2 extends JCasAnnotator_ImplBase {
+    static class NamedEntityMentionMatcher2 extends JCasAnnotator_ImplBase {
         @Override
-        public void process(JCas jCas) throws AnalysisEngineProcessException {
+        void process(JCas jCas) throws AnalysisEngineProcessException {
 
         }
     }
     @BeforeClass
-    public static void setupClass() {
+    static void setupClass() {
         Class.forName('clinicalnlp.dsl.UIMA_DSL')
     }
 
     @Before
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         log.setLevel(Level.INFO)
     }
 
     @Test
-    public void testAnnotationMatcher() {
+    void testAnnotationMatcher() {
         // -------------------------------------------------------------------
         // build and run a pipeline to generate annotations
         // -------------------------------------------------------------------
@@ -131,7 +131,7 @@ The patient does not have pneumonia or sepsis.
     }
 
     @Test
-    public void testAnnRegexMatch() {
+    void testAnnRegexMatch() {
         // -------------------------------------------------------------------
         // build and run a pipeline to generate annotations
         // -------------------------------------------------------------------

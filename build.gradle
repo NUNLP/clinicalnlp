@@ -11,41 +11,46 @@ allprojects {
         maven {
             url 'http://decipher.chpc.utah.edu/nexus/content/groups/public'
         }
-        maven {
-            url 'http://zoidberg.ukp.informatik.tu-darmstadt.de/artifactory/public-releases'
-        }
+//        maven {
+//            url 'http://zoidberg.ukp.informatik.tu-darmstadt.de/artifactory/public-releases'
+//        }
     }
 
     dependencies {
         compile fileTree(dir: 'lib', include: '*.jar')
         compile 'org.codehaus.groovy:groovy-all:2.4.7'
-        compile 'com.google.guava:guava:19.0'
-        compile 'org.apache.commons:commons-lang3:3.4'
-        compile 'org.apache.logging.log4j:log4j:2.6.2'
-        compile 'org.apache.logging.log4j:log4j-core:2.6.2'
-        compile 'com.fasterxml.jackson.core:jackson-databind:2.8.2'
+        compile 'com.google.guava:guava:20.0'
+        compile 'org.apache.commons:commons-lang3:3.5'
+        compile 'org.apache.logging.log4j:log4j:2.7'
+        compile 'org.apache.logging.log4j:log4j-core:2.7'
+        compile 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
+
         compile 'org.apache.uima:uimaj-core:2.9.0'
         compile 'org.apache.uima:uimaj-document-annotation:2.9.0'
-        compile 'org.apache.uima:uimafit-core:2.1.0'
+        compile 'org.apache.uima:uimafit-core:2.2.0'
         compile 'org.apache.opennlp:opennlp:1.6.0'
         compile 'org.apache.opennlp:opennlp-tools:1.6.0'
         compile 'org.apache.opennlp:opennlp-uima:1.6.0'
         compile 'org.apache.opennlp:opennlp-maxent:3.0.3'
-        compile 'org.cleartk:cleartk-ml-mallet:2.0.0'
-        compile 'org.cleartk:cleartk-snowball:2.0.0'
-        compile 'de.tudarmstadt.ukp.dkpro.core:de.tudarmstadt.ukp.dkpro.core:1.8.0'
+
+        compile 'gov.va.vinci.leo:leo-core:2016.10.0'
+        compile 'gov.va.vinci.leo:leo-service:2016.10.0'
+        compile 'gov.va.vinci.leo:leo-client:2016.10.0'
+
+        compile 'gov.va.vinci:leo-sentence:2016.05.0'
+        compile 'gov.va.vinci:leo-regex:2016.09.0'
+        compile 'gov.va.vinci:leo-window:2016.05.1'
+        compile 'gov.va.vinci:leo-whitespace-tokenizer:2016.05.1'
+        compile 'gov.va.vinci:leo-annotation-librarian:2016.05.3'
+        compile 'gov.va.vinci:leo-annotation-filter:2016.05.3'
+        compile 'gov.va.vinci:leo-annotation-pattern:2016.11.0'
+
+//        compile 'org.cleartk:cleartk-ml-mallet:2.0.0'
+//        compile 'org.cleartk:cleartk-snowball:2.0.0'
+//        compile 'de.tudarmstadt.ukp.dkpro.core:de.tudarmstadt.ukp.dkpro.core:1.8.0'
 //        compile 'edu.stanford.nlp:stanford-corenlp:3.6.0'
 //        compile 'net.sourceforge.owlapi:owlapi-api:5.0.3'
 //        compile 'org.drools:drools:7.0.0.Beta3'
-        compile 'gov.va.vinci.leo:leo-core:2016.05.2'
-        compile 'gov.va.vinci.leo:leo-base:2016.05.2'
-        compile 'gov.va.vinci:leo-sentence:2016.05.0'
-        compile 'gov.va.vinci:leo-regex:2016.05.0'
-        compile 'gov.va.vinci:leo-window:2016.05.1'
-        compile 'gov.va.vinci:leo-whitespace-tokenizer:2016.05.1'
-        compile 'gov.va.vinci:leo-annotation-librarian:2016.05.9'
-        compile 'gov.va.vinci:leo-annotation-filter:2016.05.3'
-        compile 'gov.va.vinci:leo-annotation-pattern:2016.05.1'
 
         testCompile 'org.apache.uima:uimaj-tools:2.9.0'
         testCompile 'junit:junit:4.12'
@@ -136,7 +141,7 @@ project(':component-dictionary') {
         compile project(':component-groovy-dsl')
         compile project(':component-tokenizer')
         compile fileTree(dir: 'lib', include: '*.jar')
-        compile 'info.debatty:java-string-similarity:0.18'
+        compile 'info.debatty:java-string-similarity:0.19'
         testCompile project(':library-test')
         testCompile project(':component-segmenter')
         testCompile project(':component-context')
@@ -151,7 +156,7 @@ project(':component-wsd') {
         compile project(':component-groovy-dsl')
         compile project(':component-tokenizer')
         compile fileTree(dir: 'lib', include: '*.jar')
-        compile 'de.tudarmstadt.ukp.dkpro.wsd:de.tudarmstadt.ukp.dkpro.wsd.core:1.2.0'
+//        compile 'de.tudarmstadt.ukp.dkpro.wsd:de.tudarmstadt.ukp.dkpro.wsd.core:1.2.0'
         testCompile project(':library-test')
         testCompile project(':component-dictionary')
     }
