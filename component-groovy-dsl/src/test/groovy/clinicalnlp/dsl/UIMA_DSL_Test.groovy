@@ -1,6 +1,7 @@
 package clinicalnlp.dsl
 
 import clinicalnlp.types.NamedEntityMention
+import clinicalnlp.types.Token
 import gov.va.vinci.leo.AnnotationLibrarian
 import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
@@ -65,12 +66,15 @@ class UIMA_DSL_Test {
 
     @Test
     void testJCasCreate() {
-        def sentence = """
+        // -------------------------------------------------------------------
+        // run pipeline to generate annotations
+        // -------------------------------------------------------------------
+        def text = """
 Patient has fever but no cough and pneumonia is ruled out.
 The patient does not have pneumonia or sepsis.
         """
         JCas jcas = engine.newJCas()
-        Sentence sent = jcas.create(type:Sentence, begin:0, end:sentence.length())
+        Sentence sent = jcas.create(type:Sentence, begin:0, end:text.length())
         JCas jcas2 = sent.getCAS().getJCas()
         assert jcas == jcas2
         Collection<Sentence> sents = JCasUtil.select(jcas, Sentence)
@@ -80,23 +84,21 @@ The patient does not have pneumonia or sepsis.
     @Test
     void testJCasSelect() {
         // -------------------------------------------------------------------
-        // build and run a pipeline to generate annotations
+        // run pipeline to generate annotations
         // -------------------------------------------------------------------
-
-        def sentence = """\
+        def text = """\
         Patient has fever but no cough and pneumonia is ruled out.
         There is no increase in weakness.
         Patient does not have measles.
         """
         JCas jcas = engine.newJCas()
-        jcas.setDocumentText(sentence)
+        jcas.setDocumentText(text)
         runPipeline(jcas, engine)
 
         // -------------------------------------------------------------------
         // test the results by selecting annotations with
         // miscellaneous filter arguments
         // -------------------------------------------------------------------
-
         assert jcas.select(type:NamedEntityMention).size() == 4
 
         assert jcas.select(type:Sentence,
@@ -129,9 +131,8 @@ The patient does not have pneumonia or sepsis.
     @Test
     void testRemoveCovered() {
         // -------------------------------------------------------------------
-        // build and run a pipeline to generate annotations
+        // run pipeline to generate annotations
         // -------------------------------------------------------------------
-
         def text = """\
         Patient has fever but no cough and pneumonia is ruled out.
         There is no increase in weakness.
@@ -161,23 +162,21 @@ The patient does not have pneumonia or sepsis.
     @Test
     void testAnnotationLibrarian() {
         // -------------------------------------------------------------------
-        // build and run a pipeline to generate annotations
+        // run pipeline to generate annotations
         // -------------------------------------------------------------------
-
-        def sentence = """\
+        def text = """\
         Patient has fever but no cough and pneumonia is ruled out.
         There is no increase in weakness.
         Patient does not have measles.
         """
         JCas jcas = engine.newJCas()
-        jcas.setDocumentText(sentence)
+        jcas.setDocumentText(text)
         runPipeline(jcas, engine)
 
         // -------------------------------------------------------------------
         // test the results by selecting annotations with
         // miscellaneous filter arguments
         // -------------------------------------------------------------------
-
         Collection<Annotation> sents = jcas.select(type:Sentence)
         sents.each { sent ->
             println "Sentence: ${sent.coveredText}"
@@ -201,5 +200,37 @@ The patient does not have pneumonia or sepsis.
         assert !AnnotationLibrarian.completelyCovers(sents[2], nems[2])
         assert !AnnotationLibrarian.completelyCovers(sents[2], nems[3])
         assert AnnotationLibrarian.completelyCovers(nems[3], nems[3])
+    }
+
+    @Test
+    void testApplyPattern() {
+        // -------------------------------------------------------------------
+        // run pipeline to generate annotations
+        // -------------------------------------------------------------------
+        def text = """\
+        Patient has fever but no cough and pneumonia is ruled out.
+        There is no increase in weakness.
+        Patient does not have measles.
+        """
+        JCas jcas = engine.newJCas()
+        jcas.setDocumentText(text)
+        runPipeline(jcas, engine)
+
+        Collection<Annotation> sents = jcas.select(type:Sentence)
+        def pattern1 = ~/Patient/
+        def pattern2 = ~/There|has|but/
+        applyPatterns(
+            anns:sents,
+            patterns:[pattern1, pattern2],
+            action: { AnnotationMatchResult m ->
+                jcas.create(type:Token, begin:m.start(0), end:m.end(0)) }
+        )
+        Collection<Annotation> tokens = jcas.select(type:Token)
+        assert tokens.size() == 5
+        assert tokens[0].coveredText == 'Patient'
+        assert tokens[1].coveredText == 'has'
+        assert tokens[2].coveredText == 'but'
+        assert tokens[3].coveredText == 'There'
+        assert tokens[4].coveredText == 'Patient'
     }
 }
