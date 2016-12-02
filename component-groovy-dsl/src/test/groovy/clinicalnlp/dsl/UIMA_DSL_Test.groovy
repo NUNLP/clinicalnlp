@@ -5,6 +5,7 @@ import clinicalnlp.types.Token
 import gov.va.vinci.leo.AnnotationLibrarian
 import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
+import opennlp.tools.formats.ad.ADSentenceStream
 import org.apache.log4j.Level
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException
@@ -232,5 +233,40 @@ The patient does not have pneumonia or sepsis.
         assert tokens[2].coveredText == 'but'
         assert tokens[3].coveredText == 'There'
         assert tokens[4].coveredText == 'Patient'
+    }
+
+    @Test
+    void testCreateMentions() {
+        // -------------------------------------------------------------------
+        // run pipeline to generate annotations
+        // -------------------------------------------------------------------
+        def text = """\
+        Patient has fever but no cough and pneumonia is ruled out.
+        There is no increase in weakness.
+        Patient does not have measles.
+        """
+        JCas jcas = engine.newJCas()
+        jcas.setDocumentText(text)
+        runPipeline(jcas, engine)
+
+        Collection<Annotation> nems = jcas.select(type:NamedEntityMention)
+        assert nems.size() == 4
+
+        Collection<Annotation> sents = jcas.select(type:Sentence)
+        UIMA_DSL.createMentions(
+            patterns:[
+                (~/Patient/):[group:0, code:'PERSON']
+            ],
+            jcas:jcas,
+            searchSet:jcas.select(type:Sentence),
+            type:NamedEntityMention,
+            longestMatch:true
+        )
+        nems = jcas.select(type:NamedEntityMention)
+        assert nems.size() == 6
+
+        nems = jcas.select(type:NamedEntityMention,
+            filter:and({it.coveredText == 'Patient'}, { it.code == 'PERSON'}))
+        assert nems.size() == 2
     }
 }
