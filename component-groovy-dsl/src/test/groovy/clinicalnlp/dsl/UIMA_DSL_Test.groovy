@@ -26,7 +26,7 @@ import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 class UIMA_DSL_Test {
     static class NamedEntityMentionMatcher extends JCasAnnotator_ImplBase {
         @Override
-        public void process(JCas jCas) throws AnalysisEngineProcessException {
+        void process(JCas jCas) throws AnalysisEngineProcessException {
             Matcher matcher = jCas.documentText =~ /([A-Z].+\.)/
             matcher.each {
                 Sentence sent = new Sentence(jCas)
@@ -51,9 +51,16 @@ class UIMA_DSL_Test {
         Class.forName('clinicalnlp.dsl.UIMA_DSL')
     }
 
+    AnalysisEngine engine;
+
     @Before
     void setUp() throws Exception {
         log.setLevel(Level.INFO)
+        AggregateBuilder builder = new AggregateBuilder()
+        builder.with {
+            add(createEngineDescription(NamedEntityMentionMatcher))
+        }
+        this.engine = builder.createAggregate()
     }
 
     @Test
@@ -62,11 +69,6 @@ class UIMA_DSL_Test {
 Patient has fever but no cough and pneumonia is ruled out.
 The patient does not have pneumonia or sepsis.
         """
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(NamedEntityMentionMatcher))
-        }
-        AnalysisEngine engine = builder.createAggregate()
         JCas jcas = engine.newJCas()
         Sentence sent = jcas.create(type:Sentence, begin:0, end:sentence.length())
         JCas jcas2 = sent.getCAS().getJCas()
@@ -76,7 +78,7 @@ The patient does not have pneumonia or sepsis.
     }
 
     @Test
-    public void testJCasSelect() {
+    void testJCasSelect() {
         // -------------------------------------------------------------------
         // build and run a pipeline to generate annotations
         // -------------------------------------------------------------------
@@ -86,11 +88,6 @@ The patient does not have pneumonia or sepsis.
         There is no increase in weakness.
         Patient does not have measles.
         """
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(NamedEntityMentionMatcher))
-        }
-        AnalysisEngine engine = builder.createAggregate()
         JCas jcas = engine.newJCas()
         jcas.setDocumentText(sentence)
         runPipeline(jcas, engine)
@@ -130,7 +127,7 @@ The patient does not have pneumonia or sepsis.
     }
 
     @Test
-    public void testRemoveCovered() {
+    void testRemoveCovered() {
         // -------------------------------------------------------------------
         // build and run a pipeline to generate annotations
         // -------------------------------------------------------------------
@@ -140,11 +137,6 @@ The patient does not have pneumonia or sepsis.
         There is no increase in weakness.
         Patient does not have measles.
         """
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(NamedEntityMentionMatcher))
-        }
-        AnalysisEngine engine = builder.createAggregate()
         JCas jcas = engine.newJCas()
         jcas.setDocumentText(text)
         jcas.create(type:NamedEntityMention, begin:19, end:23)
@@ -177,11 +169,6 @@ The patient does not have pneumonia or sepsis.
         There is no increase in weakness.
         Patient does not have measles.
         """
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(NamedEntityMentionMatcher))
-        }
-        AnalysisEngine engine = builder.createAggregate()
         JCas jcas = engine.newJCas()
         jcas.setDocumentText(sentence)
         runPipeline(jcas, engine)

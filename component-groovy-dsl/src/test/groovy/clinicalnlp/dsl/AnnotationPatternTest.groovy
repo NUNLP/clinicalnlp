@@ -54,14 +54,22 @@ class AnnotationPatternTest {
             }
         }
     }
+
     @BeforeClass
     static void setupClass() {
         Class.forName('clinicalnlp.dsl.UIMA_DSL')
     }
 
+    AnalysisEngine engine;
+
     @Before
     void setUp() throws Exception {
         log.setLevel(Level.INFO)
+        AggregateBuilder builder = new AggregateBuilder()
+        builder.with {
+            add(createEngineDescription(TestAnnotator))
+        }
+        this.engine = builder.createAggregate()
     }
 
 
@@ -70,23 +78,16 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         // generate some annotations
         //--------------------------------------------------------------------------------------------------------------
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(TestAnnotator))
-        }
-        AnalysisEngine engine = builder.createAggregate()
-
         String text = 'Tubular adenoma was seen in the sigmoid colon'
         JCas jcas = engine.newJCas()
         jcas.setDocumentText(text)
-
         SimplePipeline.runPipeline(jcas, engine)
 
         //--------------------------------------------------------------------------------------------------------------
         // execute an annotation matcher from a node tree
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
-        AnnotationPattern am = new AnnotationPattern(
+        AnnotationPattern pattern = new AnnotationPattern(
             new NodeBuilder().regex (caseInsensitive:true) {
                 include(type:NamedEntityMention, feats:['code'])
                 include(type:Token, feats:['pos'])
@@ -104,11 +105,11 @@ class AnnotationPatternTest {
         // validate results
         //--------------------------------------------------------------------------------------------------------------
         int bindingCount = 0
-        am.matcher(jcas.select(type:Window)[0]).each { Binding b ->
+        pattern.matcher(jcas.select(type:Window)[0]).each { Binding b ->
             bindingCount++
         }
         assert bindingCount == 1
-        Iterator iter = am.matcher(jcas.select(type:Window)[0])
+        Iterator iter = pattern.matcher(jcas.select(type:Window)[0])
         assert iter.hasNext()
         Binding binding = iter.next()
         assert binding != null
@@ -132,24 +133,16 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         // generate some annotations
         //--------------------------------------------------------------------------------------------------------------
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(TestAnnotator))
-        }
-        AnalysisEngine engine = builder.createAggregate()
-
         String text = 'Tubular adenoma was seen in the sigmoid colon, which was free of other polyps'
-
         JCas jcas = engine.newJCas()
         jcas.setDocumentText(text)
-
         SimplePipeline.runPipeline(jcas, engine)
 
         //--------------------------------------------------------------------------------------------------------------
         // execute an annotation matcher from a node tree
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
-        AnnotationPattern am = new AnnotationPattern(
+        AnnotationPattern pattern = new AnnotationPattern(
             new NodeBuilder().regex (caseInsensitive:true) {
                 include(type:NamedEntityMention, feats:['code'])
                 include(type:Token)
@@ -168,7 +161,7 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         // validate results
         //--------------------------------------------------------------------------------------------------------------
-        Iterator iter = am.matcher(jcas.select(type:Window)[0])
+        Iterator iter = pattern.matcher(jcas.select(type:Window)[0])
         assert iter.hasNext()
         Binding binding = iter.next()
         assert binding != null
@@ -201,24 +194,16 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         // generate some annotations
         //--------------------------------------------------------------------------------------------------------------
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(TestAnnotator))
-        }
-        AnalysisEngine engine = builder.createAggregate()
-
         String text = 'Tubular adenoma was seen in the sigmoid colon, which was free of other polyps'
-
         JCas jcas = engine.newJCas()
         jcas.setDocumentText(text)
-
         SimplePipeline.runPipeline(jcas, engine)
 
         //--------------------------------------------------------------------------------------------------------------
         // execute an annotation matcher from a node tree
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
-        AnnotationPattern am = new AnnotationPattern(
+        AnnotationPattern pattern = new AnnotationPattern(
             new NodeBuilder().regex (caseInsensitive:true) {
                 include(type:NamedEntityMention)
                 include(type:Token)
@@ -238,7 +223,7 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         // validate results
         //--------------------------------------------------------------------------------------------------------------
-        Iterator iter = am.matcher(jcas.select(type:Window)[0])
+        Iterator iter = pattern.matcher(jcas.select(type:Window)[0])
         assert iter.hasNext()
         Binding binding = iter.next()
         assert binding != null
@@ -288,24 +273,16 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         // generate some annotations
         //--------------------------------------------------------------------------------------------------------------
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(TestAnnotator))
-        }
-        AnalysisEngine engine = builder.createAggregate()
-
         String text = 'Tubular adenoma was seen in the sigmoid colon, the sigmoid colon was free of other polyps'
-
         JCas jcas = engine.newJCas()
         jcas.setDocumentText(text)
-
         SimplePipeline.runPipeline(jcas, engine)
 
         //--------------------------------------------------------------------------------------------------------------
         // execute an annotation matcher from a node tree
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
-        AnnotationPattern am = new AnnotationPattern(
+        AnnotationPattern pattern = new AnnotationPattern(
             new NodeBuilder().regex (caseInsensitive:true) {
                 include(type:NamedEntityMention, feats:['code'])
                 include(type:Token)
@@ -325,7 +302,7 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         // validate results
         //--------------------------------------------------------------------------------------------------------------
-        Iterator iter = am.matcher(jcas.select(type:Window)[0])
+        Iterator iter = pattern.matcher(jcas.select(type:Window)[0])
         assert iter.hasNext()
         Binding binding = iter.next()
         assert binding != null
@@ -352,24 +329,16 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         // generate some annotations
         //--------------------------------------------------------------------------------------------------------------
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(TestAnnotator))
-        }
-        AnalysisEngine engine = builder.createAggregate()
-
         String text = 'Tubular adenoma was seen in the sigmoid colon'
-
         JCas jcas = engine.newJCas()
         jcas.setDocumentText(text)
-
         SimplePipeline.runPipeline(jcas, engine)
 
         //--------------------------------------------------------------------------------------------------------------
         // execute a *lazy* annotation matcher from a node tree
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
-        AnnotationPattern am = new AnnotationPattern(
+        AnnotationPattern pattern = new AnnotationPattern(
             new NodeBuilder().regex (caseInsensitive:true) {
                 include(type:NamedEntityMention)
                 include(type:Token)
@@ -383,7 +352,7 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         // validate results
         //--------------------------------------------------------------------------------------------------------------
-        Iterator iter = am.matcher(jcas.select(type:Window)[0])
+        Iterator iter = pattern.matcher(jcas.select(type:Window)[0])
         assert iter.hasNext()
         Binding binding = iter.next()
         assert binding != null
@@ -399,7 +368,7 @@ class AnnotationPatternTest {
         // execute a *greedy* annotation matcher from a node tree
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
-        am = new AnnotationPattern(
+        pattern = new AnnotationPattern(
             new NodeBuilder().regex (caseInsensitive:true) {
                 include(type:NamedEntityMention)
                 include(type:Token)
@@ -413,7 +382,7 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         // validate results
         //--------------------------------------------------------------------------------------------------------------
-        iter = am.matcher(jcas.select(type:Window)[0])
+        iter = pattern.matcher(jcas.select(type:Window)[0])
         assert iter.hasNext()
         binding = iter.next()
         assert binding != null
@@ -434,24 +403,16 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         // generate some annotations
         //--------------------------------------------------------------------------------------------------------------
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(TestAnnotator))
-        }
-        AnalysisEngine engine = builder.createAggregate()
-
         String text = 'Tubular adenoma was seen in the sigmoid colon'
-
         JCas jcas = engine.newJCas()
         jcas.setDocumentText(text)
-
         SimplePipeline.runPipeline(jcas, engine)
 
         //--------------------------------------------------------------------------------------------------------------
         // create a TextSpan annotation between two NamedEntityMention annotations
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
-        AnnotationPattern am = new AnnotationPattern(
+        AnnotationPattern pattern = new AnnotationPattern(
             new NodeBuilder().regex (caseInsensitive:true) {
                 include(type:NamedEntityMention, feats:['code'])
                 match {
@@ -460,7 +421,7 @@ class AnnotationPatternTest {
                 }
             }
         )
-        am.matcher(jcas.select(type:Window)[0]).each { Binding binding ->
+        pattern.matcher(jcas.select(type:Window)[0]).each { Binding binding ->
             NamedEntityMention nem1 = binding.getVariable('nem1')[0]
             NamedEntityMention nem2 = binding.getVariable('nem2')[0]
             jcas.create(type:TextSpan, begin:nem1.end, end:nem2.begin)
@@ -469,7 +430,7 @@ class AnnotationPatternTest {
         // create a pattern to capture the text span annotation
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
-        am = new AnnotationPattern(
+        pattern = new AnnotationPattern(
             new NodeBuilder().regex (caseInsensitive:true, includeText:true) {
                 include(type:NamedEntityMention)
                 include(type:TextSpan)
@@ -484,7 +445,7 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         // validate results
         //--------------------------------------------------------------------------------------------------------------
-        Iterator iter = am.matcher(jcas.select(type:Window)[0])
+        Iterator iter = pattern.matcher(jcas.select(type:Window)[0])
         assert iter.hasNext()
         Binding binding = iter.next()
         assert binding != null
