@@ -23,9 +23,9 @@ import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDesc
 
 @Log4j
 class AnnotationPatternTest {
-    public static class TestAnnotator extends JCasAnnotator_ImplBase {
+    static class TestAnnotator extends JCasAnnotator_ImplBase {
         @Override
-        public void process(JCas jCas) throws AnalysisEngineProcessException {
+        void process(JCas jCas) throws AnalysisEngineProcessException {
             String text = jCas.documentText
             jCas.create(type: Window, begin: 0, end: text.length())
             Matcher m = (text =~ /\b\w+\b/)
@@ -55,18 +55,18 @@ class AnnotationPatternTest {
         }
     }
     @BeforeClass
-    public static void setupClass() {
+    static void setupClass() {
         Class.forName('clinicalnlp.dsl.UIMA_DSL')
     }
 
     @Before
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         log.setLevel(Level.INFO)
     }
 
 
     @Test
-    public void smokeTest() {
+    void smokeTest() {
         //--------------------------------------------------------------------------------------------------------------
         // generate some annotations
         //--------------------------------------------------------------------------------------------------------------
@@ -153,13 +153,13 @@ class AnnotationPatternTest {
             new NodeBuilder().regex (caseInsensitive:true) {
                 include(type:NamedEntityMention, feats:['code'])
                 include(type:Token)
-                before(positive:true) {
+                lookBehind(positive:true) {
                     node(type:NamedEntityMention, text:/.{0,200}/, name:'nem1', feats:[code:/C0./])
                 }
                 match {
                     node(type:Token, name:'tokens', range:[1,5])
                 }
-                after(positive:false) {
+                lookAhead(positive:false) {
                     node(type:NamedEntityMention, name:'nem2', feats:[code:/C03/])
                 }
             }

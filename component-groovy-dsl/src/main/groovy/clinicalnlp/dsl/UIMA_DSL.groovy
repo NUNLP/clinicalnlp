@@ -28,17 +28,6 @@ class UIMA_DSL extends Script {
 
     static {
         // -------------------------------------------------------------------------------------------------------------
-        // Return an AnnotationMatcher when passed a Map argument
-        // -------------------------------------------------------------------------------------------------------------
-        Pattern.metaClass.matcher = { Map args ->
-            JCas jCas = args.JCas
-            Annotation coveringAnn = (args.coveringAnn ?: jcas.documentAnnotationFs)
-            Boolean includeText = (args.includeText == false ? false : true)
-            java.util.List<Class<Annotation>> types = (args.types ?: [])
-            return new AnnotationMatcher(jCas, coveringAnn, types, delegate, includeText)
-        }
-
-        // -------------------------------------------------------------------------------------------------------------
         // Extend JCas class with create function
         // -------------------------------------------------------------------------------------------------------------
         JCas.metaClass.create = { Map attrs ->
@@ -171,17 +160,9 @@ class UIMA_DSL extends Script {
         Collection<Annotation> anns = args.anns
         Collection<Pattern> patterns = args.patterns
         Closure action = args.action
-        List<Class<Annotation>> types = args.types
-        Boolean includeText = args.includeText
-
         anns.each { ann ->
             patterns.each { p ->
-                AnnotationMatcher m = p.matcher(
-                        JCas:ann.getCAS().getJCas(),
-                        coveringAnn:ann,
-                        types:types,
-                        includeText:includeText
-                )
+                AnnotationMatchResult m = new AnnotationMatchResult(p, ann)
                 m.each { action.call(m) }
             }
         }

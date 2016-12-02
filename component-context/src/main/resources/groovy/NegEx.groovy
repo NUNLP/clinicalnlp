@@ -1,21 +1,9 @@
-import clinicalnlp.dsl.AnnotationMatcher
+import clinicalnlp.dsl.AnnotationMatchResult
+import clinicalnlp.dsl.AnnotationPattern
+import clinicalnlp.types.*
 import gov.va.vinci.leo.sentence.types.Sentence
-import org.apache.uima.jcas.JCas
-import clinicalnlp.types.NamedEntityMention
-import clinicalnlp.types.NegationScope
-import clinicalnlp.types.NegationScopeTerminator
-import clinicalnlp.types.NegationTrigger
-import clinicalnlp.types.PostNegationTrigger
-import clinicalnlp.types.PreNegationTrigger
-import clinicalnlp.types.PseudoNegationTrigger
 
 import static clinicalnlp.dsl.UIMA_DSL.*
-
-// ----------------------------------------------------------------------------
-// get the jcas instance
-// ----------------------------------------------------------------------------
-JCas jcas = (JCas) getProperty('jcas')
-
 
 // ----------------------------------------------------------------------------
 // patterns
@@ -43,7 +31,7 @@ Collection<Sentence> sents = jcas.select type:Sentence, filter:contains(NamedEnt
 applyPatterns(
     anns:sents,
     patterns:[trigger_pre_negation, trigger_possible_pre_negation],
-    action:{ AnnotationMatcher m ->
+    action:{ AnnotationMatchResult m ->
         jcas.create(type:PreNegationTrigger, begin:m.start(0), end:m.end(0)) }
     )
 
@@ -53,7 +41,7 @@ applyPatterns(
 applyPatterns(
     anns:sents,
     patterns:[trigger_post_negation, trigger_possible_post_negation],
-    action:{ AnnotationMatcher m ->
+    action:{ AnnotationMatchResult m ->
         jcas.create(type:PostNegationTrigger, begin:m.start(0), end:m.end(0)) }
     )
 
@@ -63,7 +51,7 @@ applyPatterns(
 applyPatterns(
     anns:sents,
     patterns:[trigger_pseudo_negation],
-    action:{ AnnotationMatcher m ->
+    action:{ AnnotationMatchResult m ->
         jcas.create(type:PseudoNegationTrigger, begin:m.start(0), end:m.end(0)) }
     )
 
@@ -79,24 +67,33 @@ jcas.select(type:PseudoNegationTrigger).each { PseudoNegationTrigger pseudo ->
 // ----------------------------------------------------------------------------
 applyPatterns(
     anns:sents,
-    patterns:[scope_terminator_presentation, scope_terminator_cause, scope_terminator_conj, scope_terminator_temporal, scope_terminator_section_breaks],
-    action: { AnnotationMatcher m -> jcas.create(type:NegationScopeTerminator, begin:m.start(0), end:m.end(0)) }
+    patterns:[scope_terminator_presentation, scope_terminator_cause, scope_terminator_conj,
+              scope_terminator_temporal, scope_terminator_section_breaks],
+    action: { AnnotationMatchResult m ->
+        jcas.create(type:NegationScopeTerminator, begin:m.start(0), end:m.end(0)) }
     )
 
 // create a negation scope between each pair of negation scope terminators
-pattern = ~/(?<N1>@NegationScopeTerminator)(?=(?<N2>@NegationScopeTerminator))/
+//noinspection GroovyAssignabilityCheck
+AnnotationPattern pattern = new AnnotationPattern(
+    new NodeBuilder().regex (caseInsensitive:true) {
+        include(type:NegationScopeTerminator)
+        match {
+            node(type:NegationScopeTerminator, name:'n1')
+        }
+        lookAhead(positive:true) {
+            node(type:NegationScopeTerminator, name:'n2')
+        }
+    }
+)
 sents.each { Sentence sent ->
     jcas.create(type:NegationScopeTerminator, begin:sent.begin, end:sent.begin)
     jcas.create(type:NegationScopeTerminator, begin:sent.end, end:sent.end)
-    pattern.matcher(
-            JCas:jcas,
-            coveringAnn:sent,
-            types:[NegationScopeTerminator],
-            includeText:false).each {
-            jcas.create(type:NegationScope,
-                    begin:it.binding.get("N1").end,
-                    end:it.binding.get("N2").begin)
-        }
+    pattern.matcher(sent).each { Binding b ->
+        NegationScopeTerminator n1 = b.getVariable('n1')[0]
+        NegationScopeTerminator n2 = b.getVariable('n2')[0]
+        jcas.create(type:NegationScope, begin:n1.begin, end:n2.end)
+    }
 }
 
 // ----------------------------------------------------------------------------

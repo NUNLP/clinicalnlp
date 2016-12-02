@@ -10,25 +10,10 @@ import java.util.regex.Pattern
 
 import static org.apache.uima.fit.util.JCasUtil.selectCovered
 
-/*
-TODO: allow grouping of specified types, e.g.: (type:List<Token>) -- text concatenated, features aggregated
-TODO: implement an AnnotationPatternBuilder.
-possible target:
-regex {
-    lb1:(?<=(NamedEntityMention)(Token))
-    gp1:((Token, text:/triggers/, pos:'VBN')(Token){1,4}?){1,3}
-    tk1:(Token, text:/triggers/)
-    tk2:(Token, text:/:/)?
-    tk3:(Token, text:/to/)?
-    tk4:(Token, text:/the/)?
-    as1:(AnatomicalSite, code:'C01')
-    la1:(?!((NamedEntityMention)|(AnatomicalSite)|(Token)))
-}
- */
 @Log4j
 class AnnotationPattern {
     // -----------------------------------------------------------------------------------------------------------------
-    // AnnotationMatcher class
+    // AnnotationMatchResult class
     // -----------------------------------------------------------------------------------------------------------------
     class AnnotationMatcher implements Iterator {
 
@@ -68,7 +53,7 @@ class AnnotationPattern {
         }
 
         @Override
-        public boolean hasNext() {
+        boolean hasNext() {
             if (this.matchIter.hasNext()) {
                 return true;
             }
@@ -85,7 +70,7 @@ class AnnotationPattern {
         }
 
         @Override
-        public Object next() {
+        Object next() {
             this.matchIter.next()
             Binding binding = new Binding()
             for (String name : AnnotationPattern.this.groupNames) {
@@ -107,7 +92,7 @@ class AnnotationPattern {
         }
 
         @Override
-        public void remove() {
+        void remove() {
             this.matchIter.remove()
         }
 
@@ -182,7 +167,7 @@ class AnnotationPattern {
                         mappedText += featConstraint
                     }
                     choicePoints.push(new Tuple(choiceTextIdx, choiceAnnIdx+1, choiceMappedText, choiceMappedAnn))
-                    choicePoints.push(new Tuple(choiceTextIdx+candidate.coveredText.length(), 0, mappedText, candidate))
+                    choicePoints.push(new Tuple(choiceTextIdx+(candidate.coveredText.length() > 0 ? candidate.coveredText.length() : 1), 0, mappedText, candidate))
                 }
             }
 
@@ -239,7 +224,7 @@ class AnnotationPattern {
      * @param coveringAnn
      * @return
      */
-    public AnnotationMatcher matcher(Annotation annotation, Integer maxCount = 1) {
+    AnnotationMatcher matcher(Annotation annotation, Integer maxCount = 1) {
         return new AnnotationMatcher(annotation, maxCount)
     }
 
@@ -248,8 +233,8 @@ class AnnotationPattern {
     // -----------------------------------------------------------------------------------------------------------------
     private Pattern genPattern(Node regex) {
         Node body = regex.match[0]; assert body
-        Node lookBehind = regex.before[0]
-        Node lookAhead = regex.after[0]
+        Node lookBehind = regex.lookBehind[0]
+        Node lookAhead = regex.lookAhead[0]
         Boolean caseInsensitive = (regex.@caseInsensitive ?: false)
 
         String patternStr = (caseInsensitive ? '(?i)' : '')

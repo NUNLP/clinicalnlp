@@ -41,7 +41,7 @@ allprojects {
         compile 'gov.va.vinci:leo-regex:2016.09.0'
         compile 'gov.va.vinci:leo-window:2016.05.1'
         compile 'gov.va.vinci:leo-whitespace-tokenizer:2016.05.1'
-        compile 'gov.va.vinci:leo-annotation-librarian:2016.05.3'
+        compile 'gov.va.vinci:leo-annotation-librarian:2016.10.0'
         compile 'gov.va.vinci:leo-annotation-filter:2016.05.3'
         compile 'gov.va.vinci:leo-annotation-pattern:2016.11.0'
 
