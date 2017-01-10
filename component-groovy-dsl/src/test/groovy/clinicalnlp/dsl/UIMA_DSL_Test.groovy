@@ -5,7 +5,6 @@ import clinicalnlp.types.Token
 import gov.va.vinci.leo.AnnotationLibrarian
 import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
-import opennlp.tools.formats.ad.ADSentenceStream
 import org.apache.log4j.Level
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException
@@ -20,7 +19,7 @@ import org.junit.Test
 
 import java.util.regex.Matcher
 
-import static UIMA_DSL.*
+import static clinicalnlp.dsl.UIMA_DSL.*
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
 import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
@@ -152,6 +151,37 @@ The patient does not have pneumonia or sepsis.
         assert nems.size() == 6
 
         jcas.removeCovered(
+                anns:jcas.select(type:NamedEntityMention),
+                types:[NamedEntityMention]
+        )
+
+        nems = jcas.select(type:NamedEntityMention)
+        assert nems.size() == 1
+    }
+
+    @Test
+    void testRemoveCovering() {
+        // -------------------------------------------------------------------
+        // run pipeline to generate annotations
+        // -------------------------------------------------------------------
+        def text = """\
+        Patient has fever but no cough and pneumonia is ruled out.
+        There is no increase in weakness.
+        Patient does not have measles.
+        """
+        JCas jcas = engine.newJCas()
+        jcas.setDocumentText(text)
+        jcas.create(type:NamedEntityMention, begin:19, end:23)
+        jcas.create(type:NamedEntityMention, begin:19, end:26)
+        jcas.create(type:NamedEntityMention, begin:19, end:26)
+        jcas.create(type:NamedEntityMention, begin:20, end:25)
+        jcas.create(type:NamedEntityMention, begin:20, end:25)
+        jcas.create(type:NamedEntityMention, begin:20, end:25)
+
+        Collection<NamedEntityMention> nems = jcas.select(type:NamedEntityMention)
+        assert nems.size() == 6
+
+        jcas.removeCovering(
                 anns:jcas.select(type:NamedEntityMention),
                 types:[NamedEntityMention]
         )

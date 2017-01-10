@@ -1,0 +1,1 @@
+classpath*:clinicalnlp/types/CoreTypeSystem.xml

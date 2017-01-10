@@ -1,4 +1,4 @@
-package clinicalnlp.dsl
+package clinicalnlp.pattern
 
 import clinicalnlp.types.NamedEntityMention
 import clinicalnlp.types.Token

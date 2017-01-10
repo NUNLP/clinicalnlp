@@ -71,6 +71,8 @@ project(':') {
         compile project(':component-chunker')
         compile project(':component-wsd')
 
+        compile project(':component-pattern-matcher')
+
         testCompile project(':library-test')
     }
 }
@@ -82,9 +84,23 @@ project(':library-types') {
     }
 }
 
+project(':library-test') {
+    dependencies {
+        compile project(':library-types')
+    }
+}
+
 project(':component-groovy-dsl') {
     dependencies {
         compile project(':library-types')
+        testCompile project(':library-test')
+    }
+}
+
+project(':component-pattern-matcher') {
+    dependencies {
+        compile project(':library-types')
+        compile project(':component-groovy-dsl')
         testCompile project(':library-test')
     }
 }

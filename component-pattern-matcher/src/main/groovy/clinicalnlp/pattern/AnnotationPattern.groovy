@@ -1,4 +1,4 @@
-package clinicalnlp.dsl
+package clinicalnlp.pattern
 
 import groovy.util.logging.Log4j
 import org.apache.uima.jcas.JCas

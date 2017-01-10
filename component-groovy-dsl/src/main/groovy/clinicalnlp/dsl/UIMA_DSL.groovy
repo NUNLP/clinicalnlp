@@ -62,7 +62,7 @@ class UIMA_DSL extends Script {
         }
 
         // -------------------------------------------------------------------------------------------------------------
-        // Extend JCas class with remove function
+        // Extend JCas class with filtering functions
         // -------------------------------------------------------------------------------------------------------------
         JCas.metaClass.removeCovered = { Map args ->
             JCas jcas = delegate
@@ -85,6 +85,37 @@ class UIMA_DSL extends Script {
                 }
             }
             embedded.each {
+                it.removeFromIndexes()
+            }
+        }
+
+        // -------------------------------------------------------------------------------------------------------------
+        // Extend JCas class with remove covering function
+        // -------------------------------------------------------------------------------------------------------------
+        JCas.metaClass.removeCovering = { Map args ->
+            JCas jcas = delegate
+            Collection<Annotation> anns = args.anns
+            Collection<Class<? extends Annotation>> removeTypes = args.types
+            Comparator<Annotation> comparator = args.comparator
+
+            // first remove duplicate annotations, picking one (at random) to keep
+            if (comparator == null) { comparator = new AnnotationComparator() }
+            TreeSet<Annotation> uniques = new TreeSet<Annotation>(comparator)
+            anns.each { Annotation ann ->
+                uniques.add(ann)
+            }
+
+            // next, remove annotations that embed other annotations
+            // TODO: this code is not working properly
+            Collection<Annotation> embedders = []
+            uniques.each { Annotation ann ->
+                removeTypes.each { Class type ->
+                    if(JCasUtil.selectCovered(jcas, type, ann).size() > 0) {
+                        embedders.add(ann)
+                    }
+                }
+            }
+            embedders.each {
                 it.removeFromIndexes()
             }
         }

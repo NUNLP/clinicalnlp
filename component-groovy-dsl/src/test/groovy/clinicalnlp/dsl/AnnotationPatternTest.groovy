@@ -129,6 +129,102 @@ class AnnotationPatternTest {
     }
 
     @Test
+    void testPositiveLookahead() {
+        //--------------------------------------------------------------------------------------------------------------
+        // generate some annotations
+        //--------------------------------------------------------------------------------------------------------------
+        AggregateBuilder builder = new AggregateBuilder()
+        builder.with {
+            add(createEngineDescription(TestAnnotator))
+        }
+        AnalysisEngine engine = builder.createAggregate()
+
+        String text = 'Nothing was seen in the sigmoid colon'
+
+        JCas jcas = engine.newJCas()
+        jcas.setDocumentText(text)
+
+        SimplePipeline.runPipeline(jcas, engine)
+
+        //--------------------------------------------------------------------------------------------------------------
+        // execute an annotation matcher from a node tree
+        //--------------------------------------------------------------------------------------------------------------
+        //noinspection GroovyAssignabilityCheck
+        AnnotationPattern pattern = new AnnotationPattern(
+                new NodeBuilder().regex (caseInsensitive:true) {
+                    include(type:NamedEntityMention, feats:['code'])
+                    include(type:Token)
+                    match {
+                        node(type:Token, name:'tokens', range:[5,5])
+                    }
+                    after(positive:true) {
+                        node(type:NamedEntityMention, name:'nem2', feats:[code:/C02/])
+                    }
+                }
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // validate results
+        //--------------------------------------------------------------------------------------------------------------
+        Iterator iter = pattern.matcher(jcas.select(type:Window)[0])
+        assert iter.hasNext()
+        Binding binding = iter.next()
+        assert binding != null
+        assert binding.hasVariable('nem2')
+        List<Token> tokens = binding.getVariable('tokens')
+        assert tokens.size() == 5
+        assert tokens[0].coveredText == 'Nothing'
+        assert tokens[1].coveredText == 'was'
+        assert tokens[2].coveredText == 'seen'
+        assert tokens[3].coveredText == 'in'
+        assert tokens[4].coveredText == 'the'
+        assert !iter.hasNext()
+    }
+
+    @Test
+    void testNegativeLookahead() {
+        //--------------------------------------------------------------------------------------------------------------
+        // generate some annotations
+        //--------------------------------------------------------------------------------------------------------------
+        AggregateBuilder builder = new AggregateBuilder()
+        builder.with {
+            add(createEngineDescription(TestAnnotator))
+        }
+        AnalysisEngine engine = builder.createAggregate()
+
+        String text = 'Nothing was seen in the sigmoid colon'
+
+        JCas jcas = engine.newJCas()
+        jcas.setDocumentText(text)
+
+        SimplePipeline.runPipeline(jcas, engine)
+
+        //--------------------------------------------------------------------------------------------------------------
+        // execute an annotation matcher from a node tree
+        //--------------------------------------------------------------------------------------------------------------
+        //noinspection GroovyAssignabilityCheck
+        AnnotationPattern pattern = new AnnotationPattern(
+                new NodeBuilder().regex (caseInsensitive:true) {
+                    include(type:NamedEntityMention, feats:['code'])
+                    include(type:Token)
+                    match {
+                        node(type:Token, name:'tokens', range:[5,5])
+                    }
+                    after(positive:false) {
+                        node(type:NamedEntityMention, name:'nem2', feats:[code:/C02/])
+                    }
+                }
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // validate results
+        //--------------------------------------------------------------------------------------------------------------
+        pattern.matcher(jcas.select(type:Window)[0]).each {
+            assert false
+        }
+    }
+
+    @Test
     void testLookAround() {
         //--------------------------------------------------------------------------------------------------------------
         // generate some annotations
