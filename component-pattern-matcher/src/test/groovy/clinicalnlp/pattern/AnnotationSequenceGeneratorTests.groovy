@@ -11,6 +11,7 @@ import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.fit.factory.AggregateBuilder
 import org.apache.uima.jcas.JCas
 import org.apache.uima.jcas.tcas.Annotation
+import org.apache.uima.jcas.tcas.DocumentAnnotation
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
@@ -73,9 +74,25 @@ class AnnotationSequenceGeneratorTests {
     }
 
     @Test
-    void testSequenceGeneration() {
+    void testSequenceGeneration1() {
+        Segment newSegment = this.jcas.create(type:Segment, begin:0, end:this.jcas.documentText.length())
+        Collection<Class<? extends Annotation>> types = [Segment]
+        AnnotationSequenceGenerator sequencer = new AnnotationSequenceGenerator(newSegment, types)
+        assert sequencer != null
+
+        Iterator<List<? extends Annotation>> iter = sequencer.iterator()
+        assert iter != null
+        assert iter.hasNext()
+        List<? extends Annotation> sequence = iter.next()
+        assert sequence.size() == 1
+        assert sequence[0] instanceof Segment
+        assert !iter.hasNext()
+    }
+
+    @Test
+    void testSequenceGeneration2() {
         Segment segment = this.jcas.select(type:Segment)[0]
-        Collection<Class<? extends Annotation>> types = [Sentence.class]
+        Collection<Class<? extends Annotation>> types = [Sentence]
         AnnotationSequenceGenerator sequencer = new AnnotationSequenceGenerator(segment, types)
         assert sequencer != null
 
@@ -88,5 +105,94 @@ class AnnotationSequenceGeneratorTests {
         assert sequence[1] instanceof Sentence
         assert sequence[2] instanceof Sentence
         assert !iter.hasNext()
+    }
+
+    @Test
+    void testSequenceGeneration3() {
+        Sentence sentence = this.jcas.select(type:Sentence)[0]
+        Collection<Class<? extends Annotation>> types = [Token]
+        AnnotationSequenceGenerator sequencer = new AnnotationSequenceGenerator(sentence, types)
+        assert sequencer != null
+
+        Iterator<List<? extends Annotation>> iter = sequencer.iterator()
+        assert iter != null
+        assert iter.hasNext()
+        List<? extends Annotation> sequence = iter.next()
+        assert sequence.size() == 11
+        assert sequence[0] instanceof Token
+        assert sequence[1] instanceof Token
+        assert sequence[2] instanceof Token
+        assert sequence[3] instanceof Token
+        assert sequence[4] instanceof Token
+        assert sequence[5] instanceof Token
+        assert sequence[6] instanceof Token
+        assert sequence[7] instanceof Token
+        assert sequence[8] instanceof Token
+        assert sequence[9] instanceof Token
+        assert sequence[10] instanceof Token
+        assert !iter.hasNext()
+    }
+
+    @Test
+    void testSequenceGeneration4() {
+        Sentence sentence = this.jcas.select(type:Sentence)[0]
+        Collection<Class<? extends Annotation>> types = [NamedEntityMention, Token]
+        AnnotationSequenceGenerator sequencer = new AnnotationSequenceGenerator(sentence, types)
+        assert sequencer != null
+        Iterator<List<? extends Annotation>> iter = sequencer.iterator()
+        assert iter != null
+        assert iter.hasNext()
+        List<? extends Annotation> sequence = iter.next()
+        sequence.each {
+            println it.class.name
+        }
+        assert sequence.size() == 11
+        assert sequence[0] instanceof Token
+        assert sequence[1] instanceof Token
+        assert sequence[2] instanceof NamedEntityMention
+        assert sequence[3] instanceof Token
+        assert sequence[4] instanceof Token
+        assert sequence[5] instanceof NamedEntityMention
+        assert sequence[6] instanceof Token
+        assert sequence[7] instanceof NamedEntityMention
+        assert sequence[8] instanceof Token
+        assert sequence[9] instanceof Token
+        assert sequence[10] instanceof Token
+
+        assert iter.hasNext()
+        sequence = iter.next()
+        assert sequence.size() == 11
+        assert sequence[0] instanceof Token
+        assert sequence[1] instanceof Token
+        assert sequence[2] instanceof NamedEntityMention
+        assert sequence[3] instanceof Token
+        assert sequence[4] instanceof Token
+        assert sequence[5] instanceof NamedEntityMention
+        assert sequence[6] instanceof Token
+        assert sequence[7] instanceof Token
+        assert sequence[8] instanceof Token
+        assert sequence[9] instanceof Token
+        assert sequence[10] instanceof Token
+
+        assert iter.hasNext(); iter.next()
+        assert iter.hasNext(); iter.next()
+        assert iter.hasNext(); iter.next()
+        assert iter.hasNext(); iter.next()
+        assert iter.hasNext(); iter.next()
+        assert iter.hasNext(); sequence = iter.next()
+        assert sequence.size() == 11
+        assert sequence[0] instanceof Token
+        assert sequence[1] instanceof Token
+        assert sequence[2] instanceof Token
+        assert sequence[3] instanceof Token
+        assert sequence[4] instanceof Token
+        assert sequence[5] instanceof Token
+        assert sequence[6] instanceof Token
+        assert sequence[7] instanceof Token
+        assert sequence[8] instanceof Token
+        assert sequence[9] instanceof Token
+        assert sequence[10] instanceof Token
+        assert !iter.hasNext()
+
     }
 }

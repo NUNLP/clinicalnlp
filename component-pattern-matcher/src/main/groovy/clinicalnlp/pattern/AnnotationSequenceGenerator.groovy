@@ -86,7 +86,7 @@ class AnnotationSequenceGenerator implements Iterable<List<? extends Annotation>
                 // and move on to the next open index
                 else if (candIdx < candidates.size()) {
                     Annotation candidate = candidates[candIdx]
-                    choicePoints.push(new Tuple(textIdx, candIdx + 1, currSeq))
+                    choicePoints.push(new Tuple(textIdx, candIdx + 1, currSeq.collect()))
                     choicePoints.push(new Tuple(textIdx + (candidate.coveredText.length() ?: 1), 0, (currSeq << candidate)))
                 }
             }
