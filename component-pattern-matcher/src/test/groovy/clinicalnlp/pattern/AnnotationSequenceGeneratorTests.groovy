@@ -11,7 +11,6 @@ import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.fit.factory.AggregateBuilder
 import org.apache.uima.jcas.JCas
 import org.apache.uima.jcas.tcas.Annotation
-import org.apache.uima.jcas.tcas.DocumentAnnotation
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test

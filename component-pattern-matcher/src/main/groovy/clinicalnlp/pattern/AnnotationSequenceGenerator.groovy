@@ -62,7 +62,7 @@ class AnnotationSequenceGenerator implements Iterable<List<? extends Annotation>
             return seq
         }
 
-        private List<? extends Annotation> genNextSequence() {
+        private void genNextSequence() {
             JCas jcas = span.getCAS().getJCas()
             while (!this.choicePoints.empty()) {
                 Tuple choicePoint = choicePoints.pop()
