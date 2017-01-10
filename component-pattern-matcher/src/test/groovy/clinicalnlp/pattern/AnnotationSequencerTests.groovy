@@ -76,10 +76,18 @@ class AnnotationSequencerTests {
     @Test
     void testSequenceGeneration() {
         Segment segment = this.jcas.select(type:Segment)[0]
-        Collection<Class<? extends Annotation>> types = [
-                Sentence.class
-        ]
+        Collection<Class<? extends Annotation>> types = [Sentence.class]
         AnnotationSequencer sequencer = new AnnotationSequencer(segment, types)
         assert sequencer != null
+
+        Iterator<List<? extends Annotation>> iter = sequencer.iterator()
+        assert iter != null
+        assert iter.hasNext()
+        List<? extends Annotation> sequence = iter.next()
+        assert sequence.size() == 3
+        assert sequence[0] instanceof Sentence
+        assert sequence[1] instanceof Sentence
+        assert sequence[2] instanceof Sentence
+        assert !iter.hasNext()
     }
 }
