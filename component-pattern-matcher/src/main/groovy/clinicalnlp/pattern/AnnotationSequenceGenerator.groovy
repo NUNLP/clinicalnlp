@@ -6,11 +6,11 @@ import org.apache.uima.jcas.tcas.Annotation
 import static org.apache.uima.fit.util.JCasUtil.selectCovered
 
 
-class AnnotationSequencer implements Iterable<List<? extends Annotation>> {
+class AnnotationSequenceGenerator implements Iterable<List<? extends Annotation>> {
     Annotation span
     Collection<Class<? extends  Annotation>> types
 
-    AnnotationSequencer(Annotation span, Collection<Class<? extends  Annotation>> types) {
+    AnnotationSequenceGenerator(Annotation span, Collection<Class<? extends  Annotation>> types) {
         this.span = span
         this.types = types
     }
@@ -30,8 +30,8 @@ class AnnotationSequencer implements Iterable<List<? extends Annotation>> {
 
         AnnotationSequenceIterator() {
             // create a map from text indices to annotations
-            Annotation span = AnnotationSequencer.this.span
-            Collection<Class<? extends  Annotation>> types = AnnotationSequencer.this.types
+            Annotation span = AnnotationSequenceGenerator.this.span
+            Collection<Class<? extends  Annotation>> types = AnnotationSequenceGenerator.this.types
             JCas jcas = span.getCAS().getJCas()
             types.each { Class<? extends Annotation> type ->
                 selectCovered(jcas, type, span).each { Annotation ann ->

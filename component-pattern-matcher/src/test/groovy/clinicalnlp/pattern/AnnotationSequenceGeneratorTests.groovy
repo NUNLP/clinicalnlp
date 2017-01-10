@@ -5,7 +5,6 @@ import clinicalnlp.types.Segment
 import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
-import opennlp.tools.formats.ad.ADSentenceStream
 import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level
 import org.apache.uima.analysis_engine.AnalysisEngine
@@ -20,7 +19,7 @@ import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDesc
 import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
 @Log4j
-class AnnotationSequencerTests {
+class AnnotationSequenceGeneratorTests {
 
     JCas jcas;
 
@@ -77,7 +76,7 @@ class AnnotationSequencerTests {
     void testSequenceGeneration() {
         Segment segment = this.jcas.select(type:Segment)[0]
         Collection<Class<? extends Annotation>> types = [Sentence.class]
-        AnnotationSequencer sequencer = new AnnotationSequencer(segment, types)
+        AnnotationSequenceGenerator sequencer = new AnnotationSequenceGenerator(segment, types)
         assert sequencer != null
 
         Iterator<List<? extends Annotation>> iter = sequencer.iterator()
