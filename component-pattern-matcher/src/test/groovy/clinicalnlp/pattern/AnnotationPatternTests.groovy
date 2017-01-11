@@ -81,14 +81,15 @@ class AnnotationPatternTests {
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
         AnnotationPattern pattern = new AnnotationPattern(
-                new NodeBuilder().regex(caseInsensitive: true) {
-                    include(type: NamedEntityMention, feats: ['code'])
-                    include(type: Token, feats: ['pos'])
+                new NodeBuilder().regex (caseInsensitive:true) {
+                    include(type:NamedEntityMention, feats:['code'])
+                    include(type:Token, feats:['pos'])
                     match {
-                        node(type: Token, range: [0, 2])
-                        node(type: Token, name: 'seen', text: /not/, feats: [pos: /V../])
-                        node(type: Token, name: 'tokens', text: /in|the/, range: [0, 2])
-                        node(type: NamedEntityMention, name: 'site', text: /sigmoid\s+colon/, feats: [code: /C.2/])
+                        node(type:NamedEntityMention, name:'finding', text:/tubular\s+adenoma/)
+                        node(type:Token, range:[0,2])
+                        node(type:Token, name:'seen', text:/seen/, feats:[pos:/V../])
+                        node(type:Token, name:'tokens', text:/in|the/, range:[0,2])
+                        node(type:NamedEntityMention, name:'site', text:/sigmoid\s+colon/, feats:[code:/C.2/])
                     }
                 }
         )
@@ -105,6 +106,6 @@ class AnnotationPatternTests {
         AnnotationSequenceGenerator sequencer =
                 new AnnotationSequenceGenerator(jcas.select(type:Window)[0], [NamedEntityMention, Token])
         Iterator<List<? extends Annotation>> iter = sequencer.iterator()
-        AnnotationPattern.AnnotationMatcher matcher = pattern.matcher(iter.next())
+        Iterator matcher = pattern.matcher(iter.next())
     }
 }

@@ -138,12 +138,9 @@ class AnnotationPatternTest {
             add(createEngineDescription(TestAnnotator))
         }
         AnalysisEngine engine = builder.createAggregate()
-
         String text = 'Nothing was seen in the sigmoid colon'
-
         JCas jcas = engine.newJCas()
         jcas.setDocumentText(text)
-
         SimplePipeline.runPipeline(jcas, engine)
 
         //--------------------------------------------------------------------------------------------------------------
@@ -151,13 +148,13 @@ class AnnotationPatternTest {
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
         AnnotationPattern pattern = new AnnotationPattern(
-                new NodeBuilder().regex (caseInsensitive:true) {
+                new NodeBuilder().regex (caseInsensitive:false) {
                     include(type:NamedEntityMention, feats:['code'])
                     include(type:Token)
                     match {
                         node(type:Token, name:'tokens', range:[5,5])
                     }
-                    after(positive:true) {
+                    lookAhead(positive:true) {
                         node(type:NamedEntityMention, name:'nem2', feats:[code:/C02/])
                     }
                 }
@@ -210,7 +207,7 @@ class AnnotationPatternTest {
                     match {
                         node(type:Token, name:'tokens', range:[5,5])
                     }
-                    after(positive:false) {
+                    lookAhead(positive:false) {
                         node(type:NamedEntityMention, name:'nem2', feats:[code:/C02/])
                     }
                 }

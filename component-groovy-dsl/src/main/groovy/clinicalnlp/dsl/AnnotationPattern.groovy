@@ -133,7 +133,7 @@ class AnnotationPattern {
                     // been popped off the stack and needs to be included here
                     matchStringBinding[matchString.length()] = choiceMappedAnn
                     matchString += choiceMappedText
-                    println "Match string: ${matchString}"
+                    ////println "Match string: ${matchString}"
 
                     // create a matcher, and add it and its binding map to the collection
                     matcherBindingPairs << new Tuple2(this.pattern.matcher(matchString), matchStringBinding)
@@ -254,7 +254,7 @@ class AnnotationPattern {
             }
             patternStr += ')'
         }
-        println "Pattern string: ${patternStr}"
+        ////println "Pattern string: ${patternStr}"
         return ~patternStr
     }
 
