@@ -75,7 +75,6 @@ class AnnotationPattern {
             Binding binding = new Binding()
             for (String name : AnnotationPattern.this.groupNames) {
                 String matchedText = matcher.group(name)
-                ////println ("Group ${name}: ${matchedText}")
                 if (matchedText) {
                     List<Annotation> matchedAnns = []
                     for (int i = 0; i < matchedText.length(); i++) {
@@ -190,7 +189,7 @@ class AnnotationPattern {
     Map<Class<Annotation>, Character> annClassToCodeMap = [:]
     Map<Class<Annotation>, String> annClassToFeatMap = [:]
     List<Character> typeCodes = []
-    Pattern pattern;
+    Pattern pattern
 
     // -----------------------------------------------------------------------------------------------------------------
     // public methods
