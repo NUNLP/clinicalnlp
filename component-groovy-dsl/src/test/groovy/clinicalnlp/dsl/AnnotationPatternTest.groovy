@@ -5,6 +5,7 @@ import clinicalnlp.types.TextSpan
 import clinicalnlp.types.Token
 import gov.va.vinci.leo.window.types.Window
 import groovy.util.logging.Log4j
+import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException
@@ -57,6 +58,7 @@ class AnnotationPatternTest {
 
     @BeforeClass
     static void setupClass() {
+        BasicConfigurator.configure()
         Class.forName('clinicalnlp.dsl.UIMA_DSL')
     }
 

@@ -31,7 +31,7 @@ import static clinicalnlp.pattern.AnnotationPattern.$N
  * TODO: transform embedded regex so all non-escaped '.' chars are transformed to negated class
  */
 @Log4j
-class AnnotationPatternTests {
+class AnnotationPatternConstructionTests {
 
     @BeforeClass
     static void setupClass() {
@@ -146,6 +146,19 @@ class AnnotationPatternTests {
         assert pattern.children[1].children.size() == 2
 
         pattern = p1 & p2 & p3 & (p1 | p2) & p3
+        assert pattern instanceof SequenceAnnotationPattern
+        assert pattern.children.size() == 5
+        assert pattern.children[0] instanceof AtomicAnnotationPattern
+        assert pattern.children[1] instanceof AtomicAnnotationPattern
+        assert pattern.children[2] instanceof AtomicAnnotationPattern
+        assert pattern.children[3] instanceof OptionsAnnotationPattern
+        assert pattern.children[4] instanceof AtomicAnnotationPattern
+
+        pattern = $A(Token, [pos:'NN', text:'/Foo/']) &
+                $A(Sentence, [text:'/The coffee is great./']) &
+                $A(NamedEntityMention, [cui:'C01']) &
+                ($A(Token, [pos:'NN', text:'/Foo/']) | $A(Sentence, [text:'/The coffee is great./'])) &
+                $A(NamedEntityMention, [cui:'C01'])
         assert pattern instanceof SequenceAnnotationPattern
         assert pattern.children.size() == 5
         assert pattern.children[0] instanceof AtomicAnnotationPattern
