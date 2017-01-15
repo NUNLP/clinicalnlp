@@ -20,7 +20,7 @@ abstract class AnnotationPattern {
     /**
      * Factory method for atom
      */
-    static $A = { final Class<? extends Annotation> type, final Map<String, String> features ->
+    static $A = { final Class<? extends Annotation> type, final Map<String, String> features = [:] ->
         return new AtomicAnnotationPattern(type, features)
     }
 

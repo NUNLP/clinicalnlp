@@ -143,11 +143,13 @@ class AnnotationPatternConstructionTests {
         assert pattern.children[3] instanceof OptionsAnnotationPattern
         assert pattern.children[4] instanceof AtomicAnnotationPattern
 
-        pattern = $A(Token, [pos:'NN', text:'/Foo/']) &
-                $A(Sentence, [text:'/The coffee is great./']) &
-                $A(NamedEntityMention, [cui:'C01']) &
-                ($A(Token, [pos:'NN', text:'/Foo/']) | $A(Sentence, [text:'/The coffee is great./'])) &
-                $A(NamedEntityMention, [cui:'C01'])
+        pattern =
+                $A(Token) &
+                    $A(Sentence) &
+                    $A(NamedEntityMention) &
+                    ($A(Token)|$A(Sentence)) &
+                    $A(NamedEntityMention)
+
         assert pattern instanceof SequenceAnnotationPattern
         assert pattern.children.size() == 5
         assert pattern.children[0] instanceof AtomicAnnotationPattern
