@@ -5,6 +5,7 @@ import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
 import gov.va.vinci.leo.window.types.Window
 import groovy.util.logging.Log4j
+import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException
@@ -32,64 +33,14 @@ import static clinicalnlp.pattern.AnnotationPattern.$N
 @Log4j
 class AnnotationPatternTests {
 
-    static class TestAnnotator extends JCasAnnotator_ImplBase {
-        @Override
-        void process(JCas jCas) throws AnalysisEngineProcessException {
-            String text = jCas.documentText
-            jCas.create(type: Window, begin: 0, end: text.length())
-            Matcher m = (text =~ /\b\w+\b/)
-            m.each {
-                Token t = jCas.create(type: Token, begin: m.start(0), end: m.end(0))
-                switch (t.coveredText) {
-                    case 'Tubular':t.pos = 'JJ'; break;
-                    case 'adenoma':t.pos = 'NN'; break;
-                    case 'was':t.pos = 'AUX'; break;
-                    case 'seen':t.pos = 'VBN'; break;
-                    case 'in':t.pos = 'IN'; break;
-                    case 'the':t.pos = 'DT'; break;
-                    case 'sigmoid':t.pos = 'JJ'; break;
-                    case 'colon':t.pos = 'NN'; break;
-                    case '.':t.pos = 'PUNC'; break;
-                }
-            }
-            m = (text =~ /(?i)\b(sigmoid\s+colon)|(tubular\s+adenoma)|(polyps)\b/)
-            m.each {
-                NamedEntityMention nem = jCas.create(type: NamedEntityMention, begin: m.start(0), end: m.end(0))
-                switch (nem.coveredText) {
-                    case 'Tubular adenoma':nem.code = 'C01'; break;
-                    case 'sigmoid colon':nem.code = 'C02'; break;
-                    case 'polyps':nem.code = 'C03'; break;
-                }
-            }
-        }
-    }
-
-    AnalysisEngine engine
-
     @BeforeClass
     static void setupClass() {
-        Class.forName('clinicalnlp.dsl.UIMA_DSL')
+        BasicConfigurator.configure()
     }
 
     @Before
     void setUp() throws Exception {
         log.setLevel(Level.INFO)
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(TestAnnotator))
-        }
-        this.engine = builder.createAggregate()
-
-//        //--------------------------------------------------------------------------------------------------------------
-//        String text = 'Tubular adenoma was seen in the sigmoid colon'
-//        JCas jcas = engine.newJCas()
-//        jcas.setDocumentText(text)
-//        SimplePipeline.runPipeline(jcas, engine)
-//
-//        AnnotationSequenceGenerator sequencer =
-//                new AnnotationSequenceGenerator(jcas.select(type:Window)[0], [NamedEntityMention, Token])
-//        Iterator<List<? extends Annotation>> iter = sequencer.iterator()
-//        Iterator matcher = pattern.matcher(iter.next())
     }
 
     @Test
@@ -100,6 +51,9 @@ class AnnotationPatternTests {
         assert pattern1.features == [pos:'NN', text:'/Foo/']
         assert pattern1.range == null
         assert pattern1.name == null
+
+        String patternStr = pattern1.toString()
+        println patternStr
 
         AnnotationPattern pattern2 = $N('t1', pattern1*(0..3))
         assert pattern2 != null
@@ -134,9 +88,8 @@ class AnnotationPatternTests {
         assert pattern5.name == 'seq1'
 
         AnnotationPattern pattern6 =
-                $N('seq1',
-                        $A(Token, [pos:'NN', text:'/Foo/']) &
-                                $N('seq2', $A(Token, [pos:'VB', text:'/Bar/']) & $A(NamedEntityMention, [cui:'C01'])))
+                $N('seq1', $A(Token, [pos:'NN', text:'/Foo/']) &
+                        $N('seq2', $A(Token, [pos:'VB', text:'/Bar/']) & $A(NamedEntityMention, [cui:'C01'])))
         assert pattern6 != null
         assert pattern6 instanceof SequenceAnnotationPattern
         assert pattern6.name == 'seq1'
@@ -200,6 +153,5 @@ class AnnotationPatternTests {
         assert pattern.children[2] instanceof AtomicAnnotationPattern
         assert pattern.children[3] instanceof OptionsAnnotationPattern
         assert pattern.children[4] instanceof AtomicAnnotationPattern
-
     }
 }

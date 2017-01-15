@@ -1,7 +1,6 @@
 package clinicalnlp.pattern
 
 import groovy.util.logging.Log4j
-import org.apache.log4j.Level
 import org.apache.uima.jcas.tcas.Annotation
 
 /**
@@ -40,7 +39,7 @@ abstract class AnnotationPattern {
      * Constructor
      * @param regex
      */
-    AnnotationPattern() {
+    protected AnnotationPattern() {
     }
 
     AnnotationPattern multiply(IntRange range) {
@@ -59,11 +58,12 @@ abstract class AnnotationPattern {
 /**
  *
  */
+@Log4j
 class AtomicAnnotationPattern extends AnnotationPattern {
     final Class<? extends Annotation> type
     final Map<String, String> features
 
-    AtomicAnnotationPattern(Class<? extends Annotation> type, Map<String, String> features) {
+    protected AtomicAnnotationPattern(Class<? extends Annotation> type, Map<String, String> features) {
         this.type = type
         this.features = features
     }
@@ -88,10 +88,11 @@ class AtomicAnnotationPattern extends AnnotationPattern {
 /**
  *
  */
+@Log4j
 class SequenceAnnotationPattern extends AnnotationPattern {
     List<AnnotationPattern> children = new ArrayList<AnnotationPattern>()
 
-    SequenceAnnotationPattern() {
+    protected SequenceAnnotationPattern() {
     }
 
     @Override
@@ -112,10 +113,11 @@ class SequenceAnnotationPattern extends AnnotationPattern {
 /**
  *
  */
+@Log4j
 class OptionsAnnotationPattern extends AnnotationPattern {
     List<AnnotationPattern> children = new ArrayList<AnnotationPattern>()
 
-    OptionsAnnotationPattern() {
+    protected OptionsAnnotationPattern() {
     }
 
     @Override
