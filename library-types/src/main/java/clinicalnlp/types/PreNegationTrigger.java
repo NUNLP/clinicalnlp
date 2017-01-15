@@ -3,7 +3,7 @@
 /* First created by JCasGen Thu Dec 01 10:19:00 CST 2016 */
 package clinicalnlp.types;
 
-import org.apache.uima.jcas.JCas; 
+import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
 import org.apache.uima.jcas.cas.TOP_Type;
 

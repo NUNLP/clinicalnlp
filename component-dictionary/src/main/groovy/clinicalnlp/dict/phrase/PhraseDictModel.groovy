@@ -1,14 +1,14 @@
 package clinicalnlp.dict.phrase
 
-import com.wcohen.ss.JaroWinkler
-import com.wcohen.ss.SoftTFIDF
-import com.wcohen.ss.api.Tokenizer
-import com.wcohen.ss.tokens.SimpleTokenizer
 import clinicalnlp.dict.DictEntry
 import clinicalnlp.dict.DictModel
 import clinicalnlp.dict.DictModelFactory
 import clinicalnlp.dict.TokenMatch
 import clinicalnlp.dict.stringdist.DynamicStringDist
+import com.wcohen.ss.JaroWinkler
+import com.wcohen.ss.SoftTFIDF
+import com.wcohen.ss.api.Tokenizer
+import com.wcohen.ss.tokens.SimpleTokenizer
 import groovy.util.logging.Log4j
 
 @Log4j

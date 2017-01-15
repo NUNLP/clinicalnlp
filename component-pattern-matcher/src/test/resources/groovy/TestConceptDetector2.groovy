@@ -1,7 +1,7 @@
 import clinicalnlp.types.NamedEntityMention
 import org.apache.uima.jcas.JCas
-import java.util.regex.Matcher
 
+import java.util.regex.Matcher
 
 JCas jcas = (JCas) getProperty('jcas')
 

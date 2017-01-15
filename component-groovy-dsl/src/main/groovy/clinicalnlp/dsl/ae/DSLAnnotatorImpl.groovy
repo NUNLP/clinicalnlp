@@ -1,7 +1,7 @@
 package clinicalnlp.dsl.ae
 
-import com.google.common.io.Resources
 import clinicalnlp.dsl.UIMA_DSL
+import com.google.common.io.Resources
 import groovy.util.logging.Log4j
 import org.apache.commons.io.Charsets
 import org.apache.log4j.Level

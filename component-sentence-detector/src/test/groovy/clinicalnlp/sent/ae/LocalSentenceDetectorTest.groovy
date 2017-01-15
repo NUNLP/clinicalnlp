@@ -1,10 +1,10 @@
 package clinicalnlp.sent.ae
 
-import com.google.common.base.Charsets
-import com.google.common.io.Resources
 import clinicalnlp.dsl.ae.LocalDSLAnnotator
 import clinicalnlp.types.NamedEntityMention
 import clinicalnlp.types.Segment
+import com.google.common.base.Charsets
+import com.google.common.io.Resources
 import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
 import opennlp.uima.util.UimaUtil
@@ -24,7 +24,6 @@ import org.apache.uima.resource.ExternalResourceDescription
 import org.apache.uima.resource.ResourceInitializationException
 import org.junit.Before
 import org.junit.BeforeClass
-import org.junit.Ignore
 import org.junit.Test
 
 import java.util.regex.Matcher

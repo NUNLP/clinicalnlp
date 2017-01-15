@@ -1,5 +1,7 @@
 package clinicalnlp.dsl.ae
 
+import clinicalnlp.listener.TestListener
+import clinicalnlp.reader.TestCollectionReader
 import clinicalnlp.types.NamedEntityMention
 import gov.va.vinci.leo.descriptors.LeoAEDescriptor
 import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription
@@ -7,8 +9,6 @@ import org.apache.uima.aae.client.UimaAsBaseCallbackListener
 import org.junit.AfterClass
 import org.junit.BeforeClass
 import org.junit.Test
-import clinicalnlp.listener.TestListener
-import clinicalnlp.reader.TestCollectionReader
 
 class LeoDSLAnnotatorTest {
 

@@ -1,6 +1,8 @@
 package clinicalnlp.dict.ae
 
 import clinicalnlp.dsl.ae.LeoDSLAnnotator
+import clinicalnlp.listener.TestListener
+import clinicalnlp.reader.TestCollectionReader
 import clinicalnlp.sent.ae.LeoSentenceDetector
 import clinicalnlp.token.ae.LeoTokenAnnotator
 import clinicalnlp.types.DictMatch
@@ -15,8 +17,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
-import clinicalnlp.listener.TestListener
-import clinicalnlp.reader.TestCollectionReader
 
 @Log4j
 class LeoDictAnnotatorTest {

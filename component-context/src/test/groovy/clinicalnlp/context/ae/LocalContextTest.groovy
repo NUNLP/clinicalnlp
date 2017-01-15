@@ -1,21 +1,11 @@
 package clinicalnlp.context.ae
 
 import clinicalnlp.dsl.ae.LocalDSLAnnotator
-import gov.va.vinci.leo.sentence.types.Sentence;
-
-import static clinicalnlp.dsl.UIMA_DSL.*
-import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
-import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
-
+import clinicalnlp.types.NamedEntityMention
 import groovy.util.logging.Log4j
-
-import java.util.regex.Matcher
-
 import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level
 import org.apache.uima.analysis_engine.AnalysisEngine
-import org.apache.uima.analysis_engine.AnalysisEngineProcessException
-import org.apache.uima.fit.component.JCasAnnotator_ImplBase
 import org.apache.uima.fit.factory.AggregateBuilder
 import org.apache.uima.jcas.JCas
 import org.junit.After
@@ -23,7 +13,9 @@ import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 
-import clinicalnlp.types.NamedEntityMention
+import static clinicalnlp.dsl.UIMA_DSL.getAnd
+import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
+import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
 @Log4j
 class LocalContextTest {

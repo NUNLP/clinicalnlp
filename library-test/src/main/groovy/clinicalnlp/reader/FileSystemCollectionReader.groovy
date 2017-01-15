@@ -2,18 +2,12 @@ package clinicalnlp.reader
 
 import gov.va.vinci.leo.types.CSI
 import org.apache.uima.UimaContext
-import org.apache.uima.cas.impl.FeatureImpl
 import org.apache.uima.collection.CollectionException
 import org.apache.uima.fit.component.JCasCollectionReader_ImplBase
 import org.apache.uima.fit.descriptor.ConfigurationParameter
 import org.apache.uima.jcas.JCas
-import org.apache.uima.jcas.tcas.DocumentAnnotation
 import org.apache.uima.resource.ResourceInitializationException
 import org.apache.uima.util.Progress
-
-import javax.print.Doc
-import javax.swing.text.Document
-
 
 class FileSystemCollectionReader extends JCasCollectionReader_ImplBase {
     public static final String PARAM_DIRECTORY_PATH = 'directoryPath'

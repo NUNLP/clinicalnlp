@@ -1,7 +1,8 @@
 package clinicalnlp.seg.ae
 
 import clinicalnlp.dsl.ae.LeoDSLAnnotator
-
+import clinicalnlp.listener.TestListener
+import clinicalnlp.reader.TestCollectionReader
 import clinicalnlp.types.Segment
 import gov.va.vinci.leo.descriptors.LeoAEDescriptor
 import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription
@@ -9,13 +10,7 @@ import groovy.util.logging.Log4j
 import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level
 import org.apache.uima.aae.client.UimaAsBaseCallbackListener
-import org.junit.After
-import org.junit.AfterClass
-import org.junit.Before
-import org.junit.BeforeClass
-import org.junit.Test
-import clinicalnlp.listener.TestListener
-import clinicalnlp.reader.TestCollectionReader
+import org.junit.*
 
 @Log4j
 class LeoSegmenterTest {

@@ -1,7 +1,7 @@
 package clinicalnlp.sent.ae
 
-import com.google.common.io.Resources
 import clinicalnlp.types.Segment
+import com.google.common.io.Resources
 import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
 import opennlp.tools.sentdetect.SentenceDetectorME

@@ -3,24 +3,13 @@ package clinicalnlp.pattern
 import clinicalnlp.types.NamedEntityMention
 import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
-import gov.va.vinci.leo.window.types.Window
 import groovy.util.logging.Log4j
 import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level
-import org.apache.uima.analysis_engine.AnalysisEngine
-import org.apache.uima.analysis_engine.AnalysisEngineProcessException
-import org.apache.uima.fit.component.JCasAnnotator_ImplBase
-import org.apache.uima.fit.factory.AggregateBuilder
-import org.apache.uima.fit.pipeline.SimplePipeline
-import org.apache.uima.jcas.JCas
-import org.apache.uima.jcas.tcas.Annotation
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 
-import java.util.regex.Matcher
-
-import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
 import static clinicalnlp.pattern.AnnotationPattern.$A
 import static clinicalnlp.pattern.AnnotationPattern.$N
 

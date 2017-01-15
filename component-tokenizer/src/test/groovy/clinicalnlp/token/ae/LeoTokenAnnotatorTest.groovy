@@ -1,6 +1,8 @@
 package clinicalnlp.token.ae
 
 import clinicalnlp.dsl.ae.LeoDSLAnnotator
+import clinicalnlp.listener.TestListener
+import clinicalnlp.reader.TestCollectionReader
 import clinicalnlp.sent.ae.LeoSentenceDetector
 import clinicalnlp.types.Token
 import gov.va.vinci.leo.descriptors.LeoAEDescriptor
@@ -10,8 +12,6 @@ import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level
 import org.apache.uima.aae.client.UimaAsBaseCallbackListener
 import org.junit.*
-import clinicalnlp.listener.TestListener
-import clinicalnlp.reader.TestCollectionReader
 
 @Log4j
 class LeoTokenAnnotatorTest {

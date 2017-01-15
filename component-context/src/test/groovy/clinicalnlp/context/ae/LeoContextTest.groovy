@@ -1,14 +1,12 @@
 package clinicalnlp.context.ae
 
-import clinicalnlp.dsl.ae.LeoDSLAnnotator
+import clinicalnlp.context.listener.TestListener
 import clinicalnlp.context.reader.TestCollectionReader
+import clinicalnlp.dsl.ae.LeoDSLAnnotator
 import clinicalnlp.types.NamedEntityMention
 import gov.va.vinci.leo.descriptors.LeoAEDescriptor
 import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription
 import org.apache.uima.aae.client.UimaAsBaseCallbackListener
-
-import clinicalnlp.context.listener.TestListener
-
 import org.junit.AfterClass
 import org.junit.BeforeClass
 import org.junit.Test

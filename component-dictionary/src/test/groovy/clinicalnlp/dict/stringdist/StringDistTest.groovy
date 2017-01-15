@@ -1,10 +1,6 @@
 package clinicalnlp.dict.stringdist
 
-import info.debatty.java.stringsimilarity.Levenshtein;
-
-import static org.junit.Assert.*
-
-import org.junit.Ignore
+import info.debatty.java.stringsimilarity.Levenshtein
 import org.junit.Test
 
 class StringDistTest {
