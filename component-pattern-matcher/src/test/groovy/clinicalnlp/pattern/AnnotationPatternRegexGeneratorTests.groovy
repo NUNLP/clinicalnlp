@@ -96,5 +96,13 @@ class AnnotationPatternRegexGeneratorTests {
         p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"
         assert p.toString() == '(?:(?:①‹NN›(?:②‹Assertion›|③‹Disease›)②‹Assertion›)|①‹NN›)'
+
+        def p2 =
+            ($A(Token, [pos:'NN']) &
+                ($A(Sentence, [modality:'Assertion']) | $A(NamedEntityMention, [type:'Disease'])) &
+                $A(Sentence, [modality:'Assertion']) |
+                $A(Token, [pos:'NN']))
+        assert (new AnnotationPatternRegexGenerator(p2)).genRegExPattern().toString() ==
+            '(?:(?:①‹NN›(?:②‹Assertion›|③‹Disease›)②‹Assertion›)|①‹NN›)'
     }
 }
