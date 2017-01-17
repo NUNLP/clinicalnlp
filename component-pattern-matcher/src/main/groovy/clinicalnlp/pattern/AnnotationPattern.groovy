@@ -14,7 +14,7 @@ abstract class AnnotationPattern {
      * @return
      */
     AnnotationMatcher matcher(List<? extends Annotation> sequence) {
-        return new AnnotationMatcher(sequence)
+        return new AnnotationMatcher(this, sequence)
     }
 
     /**

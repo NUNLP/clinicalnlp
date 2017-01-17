@@ -7,6 +7,7 @@ import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
 import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level
+import org.apache.log4j.PropertyConfigurator
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.fit.factory.AggregateBuilder
 import org.apache.uima.jcas.JCas
@@ -27,8 +28,10 @@ class AnnotationMatcherTests {
 
     @BeforeClass
     static void setupClass() {
+        def config = new ConfigSlurper().parse(
+            AnnotationPatternRegexGeneratorTests.class.getResource('/config.groovy').text)
+        PropertyConfigurator.configure(config.toProperties())
         Class.forName('clinicalnlp.dsl.UIMA_DSL')
-        BasicConfigurator.configure()
     }
 
     @Before

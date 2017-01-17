@@ -12,17 +12,17 @@ class AnnotationPatternRegexGenerator {
     // -----------------------------------------------------------------------------------------------------------------
     // Static fields
     // -----------------------------------------------------------------------------------------------------------------
-    static final Integer INIT_TYPE_CODE = 0x2460;
-    static final Character LBRACK = (char)0x2039;
-    static final Character RBRACK = (char)0x203A;
+    private static final Integer INIT_TYPE_CODE = 0x2460;
+    private static final Character LBRACK = (char)0x2039;
+    private static final Character RBRACK = (char)0x203A;
 
     // -----------------------------------------------------------------------------------------------------------------
     // Instance fields
     // -----------------------------------------------------------------------------------------------------------------
     Map<Class<? extends Annotation>, Character> typeMap = [:]
     Map<Class<? extends Annotation>, Set<String>> featMap = [:]
-    Integer typeCode = INIT_TYPE_CODE
-    AnnotationPattern pattern
+    private Integer typeCode = INIT_TYPE_CODE
+    private Pattern pattern
 
     // -----------------------------------------------------------------------------------------------------------------
     // Public methods
@@ -30,19 +30,19 @@ class AnnotationPatternRegexGenerator {
 
     /**
      *
-     * @param pattern
+     * @param annotationPattern
      */
-    AnnotationPatternRegexGenerator(AnnotationPattern pattern) {
-        this.pattern = pattern
+    AnnotationPatternRegexGenerator(AnnotationPattern annotationPattern) {
+        this.pattern = genRegExPattern(annotationPattern)
     }
 
     /**
      *
      * @return
      */
-    Pattern genRegExPattern() {
-        this.extractTypes(this.pattern)
-        return Pattern.compile(this.genRegexString(this.pattern))
+    Pattern genRegExPattern(AnnotationPattern annotationPattern) {
+        this.extractTypes(annotationPattern)
+        return Pattern.compile(this.genRegexString(annotationPattern))
     }
 
     // -----------------------------------------------------------------------------------------------------------------

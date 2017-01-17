@@ -10,8 +10,6 @@ import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 
-import java.util.regex.Pattern
-
 import static clinicalnlp.pattern.AnnotationPattern.$A
 import static clinicalnlp.pattern.AnnotationPattern.$N
 
