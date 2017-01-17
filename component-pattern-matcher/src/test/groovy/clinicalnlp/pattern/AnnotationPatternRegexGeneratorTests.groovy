@@ -23,13 +23,13 @@ import static clinicalnlp.pattern.AnnotationPattern.$N
  * TODO: transform embedded regex so all non-escaped '.' chars are transformed to negated class
  */
 @Log4j
-class AnnotationPatternRegExGenerationTests {
+class AnnotationPatternRegexGeneratorTests {
 
     @BeforeClass
     static void setupClass() {
         //this.getClass().getResource( '/datatest/a.xml' ).text
         def config = new ConfigSlurper().parse(
-            AnnotationPatternRegExGenerationTests.class.getResource('/config.groovy').text)
+            AnnotationPatternRegexGeneratorTests.class.getResource('/config.groovy').text)
         PropertyConfigurator.configure(config.toProperties())
     }
 
