@@ -33,9 +33,7 @@ class AnnotationSequenceGeneratorTests {
     void setUp() throws Exception {
         log.setLevel(Level.INFO)
 
-        // -------------------------------------------------------------------
         // construct a pipeline
-        // -------------------------------------------------------------------
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
             add(createEngineDescription(
@@ -43,9 +41,7 @@ class AnnotationSequenceGeneratorTests {
                     'patternStr', /(?i)(pneumonia|fever|cough|sepsis|weakness|measles)/)) }
         AnalysisEngine engine = builder.createAggregate()
 
-        // -------------------------------------------------------------------
         // run pipeline to generate annotations
-        // -------------------------------------------------------------------
         def text = """\
         Patient has fever but no cough and pneumonia is ruled out.
         There is no increase in weakness.
@@ -58,9 +54,6 @@ class AnnotationSequenceGeneratorTests {
 
     @Test
     void smokeTest() {
-        // -------------------------------------------------------------------
-        // test the annotations
-        // -------------------------------------------------------------------
         Collection<Segment> segs = jcas.select(type:Segment)
         assert segs.size() == 1
         Collection<Annotation> sents = jcas.select(type:Sentence)

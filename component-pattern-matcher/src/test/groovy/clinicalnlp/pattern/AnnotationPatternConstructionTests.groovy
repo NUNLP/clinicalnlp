@@ -13,12 +13,6 @@ import org.junit.Test
 import static clinicalnlp.pattern.AnnotationPattern.$A
 import static clinicalnlp.pattern.AnnotationPattern.$N
 
-/**
- * TODO: create type code map
- * TODO: create feature map
- * TODO: add boundary characters,
- * TODO: transform embedded regex so all non-escaped '.' chars are transformed to negated class
- */
 @Log4j
 class AnnotationPatternConstructionTests {
 
@@ -146,7 +140,6 @@ class AnnotationPatternConstructionTests {
         pattern =
                 $A(Token) & $A(Sentence) & $A(NamedEntityMention) &
                     ($A(Token)|$A(Sentence)) & $A(NamedEntityMention)
-
         assert pattern instanceof SequenceAnnotationPattern
         assert pattern.children.size() == 5
         assert pattern.children[0] instanceof AtomicAnnotationPattern
