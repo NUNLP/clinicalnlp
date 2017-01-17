@@ -18,8 +18,11 @@ import org.junit.Test
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
 import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
+import static clinicalnlp.pattern.AnnotationPattern.$A
+import static clinicalnlp.pattern.AnnotationPattern.$N
+
 @Log4j
-class AnnotationPatternMatcherTests {
+class AnnotationMatcherTests {
     JCas jcas;
 
     @BeforeClass
@@ -63,4 +66,15 @@ class AnnotationPatternMatcherTests {
         assert nems.size() == 5
     }
 
+    @Test
+    void testBasicPatternMatch() {
+        Collection<Class<? extends Annotation>> types = [Sentence]
+        AnnotationSequenceGenerator sequencer = new AnnotationSequenceGenerator(jcas.select(type:Segment)[0], types)
+
+        AnnotationPattern pattern = $A(Sentence)(3,3)
+        AnnotationMatcher matcher = pattern.matcher(sequencer.iterator().next())
+        while (matcher.hasNext()) {
+            matcher.next()
+        }
+    }
 }

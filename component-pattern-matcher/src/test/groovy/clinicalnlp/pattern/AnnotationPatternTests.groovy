@@ -10,11 +10,13 @@ import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 
+import java.util.regex.Pattern
+
 import static clinicalnlp.pattern.AnnotationPattern.$A
 import static clinicalnlp.pattern.AnnotationPattern.$N
 
 @Log4j
-class AnnotationPatternConstructionTests {
+class AnnotationPatternTests {
 
     @BeforeClass
     static void setupClass() {
