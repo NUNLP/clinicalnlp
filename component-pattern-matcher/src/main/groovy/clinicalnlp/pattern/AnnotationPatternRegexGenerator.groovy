@@ -5,6 +5,7 @@ import org.apache.uima.jcas.tcas.Annotation
 
 import java.util.regex.Pattern
 
+// TODO: implement lookahead and lookbehind, both negative and positive
 @Log4j
 class AnnotationPatternRegexGenerator {
 
