@@ -86,7 +86,9 @@ class AnnotationPatternRegexGenerator {
         Class<? extends Annotation> type = pattern.type
         Map<String, String> feats = pattern.features
         String featString = featMap[type].inject('') { prefix, featName ->
-            String featVal = feats.containsKey(featName) ? feats[featName] : "[^${LBRACK}${RBRACK}]*"
+            String featVal = feats.containsKey(featName) ?
+                feats[featName].replaceAll(/(?<!\\)\./, "[^${LBRACK}${RBRACK}]")
+                : "[^${LBRACK}${RBRACK}]*"
             prefix + "${LBRACK}${featVal}${RBRACK}"
         }
         return annotate("(?:${typeMap[type]}${featString})", pattern.name, pattern.range, false)
@@ -112,5 +114,9 @@ class AnnotationPatternRegexGenerator {
         if (name) { result = "(?<${name}>${result})" }
         else if (addGroup) { result = "(?:${result})"}
         return result
+    }
+
+    private String replaceRegexDot(String regex) {
+        regex.replaceAll(/(?<!\\)\./, '[^‹›]')
     }
 }

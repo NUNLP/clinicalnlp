@@ -17,9 +17,6 @@ import static clinicalnlp.pattern.AnnotationPattern.$N
 
 
 /**
- * TODO: create type code map
- * TODO: create feature map
- * TODO: add boundary characters,
  * TODO: transform embedded regex so all non-escaped '.' chars are transformed to negated class
  */
 @Log4j
@@ -61,8 +58,8 @@ class AnnotationPatternRegexGeneratorTests {
 
     @Test
     void testSequencePatterns() {
-        AnnotationPattern pattern1 = $A(Token, [text:/Foo/])
-        AnnotationPattern pattern2 = $A(Sentence, [text:/Bar/])
+        AnnotationPattern pattern1 = $A(Token, [pos:'NN', text:/.+/])
+        AnnotationPattern pattern2 = $A(Sentence, [text:/(?i)Bar/])
         AnnotationPattern pattern3 = $A(NamedEntityMention, [text:/Bar/])
         AnnotationPattern pattern4 = $A(Token, [text:/Baz/])
 
@@ -70,7 +67,7 @@ class AnnotationPatternRegexGeneratorTests {
         AnnotationPatternRegexGenerator generator = new AnnotationPatternRegexGenerator(pattern)
         Pattern p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"
-        assert p.toString() == '(?:(?:①‹Foo›)(?:②‹Bar›)(?:③‹Bar›)(?:②‹Bar›)(?:①‹Baz›))'
+        assert p.toString() == '(?:(?:①‹NN›‹[^‹›]+›)(?:②‹(?i)Bar›)(?:③‹Bar›)(?:②‹(?i)Bar›)(?:①‹[^‹›]*›‹Baz›))'
     }
 
     @Test
