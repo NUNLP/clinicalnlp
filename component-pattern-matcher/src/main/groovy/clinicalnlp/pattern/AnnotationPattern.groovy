@@ -42,16 +42,43 @@ abstract class AnnotationPattern {
     protected AnnotationPattern() {
     }
 
-    AnnotationPattern multiply(IntRange range) {
-        this.range = range
+    /**
+     *
+     * @param min
+     * @param max
+     * @return
+     */
+    AnnotationPattern call(Integer min, Integer max) {
+        this.range = (min..max)
         return this
     }
 
+    /**
+     *
+     * @return
+     */
     AnnotationPattern positive() {
     }
 
+    /**
+     *
+     * @return
+     */
+    AnnotationPattern negative() {
+    }
+
+    /**
+     *
+     * @param pattern
+     * @return
+     */
     abstract AnnotationPattern and(AnnotationPattern pattern)
 
+    /**
+     *
+     * @param pattern
+     * @return
+     */
     abstract AnnotationPattern or(AnnotationPattern pattern)
 }
 

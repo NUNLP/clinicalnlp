@@ -44,7 +44,7 @@ class AnnotationPatternConstructionTests {
         String patternStr = pattern1.toString()
         println patternStr
 
-        AnnotationPattern pattern2 = $N('t1', pattern1*(0..3))
+        AnnotationPattern pattern2 = $N('t1', pattern1(0,3))
         assert pattern2 != null
         assert pattern2 == pattern1
         assert pattern2.range == (0..3)

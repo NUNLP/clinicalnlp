@@ -38,7 +38,7 @@ class AnnotationPatternRegexGeneratorTests {
         log.info "Pattern: ${p.toString()}"
         assert p.toString() == '(?:①‹NN›‹all_caps›‹Foo›)'
 
-        pattern = (pattern * (0..3))
+        pattern = (pattern(0,3))
         generator = new AnnotationPatternRegexGenerator(pattern)
         p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"
@@ -59,6 +59,7 @@ class AnnotationPatternRegexGeneratorTests {
         AnnotationPattern pattern4 = $A(Token, [text:/Baz/])
 
         AnnotationPattern pattern = (pattern1 & pattern2 & pattern3 & pattern2 & pattern4)
+        pattern = $N('group1', pattern(0,3))
         AnnotationPatternRegexGenerator generator = new AnnotationPatternRegexGenerator(pattern)
         Pattern p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"

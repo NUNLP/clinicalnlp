@@ -40,8 +40,8 @@ class AnnotationPatternRegexGenerator {
      * @return
      */
     Pattern genRegExPattern() {
-        extractTypes(this.pattern)
-        return Pattern.compile(handlePattern(this.pattern))
+        this.extractTypes(this.pattern)
+        return Pattern.compile(this.genRegexString(this.pattern))
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -69,20 +69,20 @@ class AnnotationPatternRegexGenerator {
         }
     }
 
-    // recursive method for generating regex string
-    private String handlePattern(AnnotationPattern pattern) {
+    // Recursive method for generating regex string from AnnotationPattern
+    private String genRegexString(AnnotationPattern pattern) {
         switch (pattern.class) {
             case AtomicAnnotationPattern.class:
-                return handlePattern((AtomicAnnotationPattern)pattern)
+                return genRegexString((AtomicAnnotationPattern)pattern)
             case SequenceAnnotationPattern.class:
-                return handlePattern((SequenceAnnotationPattern)pattern)
+                return genRegexString((SequenceAnnotationPattern)pattern)
             case OptionAnnotationPattern.class:
-                return handlePattern((OptionAnnotationPattern)pattern)
+                return genRegexString((OptionAnnotationPattern)pattern)
         }
     }
 
-    // base case method for generating regex string
-    private String handlePattern(AtomicAnnotationPattern pattern) {
+    // Base case method for generating regex string from an AtomicAnnotationPattern
+    private String genRegexString(AtomicAnnotationPattern pattern) {
         Class<? extends Annotation> type = pattern.type
         Map<String, String> feats = pattern.features
         String featString = featMap[type].inject('') { prefix, featName ->
@@ -91,32 +91,28 @@ class AnnotationPatternRegexGenerator {
                 : "[^${LBRACK}${RBRACK}]*"
             prefix + "${LBRACK}${featVal}${RBRACK}"
         }
-        return annotate("(?:${typeMap[type]}${featString})", pattern.name, pattern.range, false)
+        return decorate("(?:${typeMap[type]}${featString})", pattern.name, pattern.range, false)
     }
 
-    // recursive method for generating regex string
-    private String handlePattern(SequenceAnnotationPattern pattern) {
-        String result = pattern.children.inject(''){prefix,rest -> "${prefix}${this.handlePattern(rest)}"}
+    // Recursive method for generating regex string from a SequenceAnnotationPattern
+    private String genRegexString(SequenceAnnotationPattern pattern) {
+        String result = pattern.children.inject(''){prefix,rest -> "${prefix}${this.genRegexString(rest)}"}
         return "(?:${result})"
     }
 
-    // recursive method for generating regex string
-    private String handlePattern(OptionAnnotationPattern pattern) {
-        String first = this.handlePattern(pattern.children.remove(0))
-        String result = pattern.children.inject(first){prefix,rest -> "${prefix}|${this.handlePattern(rest)}"}
+    // Recursive method for generating regex string from an OptionAnnotationPattern
+    private String genRegexString(OptionAnnotationPattern pattern) {
+        String first = this.genRegexString(pattern.children.remove(0))
+        String result = pattern.children.inject(first){prefix,rest -> "${prefix}|${this.genRegexString(rest)}"}
         return "(?:${result})"
     }
 
-    // add name, group, and quantifier information to regex
-    private String annotate(final String baseRegex, final String name, final IntRange range, final boolean addGroup) {
+    // Add name, group, and quantifier information to regex
+    private String decorate(final String baseRegex, final String name, final IntRange range, final boolean addGroup) {
         String result = baseRegex
         if (range) { result = "${result}{${range.min()},${range.max()}}"}
         if (name) { result = "(?<${name}>${result})" }
         else if (addGroup) { result = "(?:${result})"}
         return result
-    }
-
-    private String replaceRegexDot(String regex) {
-        regex.replaceAll(/(?<!\\)\./, '[^‹›]')
     }
 }
