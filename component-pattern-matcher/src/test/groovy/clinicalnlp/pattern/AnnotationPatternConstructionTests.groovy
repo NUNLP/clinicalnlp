@@ -94,7 +94,7 @@ class AnnotationPatternConstructionTests {
         AnnotationPattern pattern3 = $A(NamedEntityMention, [cui:'C01'])
         AnnotationPattern pattern4 = $N('opts', pattern1 | pattern2 | pattern3)
         assert pattern4 != null
-        assert pattern4 instanceof OptionsAnnotationPattern
+        assert pattern4 instanceof OptionAnnotationPattern
         assert pattern4.children.size() == 3
         assert pattern4.children[0] == pattern1
         assert pattern4.children[1] == pattern2
@@ -102,10 +102,10 @@ class AnnotationPatternConstructionTests {
 
         AnnotationPattern pattern5 = (pattern1 | (pattern2 | pattern3))
         assert pattern5 != null
-        assert pattern5 instanceof OptionsAnnotationPattern
+        assert pattern5 instanceof OptionAnnotationPattern
         assert pattern5.children.size() == 2
         assert pattern5.children[0] == pattern1
-        assert pattern5.children[1] instanceof OptionsAnnotationPattern
+        assert pattern5.children[1] instanceof OptionAnnotationPattern
         assert pattern5.children[1].children[0] == pattern2
         assert pattern5.children[1].children[1] == pattern3
     }
@@ -117,17 +117,17 @@ class AnnotationPatternConstructionTests {
         AnnotationPattern p3 = $A(NamedEntityMention, [cui:'C01'])
 
         def pattern = p1 | p2 & p3
-        assert pattern instanceof OptionsAnnotationPattern
+        assert pattern instanceof OptionAnnotationPattern
         assert pattern.children[0] instanceof AtomicAnnotationPattern
         assert pattern.children[1] instanceof SequenceAnnotationPattern
 
         pattern = (p1 | p2) & p3
         assert pattern instanceof SequenceAnnotationPattern
-        assert pattern.children[0] instanceof OptionsAnnotationPattern
+        assert pattern.children[0] instanceof OptionAnnotationPattern
         assert pattern.children[1] instanceof AtomicAnnotationPattern
 
         pattern = p1 & p2 & p3 & p1 | p2 & p3
-        assert pattern instanceof OptionsAnnotationPattern
+        assert pattern instanceof OptionAnnotationPattern
         assert pattern.children.size() == 2
         assert pattern.children[0] instanceof SequenceAnnotationPattern
         assert pattern.children[0].children.size() == 4
@@ -140,22 +140,19 @@ class AnnotationPatternConstructionTests {
         assert pattern.children[0] instanceof AtomicAnnotationPattern
         assert pattern.children[1] instanceof AtomicAnnotationPattern
         assert pattern.children[2] instanceof AtomicAnnotationPattern
-        assert pattern.children[3] instanceof OptionsAnnotationPattern
+        assert pattern.children[3] instanceof OptionAnnotationPattern
         assert pattern.children[4] instanceof AtomicAnnotationPattern
 
         pattern =
-                $A(Token) &
-                    $A(Sentence) &
-                    $A(NamedEntityMention) &
-                    ($A(Token)|$A(Sentence)) &
-                    $A(NamedEntityMention)
+                $A(Token) & $A(Sentence) & $A(NamedEntityMention) &
+                    ($A(Token)|$A(Sentence)) & $A(NamedEntityMention)
 
         assert pattern instanceof SequenceAnnotationPattern
         assert pattern.children.size() == 5
         assert pattern.children[0] instanceof AtomicAnnotationPattern
         assert pattern.children[1] instanceof AtomicAnnotationPattern
         assert pattern.children[2] instanceof AtomicAnnotationPattern
-        assert pattern.children[3] instanceof OptionsAnnotationPattern
+        assert pattern.children[3] instanceof OptionAnnotationPattern
         assert pattern.children[4] instanceof AtomicAnnotationPattern
     }
 }

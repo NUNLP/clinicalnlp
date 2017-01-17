@@ -78,7 +78,7 @@ class AtomicAnnotationPattern extends AnnotationPattern {
 
     @Override
     AnnotationPattern or(AnnotationPattern pattern) {
-        OptionsAnnotationPattern options = new OptionsAnnotationPattern()
+        OptionAnnotationPattern options = new OptionAnnotationPattern()
         options.children << this
         options.children << pattern
         return options
@@ -103,7 +103,7 @@ class SequenceAnnotationPattern extends AnnotationPattern {
 
     @Override
     AnnotationPattern or(AnnotationPattern pattern) {
-        OptionsAnnotationPattern options = new OptionsAnnotationPattern()
+        OptionAnnotationPattern options = new OptionAnnotationPattern()
         options.children << this
         options.children << pattern
         return options
@@ -114,10 +114,10 @@ class SequenceAnnotationPattern extends AnnotationPattern {
  *
  */
 @Log4j
-class OptionsAnnotationPattern extends AnnotationPattern {
+class OptionAnnotationPattern extends AnnotationPattern {
     List<AnnotationPattern> children = new ArrayList<AnnotationPattern>()
 
-    protected OptionsAnnotationPattern() {
+    protected OptionAnnotationPattern() {
     }
 
     @Override
