@@ -36,7 +36,7 @@ class AnnotationPatternRegexGeneratorTests {
         AnnotationPatternRegexGenerator generator = new AnnotationPatternRegexGenerator(pattern)
         Pattern p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"
-        assert p.toString() == '(?:①‹NN›‹all_caps›‹Foo›)'
+        assert p.toString() == '①‹NN›‹all_caps›‹Foo›'
 
         pattern = (pattern(0,3))
         generator = new AnnotationPatternRegexGenerator(pattern)
@@ -63,7 +63,8 @@ class AnnotationPatternRegexGeneratorTests {
         AnnotationPatternRegexGenerator generator = new AnnotationPatternRegexGenerator(pattern)
         Pattern p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"
-        assert p.toString() == '(?:(?:①‹NN›‹[^‹›]+›)(?:②‹(?i)Bar›)(?:③‹Bar›)(?:②‹(?i)Bar›)(?:①‹[^‹›]*›‹Baz›))'
+        assert p.toString() ==
+            '(?<group1>(?:①‹NN›‹[^‹›]+›②‹(?i)Bar›③‹Bar›②‹(?i)Bar›①‹[^‹›]*›‹Baz›){0,3})'
     }
 
     @Test
@@ -75,7 +76,7 @@ class AnnotationPatternRegexGeneratorTests {
         AnnotationPatternRegexGenerator generator = new AnnotationPatternRegexGenerator(pattern)
         Pattern p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"
-        assert p.toString() == '(?:(?:①‹Foo›)|(?:②‹Bar›)|(?:③‹Bar›)|(?:②‹Bar›)|(?:①‹Foo›))'
+        assert p.toString() == '(?:①‹Foo›|②‹Bar›|③‹Bar›|②‹Bar›|①‹Foo›)'
     }
 
     @Test
@@ -88,12 +89,12 @@ class AnnotationPatternRegexGeneratorTests {
 
         Pattern p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"
-        assert p.toString() == '(?:(?:(?:①‹NN›)(?:②‹Assertion›))|(?:(?:③‹Disease›)(?:②‹Assertion›))|(?:①‹NN›))'
+        assert p.toString() == '(?:(?:①‹NN›②‹Assertion›)|(?:③‹Disease›②‹Assertion›)|①‹NN›)'
 
         pattern = (pattern1 & (pattern2 | pattern3) & pattern2 | pattern1)
         generator = new AnnotationPatternRegexGenerator(pattern)
         p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"
-        assert p.toString() == '(?:(?:(?:①‹NN›)(?:(?:②‹Assertion›)|(?:③‹Disease›))(?:②‹Assertion›))|(?:①‹NN›))'
+        assert p.toString() == '(?:(?:①‹NN›(?:②‹Assertion›|③‹Disease›)②‹Assertion›)|①‹NN›)'
     }
 }
