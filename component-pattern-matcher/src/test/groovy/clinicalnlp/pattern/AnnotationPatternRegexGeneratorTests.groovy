@@ -68,7 +68,7 @@ class AnnotationPatternRegexGeneratorTests {
         AnnotationPatternRegexGenerator generator = new AnnotationPatternRegexGenerator(pattern)
         Pattern p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"
-        assert p.toString() == '(?:①②③②①)'
+        assert p.toString() == '(?:(?:①)(?:②)(?:③)(?:②)(?:①))'
     }
 
     @Test
@@ -80,7 +80,7 @@ class AnnotationPatternRegexGeneratorTests {
         AnnotationPatternRegexGenerator generator = new AnnotationPatternRegexGenerator(pattern)
         Pattern p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"
-        assert p.toString() == '(?:①|②|③|②|①)'
+        assert p.toString() == '(?:(?:①)|(?:②)|(?:③)|(?:②)|(?:①))'
     }
 
     @Test
@@ -93,12 +93,12 @@ class AnnotationPatternRegexGeneratorTests {
 
         Pattern p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"
-        assert p.toString() == '(?:(?:①②)|(?:③②)|①)'
+        assert p.toString() == '(?:(?:(?:①)(?:②))|(?:(?:③)(?:②))|(?:①))'
 
         pattern = (pattern1 & (pattern2 | pattern3) & pattern2 | pattern1)
         generator = new AnnotationPatternRegexGenerator(pattern)
         p = generator.genRegExPattern()
         log.info "Pattern: ${p.toString()}"
-        assert p.toString() == '(?:(?:①(?:②|③)②)|①)'
+        assert p.toString() == '(?:(?:(?:①)(?:(?:②)|(?:③))(?:②))|(?:①))'
     }
 }

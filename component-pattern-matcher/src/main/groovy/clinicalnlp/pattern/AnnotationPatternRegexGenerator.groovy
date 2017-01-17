@@ -58,7 +58,6 @@ class AnnotationPatternRegexGenerator {
     }
 
     private String handlePattern(AtomicAnnotationPattern pattern) {
-        log.info 'atomic pattern'
         Class<? extends Annotation> type = pattern.type
         if (!typeMap.keySet().contains(type)) {
             typeMap[type] = (char)this.typeCode
@@ -68,13 +67,11 @@ class AnnotationPatternRegexGenerator {
     }
 
     private String handlePattern(SequenceAnnotationPattern pattern) {
-        log.info 'sequence pattern'
         String result = pattern.children.inject(''){prefix,rest -> "${prefix}${this.handlePattern(rest)}"}
         return "(?:${result})"
     }
 
     private String handlePattern(OptionAnnotationPattern pattern) {
-        log.info 'option pattern'
         String first = this.handlePattern(pattern.children.remove(0))
         String result = pattern.children.inject(first){prefix,rest -> "${prefix}|${this.handlePattern(rest)}"}
         return "(?:${result})"
