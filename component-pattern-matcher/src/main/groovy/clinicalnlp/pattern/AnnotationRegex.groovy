@@ -7,14 +7,13 @@ import java.util.regex.Pattern
 
 // TODO: implement lookahead and lookbehind, both negative and positive
 @Log4j
-class AnnotationPatternRegexGenerator {
-
+class AnnotationRegex {
     // -----------------------------------------------------------------------------------------------------------------
     // Static fields
     // -----------------------------------------------------------------------------------------------------------------
-    private static final Integer INIT_TYPE_CODE = 0x2460;
-    private static final Character LBRACK = (char)0x2039;
-    private static final Character RBRACK = (char)0x203A;
+    static final Integer INIT_TYPE_CODE = 0x2460;
+    static final Character LBRACK = (char)0x2039;
+    static final Character RBRACK = (char)0x203A;
 
     // -----------------------------------------------------------------------------------------------------------------
     // Instance fields
@@ -29,10 +28,19 @@ class AnnotationPatternRegexGenerator {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * Create an annotation matcher
+     * @param sequence
+     * @return
+     */
+    AnnotationRegexMatcher matcher(List<? extends Annotation> sequence) {
+        return new AnnotationRegexMatcher(this, sequence)
+    }
+
+    /**
      *
      * @param annotationPattern
      */
-    AnnotationPatternRegexGenerator(AnnotationPattern annotationPattern) {
+    AnnotationRegex(AnnotationPattern annotationPattern) {
         this.pattern = genRegExPattern(annotationPattern)
     }
 

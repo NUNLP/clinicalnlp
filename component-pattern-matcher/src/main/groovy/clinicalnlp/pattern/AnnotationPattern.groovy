@@ -9,15 +9,6 @@ import org.apache.uima.jcas.tcas.Annotation
 @Log4j
 abstract class AnnotationPattern {
     /**
-     * Create an annotation matcher
-     * @param sequence
-     * @return
-     */
-    AnnotationMatcher matcher(List<? extends Annotation> sequence) {
-        return new AnnotationMatcher(this, sequence)
-    }
-
-    /**
      * Factory method for atom
      */
     static $A = { final Class<? extends Annotation> type, final Map<String, String> features = [:] ->

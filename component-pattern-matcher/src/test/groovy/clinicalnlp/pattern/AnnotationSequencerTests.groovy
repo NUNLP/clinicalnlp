@@ -19,14 +19,14 @@ import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDesc
 import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
 @Log4j
-class AnnotationSequenceGeneratorTests {
+class AnnotationSequencerTests {
 
     JCas jcas;
 
     @BeforeClass
     static void setupClass() {
         def config = new ConfigSlurper().parse(
-            AnnotationPatternRegexGeneratorTests.class.getResource('/config.groovy').text)
+            AnnotationRegexTests.class.getResource('/config.groovy').text)
         PropertyConfigurator.configure(config.toProperties())
         Class.forName('clinicalnlp.dsl.UIMA_DSL')
     }
@@ -70,7 +70,7 @@ class AnnotationSequenceGeneratorTests {
     void testSequenceGeneration1() {
         Segment newSegment = this.jcas.create(type:Segment, begin:0, end:this.jcas.documentText.length())
         Collection<Class<? extends Annotation>> types = [Segment]
-        AnnotationSequenceGenerator sequencer = new AnnotationSequenceGenerator(newSegment, types)
+        AnnotationSequencer sequencer = new AnnotationSequencer(newSegment, types)
         assert sequencer != null
 
         Iterator<List<? extends Annotation>> iter = sequencer.iterator()
@@ -86,7 +86,7 @@ class AnnotationSequenceGeneratorTests {
     void testSequenceGeneration2() {
         Segment segment = this.jcas.select(type:Segment)[0]
         Collection<Class<? extends Annotation>> types = [Sentence]
-        AnnotationSequenceGenerator sequencer = new AnnotationSequenceGenerator(segment, types)
+        AnnotationSequencer sequencer = new AnnotationSequencer(segment, types)
         assert sequencer != null
 
         Iterator<List<? extends Annotation>> iter = sequencer.iterator()
@@ -104,7 +104,7 @@ class AnnotationSequenceGeneratorTests {
     void testSequenceGeneration3() {
         Sentence sentence = this.jcas.select(type:Sentence)[0]
         Collection<Class<? extends Annotation>> types = [Token]
-        AnnotationSequenceGenerator sequencer = new AnnotationSequenceGenerator(sentence, types)
+        AnnotationSequencer sequencer = new AnnotationSequencer(sentence, types)
         assert sequencer != null
 
         Iterator<List<? extends Annotation>> iter = sequencer.iterator()
@@ -129,7 +129,7 @@ class AnnotationSequenceGeneratorTests {
     @Test
     void testSequenceGeneration4() {
         Sentence sentence = this.jcas.select(type:Sentence)[2]
-        AnnotationSequenceGenerator sequencer = new AnnotationSequenceGenerator(sentence, [NamedEntityMention, Token])
+        AnnotationSequencer sequencer = new AnnotationSequencer(sentence, [NamedEntityMention, Token])
         Iterator<List<? extends Annotation>> iter = sequencer.iterator()
 
         assert iter.hasNext()
@@ -154,7 +154,7 @@ class AnnotationSequenceGeneratorTests {
 
 
         // reverse order in which types are declared
-        sequencer = new AnnotationSequenceGenerator(sentence, [Token, NamedEntityMention])
+        sequencer = new AnnotationSequencer(sentence, [Token, NamedEntityMention])
         iter = sequencer.iterator()
 
         assert iter.hasNext()

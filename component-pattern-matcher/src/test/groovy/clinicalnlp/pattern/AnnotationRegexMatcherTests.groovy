@@ -19,19 +19,15 @@ import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDesc
 import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
 import static clinicalnlp.pattern.AnnotationPattern.$A
-import static clinicalnlp.pattern.AnnotationPattern.$N
-import static clinicalnlp.pattern.AnnotationSequenceStringGenerator.genSequenceString
-
 
 @Log4j
-class AnnotationSequenceStringGeneratorTests {
-
+class AnnotationRegexMatcherTests {
     JCas jcas;
 
     @BeforeClass
     static void setupClass() {
         def config = new ConfigSlurper().parse(
-            AnnotationPatternRegexGeneratorTests.class.getResource('/config.groovy').text)
+            AnnotationRegexTests.class.getResource('/config.groovy').text)
         PropertyConfigurator.configure(config.toProperties())
         Class.forName('clinicalnlp.dsl.UIMA_DSL')
     }
@@ -72,12 +68,12 @@ class AnnotationSequenceStringGeneratorTests {
     }
 
     @Test
-    void testSequenceStringGeneration() {
-        AnnotationPattern pattern = $A(Token)(11,11)
-        AnnotationSequenceGenerator sequencer = new AnnotationSequenceGenerator(
-            this.jcas.select(type:Sentence)[0], [Token])
-
-        String sequenceString = genSequenceString(pattern, sequencer.iterator().next())
-        log.info "Sequence string: ${sequenceString}"
+    void testBasicPatternMatch() {
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Segment)[0], [Sentence])
+        AnnotationRegex regex = new AnnotationRegex($A(Sentence)(3,3))
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+        while (matcher.hasNext()) {
+            matcher.next()
+        }
     }
 }

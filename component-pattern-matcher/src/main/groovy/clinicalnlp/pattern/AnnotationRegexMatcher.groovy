@@ -2,15 +2,12 @@ package clinicalnlp.pattern
 
 import org.apache.uima.jcas.tcas.Annotation
 
-/**
- * AnnotationMatcher class definition
- */
-class AnnotationMatcher implements Iterator {
-    AnnotationPattern pattern
+class AnnotationRegexMatcher implements Iterator {
+    AnnotationRegex regex
     List<? extends Annotation> sequence
 
-    AnnotationMatcher(AnnotationPattern pattern, List<? extends Annotation> sequence) {
-        this.pattern = pattern
+    AnnotationRegexMatcher(AnnotationRegex regex, List<? extends Annotation> sequence) {
+        this.regex = regex
         this.sequence = sequence
     }
 
