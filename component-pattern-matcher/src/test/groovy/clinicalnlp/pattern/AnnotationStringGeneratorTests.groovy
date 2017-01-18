@@ -96,5 +96,7 @@ class AnnotationStringGeneratorTests {
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Window)[0], [Token])
         String sequenceString = genSequenceString(regex, sequencer.iterator().next())
         log.info "Sequence string: ${sequenceString}"
+        assert sequenceString ==
+            '①‹JJ›‹Tubular›①‹NN›‹adenoma›①‹AUX›‹was›①‹VBN›‹seen›①‹IN›‹in›①‹DT›‹the›①‹JJ›‹sigmoid›①‹NN›‹colon›'
     }
 }
