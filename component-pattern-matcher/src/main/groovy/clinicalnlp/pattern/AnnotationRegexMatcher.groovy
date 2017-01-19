@@ -29,8 +29,8 @@ class AnnotationRegexMatcher implements Iterator {
         this.matcher = regex.pattern.matcher(this.matchStr)
         this.matchIter = StringGroovyMethods.iterator(this.matcher)
 
-        println "Pattern: ${regex.pattern.toString()}"
-        println "Match string: ${this.matchStr}"
+        ////println "Pattern: ${regex.pattern.toString()}"
+        ////println "Match string: ${this.matchStr}"
     }
 
 

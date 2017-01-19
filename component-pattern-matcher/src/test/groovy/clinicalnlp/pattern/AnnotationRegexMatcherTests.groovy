@@ -50,14 +50,25 @@ class AnnotationRegexMatcherTests {
 
     @Test
     void testMatch1() {
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationRegex regex = new AnnotationRegex($N('tokens', $A(Token)(1,3)))
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
         List sequence = sequencer.iterator().next()
-        AnnotationRegex regex = new AnnotationRegex($N('tokens', $A(Token)(1,3)))
         AnnotationRegexMatcher matcher = regex.matcher(sequence)
         matcher.each { Binding binding ->
             assert binding.hasVariable('tokens')
         }
         matcher = regex.matcher(sequence)
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
         assert matcher.hasNext()
         Binding binding = matcher.next()
         List<Token> tokens = binding.getVariable('tokens')
@@ -83,51 +94,48 @@ class AnnotationRegexMatcherTests {
 
     @Test
     void testMatch2() {
-//        AnnotationPattern pattern = new AnnotationPattern(
-//            new NodeBuilder().regex (caseInsensitive:true) {
-//                include(type:NamedEntityMention, feats:['code'])
-//                include(type:Token, feats:['pos'])
-//                match {
-//                    node(type:NamedEntityMention, name:'finding', text:/tubular\s+adenoma/)
-//                    node(type:Token, range:[0,2])
-//                    node(type:Token, name:'seen', text:/seen/, feats:[pos:/V../])
-//                    node(type:Token, name:'tokens', text:/in|the/, range:[0,2])
-//                    node(type:NamedEntityMention, name:'site', text:/sigmoid\s+colon/, feats:[code:/C.2/])
-//                }
-//            }
-//        )
-        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
-            [NamedEntityMention, Token])
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
         AnnotationRegex regex = new AnnotationRegex(
-            $N('finding', $A(NamedEntityMention, [text:/Tubular\s+adenoma/])) &
+            $N('finding', $A(NamedEntityMention, [text:/(?i)tubular\s+adenoma/])) &
                 $A(Token)(0,2) &
-                $N('seen', $A(Token, [text:/seen/, pos:/VBN/])) &
+                $N('seen', $A(Token, [text:/seen/, pos:/V.*/])) &
                 $N('tokens', $A(Token, [text:/in|the/])(0,2)) &
-                $N('site', $A(NamedEntityMention, [text:/sigmoid\s+colon/, code:/C02/]))
+                $N('site', $A(NamedEntityMention, [text:/(?i)Sigmoid\s+colon/, code:/C.2/]))
         )
 
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
+            [NamedEntityMention, Token])
         AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
         int bindingCount = 0
         matcher.each() { Binding b ->
             bindingCount++
         }
         assert bindingCount == 1
-//        Iterator iter = pattern.matcher(jcas.select(type:Window)[0])
-//        assert iter.hasNext()
-//        Binding binding = iter.next()
-//        assert binding != null
-//        assert !iter.hasNext()
-//        NamedEntityMention finding = binding.getVariable('finding')[0]
-//        assert finding != null
-//        assert finding.coveredText ==~ /(?i)tubular\s+adenoma/
-//        NamedEntityMention site = binding.getVariable('site')[0]
-//        assert site != null
-//        assert site.coveredText ==~ /sigmoid\s+colon/
-//        Token token = binding.getVariable('tokens')[0]
-//        assert token != null
-//        assert token.coveredText == 'in'
-//        token = binding.getVariable('tokens')[1]
-//        assert token != null
-//        assert token.coveredText == 'the'
+        matcher = regex.matcher(sequencer.iterator().next())
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        assert binding != null
+        assert !matcher.hasNext()
+        NamedEntityMention finding = binding.getVariable('finding')[0]
+        assert finding != null
+        assert finding.coveredText ==~ /(?i)tubular\s+adenoma/
+        NamedEntityMention site = binding.getVariable('site')[0]
+        assert site != null
+        assert site.coveredText ==~ /sigmoid\s+colon/
+        Token token = binding.getVariable('tokens')[0]
+        assert token != null
+        assert token.coveredText == 'in'
+        token = binding.getVariable('tokens')[1]
+        assert token != null
+        assert token.coveredText == 'the'
     }
 }
