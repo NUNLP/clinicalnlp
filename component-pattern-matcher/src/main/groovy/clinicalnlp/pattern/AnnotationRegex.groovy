@@ -20,6 +20,7 @@ class AnnotationRegex {
     // -----------------------------------------------------------------------------------------------------------------
     Map<Class<? extends Annotation>, Character> typeMap = [:]
     Map<Class<? extends Annotation>, Set<String>> featMap = [:]
+    Set<String> groupNames = []
     private Integer typeCode = INIT_TYPE_CODE
     private Pattern pattern
 
@@ -59,6 +60,7 @@ class AnnotationRegex {
 
     // extract all type and feature information from the regex tree
     private extractTypes(AnnotationPattern pattern) {
+        if (pattern.name) { this.groupNames.add(pattern.name) }
         switch (pattern.class) {
             case AtomicAnnotationPattern.class:
                 Class<? extends Annotation> type = pattern.type
