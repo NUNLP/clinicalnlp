@@ -115,8 +115,16 @@ class SequenceAnnotationPattern extends AnnotationPattern {
 
     @Override
     AnnotationPattern and(AnnotationPattern pattern) {
-        this.children << pattern
-        return this
+        if (this.name || pattern.name) {
+            SequenceAnnotationPattern seq = new SequenceAnnotationPattern()
+            seq.children << this
+            seq.children << pattern
+            return seq
+        }
+        else {
+            this.children << pattern
+            return this
+        }
     }
 
     @Override
@@ -148,7 +156,15 @@ class OptionAnnotationPattern extends AnnotationPattern {
 
     @Override
     AnnotationPattern or(AnnotationPattern pattern) {
-        this.children << pattern
-        return this
+        if (this.name || pattern.name) {
+            OptionAnnotationPattern opts = new OptionAnnotationPattern()
+            opts.children << this
+            opts.children << pattern
+            return opts
+        }
+        else {
+            this.children << pattern
+            return this
+        }
     }
 }

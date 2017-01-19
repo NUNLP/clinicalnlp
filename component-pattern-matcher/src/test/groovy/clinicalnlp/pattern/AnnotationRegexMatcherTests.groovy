@@ -1,7 +1,8 @@
 package clinicalnlp.pattern
 
-import clinicalnlp.pattern.ae.TestAnnotator
+
 import clinicalnlp.types.NamedEntityMention
+import clinicalnlp.types.Segment
 import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
 import gov.va.vinci.leo.window.types.Window
@@ -9,14 +10,17 @@ import groovy.util.logging.Log4j
 import org.apache.log4j.Level
 import org.apache.log4j.PropertyConfigurator
 import org.apache.uima.analysis_engine.AnalysisEngine
+import org.apache.uima.analysis_engine.AnalysisEngineProcessException
+import org.apache.uima.fit.component.JCasAnnotator_ImplBase
 import org.apache.uima.fit.factory.AggregateBuilder
 import org.apache.uima.fit.pipeline.SimplePipeline
 import org.apache.uima.jcas.JCas
+import org.apache.uima.jcas.tcas.Annotation
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 
-import javax.lang.model.element.Name
+import java.util.regex.Matcher
 
 import static clinicalnlp.pattern.AnnotationPattern.$A
 import static clinicalnlp.pattern.AnnotationPattern.$N
@@ -24,6 +28,40 @@ import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDesc
 
 @Log4j
 class AnnotationRegexMatcherTests {
+    static class TestAnnotator extends JCasAnnotator_ImplBase {
+        @Override
+        void process(JCas jCas) throws AnalysisEngineProcessException {
+            String text = jCas.documentText
+            jCas.create(type: Segment, begin: 0, end: text.length())
+            jCas.create(type: Sentence, begin: 0, end: text.length())
+            jCas.create(type: Window, begin: 0, end: text.length())
+            Matcher m = (text =~ /\b\w+\b/)
+            m.each {
+                Token t = jCas.create(type: Token, begin: m.start(0), end: m.end(0))
+                switch (t.coveredText) {
+                    case 'Tubular': t.pos = 'JJ'; break;
+                    case 'adenoma': t.pos = 'NN'; break;
+                    case 'was': t.pos = 'AUX'; break;
+                    case 'seen': t.pos = 'VBN'; break;
+                    case 'in': t.pos = 'IN'; break;
+                    case 'the': t.pos = 'DT'; break;
+                    case 'sigmoid': t.pos = 'JJ'; break;
+                    case 'colon': t.pos = 'NN'; break;
+                    case '.': t.pos = 'PUNC'; break;
+                }
+            }
+            m = (text =~ /(?i)\b(sigmoid\s+colon)|(tubular\s+adenoma)|(polyps)\b/)
+            m.each {
+                NamedEntityMention nem = jCas.create(type: NamedEntityMention, begin: m.start(0), end: m.end(0))
+                switch (nem.coveredText) {
+                    case 'Tubular adenoma': nem.code = 'C01'; break;
+                    case 'sigmoid colon': nem.code = 'C02'; break;
+                    case 'polyps': nem.code = 'C03'; break;
+                }
+            }
+        }
+    }
+
     @BeforeClass
     static void setupClass() {
         def config = new ConfigSlurper().parse(
@@ -110,7 +148,8 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
             [NamedEntityMention, Token])
-        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+        List sequence = sequencer.iterator().next()
+        AnnotationRegexMatcher matcher = regex.matcher(sequence)
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
@@ -120,7 +159,7 @@ class AnnotationRegexMatcherTests {
             bindingCount++
         }
         assert bindingCount == 1
-        matcher = regex.matcher(sequencer.iterator().next())
+        matcher = regex.matcher(sequence)
         assert matcher.hasNext()
         Binding binding = matcher.next()
         assert binding != null
@@ -137,5 +176,46 @@ class AnnotationRegexMatcherTests {
         token = binding.getVariable('tokens')[1]
         assert token != null
         assert token.coveredText == 'the'
+    }
+
+    @Test
+    void testGroups() {
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationRegex regex = new AnnotationRegex(
+            $N('finding', $A(NamedEntityMention, [text:/(?i)tubular\s+adenoma/]) & $A(Token, [:])(1,5)) &
+                $N('site', $A(Token, [:])(1,3) & $A(NamedEntityMention, [:]))
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
+            [NamedEntityMention, Token])
+        List sequence = sequencer.iterator().next()
+        AnnotationRegexMatcher matcher = regex.matcher(sequence)
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        int bindingCount = 0
+        matcher.each() { Binding b ->
+            bindingCount++
+        }
+        matcher = regex.matcher(sequence)
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        assert !matcher.hasNext()
+        List<? extends Annotation> finding = binding.getVariable('finding')
+        assert finding.size() == 4
+        assert finding[0].coveredText == 'Tubular adenoma'
+        assert finding[1].coveredText == 'was'
+        assert finding[2].coveredText == 'seen'
+        assert finding[3].coveredText == 'in'
+        List<? extends Annotation> site = binding.getVariable('site')
+        assert site.size() == 2
+        assert site[0].coveredText == 'the'
+        assert site[1].coveredText == 'sigmoid colon'
     }
 }
