@@ -270,12 +270,46 @@ class AnnotationRegexMatcherTests {
         Binding binding = matcher.next()
         List<? extends Annotation> tok = binding.getVariable('tok')
         assert tok.size() == 1
+        assert tok[0].coveredText == 'Tubular'
         assert !matcher.hasNext()
     }
 
     @Test
     void testNegativeLookAhead() {
-        assert false
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationRegex regex = new AnnotationRegex(
+            $N('tok', $A(Token)) & -$LA($A(Token, [text:/adenoma|seen|sigmoid|colon/]))
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        List<? extends Annotation> tok = binding.getVariable('tok')
+        assert tok.size() == 1
+        assert tok[0].coveredText == 'adenoma'
+        binding = matcher.next()
+        tok = binding.getVariable('tok')
+        assert tok.size() == 1
+        assert tok[0].coveredText == 'seen'
+        binding = matcher.next()
+        tok = binding.getVariable('tok')
+        assert tok.size() == 1
+        assert tok[0].coveredText == 'in'
+        binding = matcher.next()
+        tok = binding.getVariable('tok')
+        assert tok.size() == 1
+        assert tok[0].coveredText == 'colon'
+        assert !matcher.hasNext()
     }
 
     @Test
