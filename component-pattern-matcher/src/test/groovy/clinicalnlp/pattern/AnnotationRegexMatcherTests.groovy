@@ -259,4 +259,39 @@ class AnnotationRegexMatcherTests {
         assert nem[0].coveredText == 'sigmoid colon'
         assert !matcher.hasNext()
     }
+
+    @Test
+    void testPositiveLookAhead() {
+        assert false
+    }
+
+    @Test
+    void testNegativeLookAhead() {
+        assert false
+    }
+
+    @Test
+    void testPositiveLookBehind() {
+        assert false
+    }
+
+    @Test
+    void testLookAround() {
+        assert false
+    }
+
+    @Test
+    void testNegativeLookBehind() {
+        assert false
+    }
+
+    @Test
+    void testLazyQuantifier() {
+        assert false
+    }
+
+    @Test
+    void testTextSpan() {
+        assert false
+    }
 }
