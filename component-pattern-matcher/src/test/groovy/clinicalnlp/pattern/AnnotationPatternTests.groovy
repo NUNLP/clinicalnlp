@@ -12,6 +12,8 @@ import org.junit.Test
 
 import static clinicalnlp.pattern.AnnotationPattern.$A
 import static clinicalnlp.pattern.AnnotationPattern.$N
+import static clinicalnlp.pattern.AnnotationPattern.$LA
+import static clinicalnlp.pattern.AnnotationPattern.$LB
 
 @Log4j
 class AnnotationPatternTests {
@@ -147,5 +149,21 @@ class AnnotationPatternTests {
         assert pattern.children[2] instanceof AtomicAnnotationPattern
         assert pattern.children[3] instanceof OptionAnnotationPattern
         assert pattern.children[4] instanceof AtomicAnnotationPattern
+    }
+
+    @Test
+    void testLookArounds() {
+
+        AnnotationPattern p1 = $A(Token, [pos:'NN', text:'Coffee'])
+        AnnotationPattern p2 = $A(Token, [pos:'VB', text:'tastes'])
+        AnnotationPattern p3 = $A(Token, [pos:'JJ', text:'great'])
+
+        AnnotationPattern pattern
+
+        pattern = +$LB(p1) & p2 & -$LA(p3)
+        assert p1.lookBehind == true
+        assert p1.positive == true
+        assert p3.lookAhead == true
+        assert p3.positive == false
     }
 }

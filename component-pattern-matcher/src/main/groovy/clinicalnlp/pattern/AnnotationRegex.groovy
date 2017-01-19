@@ -5,7 +5,6 @@ import org.apache.uima.jcas.tcas.Annotation
 
 import java.util.regex.Pattern
 
-// TODO: implement lookahead and lookbehind, both negative and positive
 @Log4j
 class AnnotationRegex {
     // -----------------------------------------------------------------------------------------------------------------
@@ -102,28 +101,48 @@ class AnnotationRegex {
                 : "[^${LBRACK}${RBRACK}]*"
             prefix + "${LBRACK}(?:${featVal})${RBRACK}"
         }
-        return decorate("${typeMap[type]}${featString}", pattern.name, pattern.range)
+        return decorate("${typeMap[type]}${featString}", pattern)
     }
 
     // Recursive method for generating regex string from a SequenceAnnotationPattern
     private String genRegexString(SequenceAnnotationPattern pattern) {
         String result = pattern.children.inject(''){prefix,rest -> "${prefix}${this.genRegexString(rest)}"}
-        return decorate(result, pattern.name, pattern.range)
+        return decorate(result, pattern)
     }
 
     // Recursive method for generating regex string from an OptionAnnotationPattern
     private String genRegexString(OptionAnnotationPattern pattern) {
         String first = this.genRegexString(pattern.children.remove(0))
         String result = pattern.children.inject(first){prefix,rest -> "${prefix}|${this.genRegexString(rest)}"}
-        return decorate(result, pattern.name, pattern.range)
+        return decorate(result, pattern)
     }
 
     // Add name, group, and quantifier information to regex
-    private String decorate(final String baseRegex, final String name, final IntRange range) {
+    private String decorate(final String baseRegex, final AnnotationPattern p) {
         String result = baseRegex
-        if (range) { result = "(?:${result}){${range.min()},${range.max()}}"}
-        if (name) { result = "(?<${name}>${result})" }
-        else { result = "(?:${result})"}
+        // check for range spec
+        if (p.range) {
+            result = "(?:${result}){${p.range.min()},${p.range.max()}}"
+        }
+        // check for group type
+        if (p.name) {
+            result = "(?<${p.name}>${result})"
+        }
+        else if (p.lookAhead && p.positive) {
+            result = "(?=${result})"
+        }
+        else if (p.lookAhead && !p.positive) {
+            result = "(?!${result})"
+        }
+        else if (p.lookBehind && p.positive) {
+            result = "(?!${result})"
+        }
+        else if (p.lookBehind && !p.positive) {
+            result = "(?<!${result})"
+        }
+        else {
+            result = "(?:${result})"
+        }
         return result
     }
 }

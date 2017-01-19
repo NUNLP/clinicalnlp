@@ -23,10 +23,16 @@ import java.util.regex.Matcher
 
 import static clinicalnlp.pattern.AnnotationPattern.$A
 import static clinicalnlp.pattern.AnnotationPattern.$N
+import static clinicalnlp.pattern.AnnotationPattern.$LA
+import static clinicalnlp.pattern.AnnotationPattern.$LB
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
 
 @Log4j
 class AnnotationRegexMatcherTests {
+
+    /**
+     * TestAnnotator
+     */
     static class TestAnnotator extends JCasAnnotator_ImplBase {
         @Override
         void process(JCas jCas) throws AnalysisEngineProcessException {
@@ -98,14 +104,16 @@ class AnnotationRegexMatcherTests {
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
         List sequence = sequencer.iterator().next()
         AnnotationRegexMatcher matcher = regex.matcher(sequence)
-        matcher.each { Binding binding ->
-            assert binding.hasVariable('tokens')
-        }
-        matcher = regex.matcher(sequence)
+
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
         //--------------------------------------------------------------------------------------------------------------
+        matcher.each { Binding binding ->
+            assert binding.hasVariable('tokens')
+        }
+        // create a new matcher to start over
+        matcher = regex.matcher(sequence)
         assert matcher.hasNext()
         Binding binding = matcher.next()
         List<Token> tokens = binding.getVariable('tokens')
@@ -147,18 +155,11 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
             [NamedEntityMention, Token])
-        List sequence = sequencer.iterator().next()
-        AnnotationRegexMatcher matcher = regex.matcher(sequence)
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
         //--------------------------------------------------------------------------------------------------------------
-        int bindingCount = 0
-        matcher.each() { Binding b ->
-            bindingCount++
-        }
-        assert bindingCount == 1
-        matcher = regex.matcher(sequence)
         assert matcher.hasNext()
         Binding binding = matcher.next()
         assert binding != null
@@ -192,17 +193,11 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
             [NamedEntityMention, Token])
-        List sequence = sequencer.iterator().next()
-        AnnotationRegexMatcher matcher = regex.matcher(sequence)
+        AnnotationRegexMatcher matcher = regex.matcher(++(sequencer.iterator()))
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
         //--------------------------------------------------------------------------------------------------------------
-        int bindingCount = 0
-        matcher.each() { Binding b ->
-            bindingCount++
-        }
-        matcher = regex.matcher(sequence)
         assert matcher.hasNext()
         Binding binding = matcher.next()
         assert !matcher.hasNext()
@@ -236,18 +231,11 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
             [NamedEntityMention, Token])
-        List sequence = sequencer.iterator().next()
-        AnnotationRegexMatcher matcher = regex.matcher(sequence)
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
         //--------------------------------------------------------------------------------------------------------------
-        int bindingCount = 0
-        matcher.each() { Binding b ->
-            bindingCount++
-        }
-        assert bindingCount == 2
-        matcher = regex.matcher(sequence)
         assert matcher.hasNext()
         Binding binding = matcher.next()
         List<? extends Annotation> nem = binding.getVariable('nem')
@@ -262,7 +250,27 @@ class AnnotationRegexMatcherTests {
 
     @Test
     void testPositiveLookAhead() {
-        assert false
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationRegex regex = new AnnotationRegex(
+            $N('tok', $A(Token)) & +$LA($A(Token, [text:/adenoma/]))
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        List<? extends Annotation> tok = binding.getVariable('tok')
+        assert tok.size() == 1
+        assert !matcher.hasNext()
     }
 
     @Test

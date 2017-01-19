@@ -23,14 +23,33 @@ abstract class AnnotationPattern {
         return pattern
     }
 
+    static $LA = { AnnotationPattern pattern ->
+        pattern.lookAhead = true
+        pattern.lookBehind = false
+        return pattern
+    }
+
+    static $LB = { AnnotationPattern pattern ->
+        pattern.lookAhead = false
+        pattern.lookBehind = true
+        return pattern
+    }
+
+
     String name
     IntRange range
+    Boolean lookAhead
+    Boolean positive
+    Boolean lookBehind
 
     /**
      * Constructor
      * @param regex
      */
     protected AnnotationPattern() {
+        this.lookAhead = false
+        this.lookBehind = false
+        this.positive = true
     }
 
     /**
@@ -49,6 +68,8 @@ abstract class AnnotationPattern {
      * @return
      */
     AnnotationPattern positive() {
+        this.positive = true
+        return this
     }
 
     /**
@@ -56,6 +77,28 @@ abstract class AnnotationPattern {
      * @return
      */
     AnnotationPattern negative() {
+        this.positive = false
+        return this
+    }
+
+    /**
+     *
+     * @param positve
+     * @return
+     */
+    AnnotationPattern leftShift(Boolean positive) {
+        println "leftShift: ${positive}"
+        return this
+    }
+
+    /**
+     *
+     * @param positve
+     * @return
+     */
+    AnnotationPattern rightShift(Boolean positive) {
+        println "rightShift: ${positive}"
+        return this
     }
 
     /**
