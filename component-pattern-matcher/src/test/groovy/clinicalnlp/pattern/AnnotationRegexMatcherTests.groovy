@@ -1,8 +1,10 @@
 package clinicalnlp.pattern
 
 import clinicalnlp.pattern.ae.TestAnnotator
+import clinicalnlp.types.NamedEntityMention
 import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
+import gov.va.vinci.leo.window.types.Window
 import groovy.util.logging.Log4j
 import org.apache.log4j.Level
 import org.apache.log4j.PropertyConfigurator
@@ -13,6 +15,8 @@ import org.apache.uima.jcas.JCas
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
+
+import javax.lang.model.element.Name
 
 import static clinicalnlp.pattern.AnnotationPattern.$A
 import static clinicalnlp.pattern.AnnotationPattern.$N
@@ -45,7 +49,7 @@ class AnnotationRegexMatcherTests {
     }
 
     @Test
-    void testBasicPatternMatch() {
+    void testMatch1() {
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
         List sequence = sequencer.iterator().next()
         AnnotationRegex regex = new AnnotationRegex($N('tokens', $A(Token)(1,3)))
@@ -75,5 +79,55 @@ class AnnotationRegexMatcherTests {
         assert tokens[0].coveredText == 'sigmoid'
         assert tokens[1].coveredText == 'colon'
         assert !matcher.hasNext()
+    }
+
+    @Test
+    void testMatch2() {
+//        AnnotationPattern pattern = new AnnotationPattern(
+//            new NodeBuilder().regex (caseInsensitive:true) {
+//                include(type:NamedEntityMention, feats:['code'])
+//                include(type:Token, feats:['pos'])
+//                match {
+//                    node(type:NamedEntityMention, name:'finding', text:/tubular\s+adenoma/)
+//                    node(type:Token, range:[0,2])
+//                    node(type:Token, name:'seen', text:/seen/, feats:[pos:/V../])
+//                    node(type:Token, name:'tokens', text:/in|the/, range:[0,2])
+//                    node(type:NamedEntityMention, name:'site', text:/sigmoid\s+colon/, feats:[code:/C.2/])
+//                }
+//            }
+//        )
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
+            [NamedEntityMention, Token])
+        AnnotationRegex regex = new AnnotationRegex(
+            $N('finding', $A(NamedEntityMention, [text:/Tubular\s+adenoma/])) &
+                $A(Token)(0,2) &
+                $N('seen', $A(Token, [text:/seen/, pos:/VBN/])) &
+                $N('tokens', $A(Token, [text:/in|the/])(0,2)) &
+                $N('site', $A(NamedEntityMention, [text:/sigmoid\s+colon/, code:/C02/]))
+        )
+
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+        int bindingCount = 0
+        matcher.each() { Binding b ->
+            bindingCount++
+        }
+        assert bindingCount == 1
+//        Iterator iter = pattern.matcher(jcas.select(type:Window)[0])
+//        assert iter.hasNext()
+//        Binding binding = iter.next()
+//        assert binding != null
+//        assert !iter.hasNext()
+//        NamedEntityMention finding = binding.getVariable('finding')[0]
+//        assert finding != null
+//        assert finding.coveredText ==~ /(?i)tubular\s+adenoma/
+//        NamedEntityMention site = binding.getVariable('site')[0]
+//        assert site != null
+//        assert site.coveredText ==~ /sigmoid\s+colon/
+//        Token token = binding.getVariable('tokens')[0]
+//        assert token != null
+//        assert token.coveredText == 'in'
+//        token = binding.getVariable('tokens')[1]
+//        assert token != null
+//        assert token.coveredText == 'the'
     }
 }

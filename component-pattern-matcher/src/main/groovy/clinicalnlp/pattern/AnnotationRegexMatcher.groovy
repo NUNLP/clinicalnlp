@@ -5,8 +5,8 @@ import org.codehaus.groovy.runtime.StringGroovyMethods
 
 import java.util.regex.Matcher
 
-import static clinicalnlp.pattern.AnnotationRegex.getLBRACK
-import static clinicalnlp.pattern.AnnotationRegex.getRBRACK
+import static clinicalnlp.pattern.AnnotationRegex.LBRACK
+import static clinicalnlp.pattern.AnnotationRegex.RBRACK
 
 class AnnotationRegexMatcher implements Iterator {
     private final Set<String> groupNames
@@ -28,6 +28,9 @@ class AnnotationRegexMatcher implements Iterator {
         }
         this.matcher = regex.pattern.matcher(this.matchStr)
         this.matchIter = StringGroovyMethods.iterator(this.matcher)
+
+        println "Pattern: ${regex.pattern.toString()}"
+        println "Match string: ${this.matchStr}"
     }
 
 
