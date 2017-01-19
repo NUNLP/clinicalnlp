@@ -4,7 +4,7 @@ import groovy.util.logging.Log4j
 import org.apache.uima.jcas.tcas.Annotation
 
 /**
- *
+ * AnnotationPattern class definition
  */
 @Log4j
 abstract class AnnotationPattern {

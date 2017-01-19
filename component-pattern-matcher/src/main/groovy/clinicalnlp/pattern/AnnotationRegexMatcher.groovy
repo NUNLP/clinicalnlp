@@ -5,21 +5,30 @@ import org.codehaus.groovy.runtime.StringGroovyMethods
 
 import java.util.regex.Matcher
 
+import static clinicalnlp.pattern.AnnotationRegex.getLBRACK
+import static clinicalnlp.pattern.AnnotationRegex.getRBRACK
+
 class AnnotationRegexMatcher implements Iterator {
     private final Set<String> groupNames
-    private final Map<Integer, Annotation> indexMap
+    private final Map<Integer, Annotation> indexMap = [:]
     private final Matcher matcher
     private final Iterator matchIter
 
     AnnotationRegexMatcher(final AnnotationRegex regex, final List<? extends Annotation> sequence) {
-        def result = AnnotationStringGenerator.genSequenceString(regex, sequence)
-        ////println "Pattern regex: ${regex.pattern.toString()}"
-        ////println "Match string: ${result.second}"
-        this.indexMap = result.first
-        this.matcher = regex.pattern.matcher(result.second)
-        this.matchIter = StringGroovyMethods.iterator(this.matcher)
         this.groupNames = regex.groupNames
+        String matchStr = sequence.inject('') { String resultPrefix, Annotation ann ->
+            String typeCode = regex.typeMap[ann.class]
+            String featString = regex.featMap[ann.class].inject('') { featPrefix, featName ->
+                String featVal = (featName == 'text' ? ann.coveredText : ann."${featName}")
+                featPrefix + "${LBRACK}${featVal}${RBRACK}"
+            }
+            this.indexMap[resultPrefix.size()] = ann
+            resultPrefix + typeCode + featString
+        }
+        this.matcher = regex.pattern.matcher(matchStr)
+        this.matchIter = StringGroovyMethods.iterator(this.matcher)
     }
+
 
     @Override
     boolean hasNext() {
