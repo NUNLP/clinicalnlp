@@ -34,7 +34,7 @@ class AnnotationRegexMatcher implements Iterator {
             String matchedText = matcher.group(name)
             if (matchedText) {
                 List matchedAnns = []
-                for (Integer idx : (matcher.start(name)..matcher.end(name))) {
+                for (Integer idx : (matcher.start(name)..matcher.end(name)-1)) {
                     if (this.indexMap.containsKey(idx)) { matchedAnns << this.indexMap[idx] }
                 }
                 binding.setVariable(name, matchedAnns)

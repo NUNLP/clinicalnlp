@@ -53,7 +53,27 @@ class AnnotationRegexMatcherTests {
         matcher.each { Binding binding ->
             assert binding.hasVariable('tokens')
         }
-
-
+        matcher = regex.matcher(sequence)
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        List<Token> tokens = binding.getVariable('tokens')
+        assert tokens.size() == 3
+        assert tokens[0].coveredText == 'Tubular'
+        assert tokens[1].coveredText == 'adenoma'
+        assert tokens[2].coveredText == 'was'
+        assert matcher.hasNext()
+        binding = matcher.next()
+        tokens = binding.getVariable('tokens')
+        assert tokens.size() == 3
+        assert tokens[0].coveredText == 'seen'
+        assert tokens[1].coveredText == 'in'
+        assert tokens[2].coveredText == 'the'
+        assert matcher.hasNext()
+        binding = matcher.next()
+        tokens = binding.getVariable('tokens')
+        assert tokens.size() == 2
+        assert tokens[0].coveredText == 'sigmoid'
+        assert tokens[1].coveredText == 'colon'
+        assert !matcher.hasNext()
     }
 }
