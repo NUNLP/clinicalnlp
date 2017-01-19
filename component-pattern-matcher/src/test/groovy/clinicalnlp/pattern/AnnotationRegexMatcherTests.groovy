@@ -1,6 +1,5 @@
 package clinicalnlp.pattern
 
-
 import clinicalnlp.types.NamedEntityMention
 import clinicalnlp.types.Segment
 import clinicalnlp.types.Token
@@ -217,5 +216,47 @@ class AnnotationRegexMatcherTests {
         assert site.size() == 2
         assert site[0].coveredText == 'the'
         assert site[1].coveredText == 'sigmoid colon'
+    }
+
+    @Test
+    void testUnions() {
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationRegex regex = new AnnotationRegex(
+            $A(Token, [:])(0,5) &
+                $N('nem',
+                    $A(NamedEntityMention, [text:/(?i)tubular\s+adenoma/]) |
+                    $A(NamedEntityMention, [text:/(?i)sigmoid\s+colon/])) &
+                $A(Token, [:])(0,5)
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
+            [NamedEntityMention, Token])
+        List sequence = sequencer.iterator().next()
+        AnnotationRegexMatcher matcher = regex.matcher(sequence)
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        int bindingCount = 0
+        matcher.each() { Binding b ->
+            bindingCount++
+        }
+        assert bindingCount == 2
+        matcher = regex.matcher(sequence)
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        List<? extends Annotation> nem = binding.getVariable('nem')
+        assert nem.size() == 1
+        assert nem[0].coveredText == 'Tubular adenoma'
+        binding = matcher.next()
+        nem = binding.getVariable('nem')
+        assert nem.size() == 1
+        assert nem[0].coveredText == 'sigmoid colon'
+        assert !matcher.hasNext()
     }
 }
