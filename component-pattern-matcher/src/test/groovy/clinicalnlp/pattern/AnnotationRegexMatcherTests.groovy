@@ -318,7 +318,7 @@ class AnnotationRegexMatcherTests {
         // Create an AnnotationRegex instance
         //--------------------------------------------------------------------------------------------------------------
         AnnotationRegex regex = new AnnotationRegex(
-            +$LB($A(Token, [text:/adenoma/])) & +$N('tok', $A(Token)(3,3))
+            +$LB($A(Token, [text:/adenoma/])) & $N('tok', $A(Token)(3,3))
         )
 
         //--------------------------------------------------------------------------------------------------------------
@@ -346,7 +346,7 @@ class AnnotationRegexMatcherTests {
         // Create an AnnotationRegex instance
         //--------------------------------------------------------------------------------------------------------------
         AnnotationRegex regex = new AnnotationRegex(
-            -$LB($A(Token, [text:/adenoma|seen|sigmoid/])) & +$N('tok', $A(Token))
+            -$LB($A(Token, [text:/adenoma|seen|sigmoid/])) & $N('tok', $A(Token))
         )
 
         //--------------------------------------------------------------------------------------------------------------
@@ -384,7 +384,29 @@ class AnnotationRegexMatcherTests {
 
     @Test
     void testLookAround() {
-        assert false
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationRegex regex = new AnnotationRegex(
+            +$LB($A(Token, [text:/was/])) & $N('tok', $A(Token)(0,3)) & +$LA($A(Token, [text:/sigmoid/]))
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        List<? extends Annotation> tok = binding.getVariable('tok')
+        assert tok.size() == 3
+        assert tok[0].coveredText == 'seen'
+        assert tok[1].coveredText == 'in'
+        assert tok[2].coveredText == 'the'
     }
 
     @Test
