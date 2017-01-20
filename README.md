@@ -1,6 +1,4 @@
-## queri-leo-components
-
-LEO components for the QUERI colonoscopy quality project
+## Clinical NLP UIMA components
 
 To set UIMA_HOME on OS X, run this command before launching app:
 
