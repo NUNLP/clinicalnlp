@@ -64,6 +64,18 @@ class AnnotationSequencerTests {
         assert tokens.size() == 22
         Collection<NamedEntityMention> nems = jcas.select(type:NamedEntityMention)
         assert nems.size() == 5
+
+        Sentence sentence = this.jcas.select(type:Sentence)[0]
+        AnnotationSequencer sequencer = new AnnotationSequencer(sentence, [NamedEntityMention, Token])
+        int iterCount = 0
+        sequencer.iterator().each { List<? extends Annotation> seq ->
+            String typeSeq = seq.inject('[') { prefix, next ->
+                "${prefix} ${next.class.simpleName}"
+            }
+            println "Sequence size: ${seq.size()}; ${typeSeq} ]"
+            iterCount++
+        }
+        assert iterCount == 8
     }
 
     @Test
@@ -85,8 +97,7 @@ class AnnotationSequencerTests {
     @Test
     void testSequenceGeneration2() {
         Segment segment = this.jcas.select(type:Segment)[0]
-        Collection<Class<? extends Annotation>> types = [Sentence]
-        AnnotationSequencer sequencer = new AnnotationSequencer(segment, types)
+        AnnotationSequencer sequencer = new AnnotationSequencer(segment, [Sentence])
         assert sequencer != null
 
         Iterator<List<? extends Annotation>> iter = sequencer.iterator()
