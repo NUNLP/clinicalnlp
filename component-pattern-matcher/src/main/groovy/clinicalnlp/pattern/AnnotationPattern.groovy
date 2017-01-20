@@ -8,16 +8,14 @@ import org.apache.uima.jcas.tcas.Annotation
  */
 @Log4j
 abstract class AnnotationPattern {
-    /**
-     * Factory method for atom
-     */
+    //------------------------------------------------------------------------------------------------------------------
+    // Factory Methods
+    //------------------------------------------------------------------------------------------------------------------
+
     static $A = { final Class<? extends Annotation> type, final Map<String, String> features = [:] ->
         return new AtomicAnnotationPattern(type, features)
     }
 
-    /**
-     * Factory method for named groups
-     */
     static $N = { String name, AnnotationPattern pattern ->
         pattern.name = name
         return pattern
@@ -36,12 +34,20 @@ abstract class AnnotationPattern {
     }
 
 
+    //------------------------------------------------------------------------------------------------------------------
+    // Fields
+    //------------------------------------------------------------------------------------------------------------------
+
     String name
     IntRange range
     Boolean lookAhead
     Boolean positive
     Boolean lookBehind
     Boolean greedy
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Methods
+    //------------------------------------------------------------------------------------------------------------------
 
     /**
      * Constructor
@@ -85,26 +91,6 @@ abstract class AnnotationPattern {
 
     /**
      *
-     * @param positve
-     * @return
-     */
-    AnnotationPattern leftShift(Boolean positive) {
-        println "leftShift: ${positive}"
-        return this
-    }
-
-    /**
-     *
-     * @param positve
-     * @return
-     */
-    AnnotationPattern rightShift(Boolean positive) {
-        println "rightShift: ${positive}"
-        return this
-    }
-
-    /**
-     *
      * @param pattern
      * @return
      */
@@ -119,7 +105,7 @@ abstract class AnnotationPattern {
 }
 
 /**
- *
+ * AtomicAnnotationPattern class definition
  */
 @Log4j
 class AtomicAnnotationPattern extends AnnotationPattern {
@@ -149,7 +135,7 @@ class AtomicAnnotationPattern extends AnnotationPattern {
 }
 
 /**
- *
+ * SequenceAnnotationPattern class definition
  */
 @Log4j
 class SequenceAnnotationPattern extends AnnotationPattern {
@@ -182,7 +168,7 @@ class SequenceAnnotationPattern extends AnnotationPattern {
 }
 
 /**
- *
+ * OptionAnnotationPattern class definition
  */
 @Log4j
 class OptionAnnotationPattern extends AnnotationPattern {
