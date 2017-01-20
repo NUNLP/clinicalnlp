@@ -1,15 +1,31 @@
 package clinicalnlp.pattern
 
+import groovy.util.logging.Log4j
 import org.apache.uima.jcas.JCas
 import org.apache.uima.jcas.tcas.Annotation
 
 import static org.apache.uima.fit.util.JCasUtil.selectCovered
 
-
+/**
+ * AnnotationSequencer class definition
+ */
+@Log4j
 class AnnotationSequencer implements Iterable<List<? extends Annotation>> {
+    // -----------------------------------------------------------------------------------------------------------------
+    // Instance Fields
+    // -----------------------------------------------------------------------------------------------------------------
     Annotation span
     Collection<Class<? extends  Annotation>> types
 
+    // -----------------------------------------------------------------------------------------------------------------
+    // Public methods
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Constructor
+     * @param span
+     * @param types
+     */
     AnnotationSequencer(Annotation span, Collection<Class<? extends  Annotation>> types) {
         this.span = span
         this.types = types
@@ -20,8 +36,12 @@ class AnnotationSequencer implements Iterable<List<? extends Annotation>> {
         return new AnnotationSequenceIterator()
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+    // Iterator
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
-     * Iterator class
+     * AnnotationSequenceIterator class definition
      */
     private class AnnotationSequenceIterator implements Iterator<List<? extends Annotation>> {
         Map<Integer, List<? extends Annotation>> textIdxToAnnMap = [:]

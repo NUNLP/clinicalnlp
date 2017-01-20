@@ -36,14 +36,14 @@ class AnnotationRegexMatcherTests {
      */
     static class TestAnnotator extends JCasAnnotator_ImplBase {
         @Override
-        void process(JCas jCas) throws AnalysisEngineProcessException {
-            String text = jCas.documentText
-            jCas.create(type: Segment, begin: 0, end: text.length())
-            jCas.create(type: Sentence, begin: 0, end: text.length())
-            jCas.create(type: Window, begin: 0, end: text.length())
+        void process(JCas jcas) throws AnalysisEngineProcessException {
+            String text = jcas.documentText
+            jcas.create(type: Segment, begin: 0, end: text.length())
+            jcas.create(type: Sentence, begin: 0, end: text.length())
+            jcas.create(type: Window, begin: 0, end: text.length())
             Matcher m = (text =~ /\b\w+\b/)
             m.each {
-                Token t = jCas.create(type: Token, begin: m.start(0), end: m.end(0))
+                Token t = jcas.create(type: Token, begin: m.start(0), end: m.end(0))
                 switch (t.coveredText) {
                     case 'Tubular': t.pos = 'JJ'; break;
                     case 'adenoma': t.pos = 'NN'; break;
@@ -58,7 +58,7 @@ class AnnotationRegexMatcherTests {
             }
             m = (text =~ /(?i)\b(sigmoid\s+colon)|(tubular\s+adenoma)|(polyps)\b/)
             m.each {
-                NamedEntityMention nem = jCas.create(type: NamedEntityMention, begin: m.start(0), end: m.end(0))
+                NamedEntityMention nem = jcas.create(type: NamedEntityMention, begin: m.start(0), end: m.end(0))
                 switch (nem.coveredText) {
                     case 'Tubular adenoma': nem.code = 'C01'; break;
                     case 'sigmoid colon': nem.code = 'C02'; break;

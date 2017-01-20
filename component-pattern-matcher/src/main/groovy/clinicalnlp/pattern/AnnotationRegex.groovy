@@ -5,6 +5,9 @@ import org.apache.uima.jcas.tcas.Annotation
 
 import java.util.regex.Pattern
 
+/**
+ * AnnotationRegex class definition
+ */
 @Log4j
 class AnnotationRegex {
     // -----------------------------------------------------------------------------------------------------------------
@@ -28,6 +31,14 @@ class AnnotationRegex {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * Constructor
+     * @param annotationPattern
+     */
+    AnnotationRegex(AnnotationPattern annotationPattern) {
+        this.pattern = genRegExPattern(annotationPattern)
+    }
+
+    /**
      * Create an annotation matcher
      * @param sequence
      * @return
@@ -36,26 +47,15 @@ class AnnotationRegex {
         return new AnnotationRegexMatcher(this, sequence)
     }
 
-    /**
-     *
-     * @param annotationPattern
-     */
-    AnnotationRegex(AnnotationPattern annotationPattern) {
-        this.pattern = genRegExPattern(annotationPattern)
-    }
-
-    /**
-     *
-     * @return
-     */
-    Pattern genRegExPattern(AnnotationPattern annotationPattern) {
-        this.extractTypes(annotationPattern)
-        return Pattern.compile(this.genRegexString(annotationPattern))
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
     // Private methods
     // -----------------------------------------------------------------------------------------------------------------
+
+    // generate Pattern instance from AnnotationPattern structure
+    private Pattern genRegExPattern(AnnotationPattern annotationPattern) {
+        this.extractTypes(annotationPattern)
+        return Pattern.compile(this.genRegexString(annotationPattern))
+    }
 
     // extract all type and feature information from the regex tree
     private extractTypes(AnnotationPattern pattern) {
@@ -119,30 +119,21 @@ class AnnotationRegex {
 
     // Add name, group, and quantifier information to regex
     private String decorate(final String baseRegex, final AnnotationPattern p) {
+        // initialize return value
         String result = baseRegex
-        // check for range spec
-        if (p.range) {
-            result = "(?:${result}){${p.range.min()},${p.range.max()}}${p.greedy?'':'?'}"
-        }
+
+        // add range information, and check for lazy vs. greedy evaluation
+        if (p.range) { result = "(?:${result}){${p.range.min()},${p.range.max()}}${p.greedy?'':'?'}" }
+
         // check for group type
-        if (p.name) {
-            result = "(?<${p.name}>${result})"
-        }
-        else if (p.lookAhead && p.positive) {
-            result = "(?=${result})"
-        }
-        else if (p.lookAhead && !p.positive) {
-            result = "(?!${result})"
-        }
-        else if (p.lookBehind && p.positive) {
-            result = "(?<=${result})"
-        }
-        else if (p.lookBehind && !p.positive) {
-            result = "(?<!${result})"
-        }
-        else {
-            result = "(?:${result})"
-        }
+        if (p.name) { result = "(?<${p.name}>${result})" }
+        else if (p.lookAhead && p.positive) { result = "(?=${result})" }
+        else if (p.lookAhead && !p.positive) { result = "(?!${result})" }
+        else if (p.lookBehind && p.positive) { result = "(?<=${result})" }
+        else if (p.lookBehind && !p.positive) { result = "(?<!${result})" }
+        else { result = "(?:${result})" }
+
+        // return value
         return result
     }
 }
