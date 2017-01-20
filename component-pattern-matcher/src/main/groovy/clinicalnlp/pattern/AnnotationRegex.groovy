@@ -135,7 +135,7 @@ class AnnotationRegex {
             result = "(?!${result})"
         }
         else if (p.lookBehind && p.positive) {
-            result = "(?!${result})"
+            result = "(?<=${result})"
         }
         else if (p.lookBehind && !p.positive) {
             result = "(?<!${result})"

@@ -314,16 +314,76 @@ class AnnotationRegexMatcherTests {
 
     @Test
     void testPositiveLookBehind() {
-        assert false
-    }
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationRegex regex = new AnnotationRegex(
+            +$LB($A(Token, [text:/adenoma/])) & +$N('tok', $A(Token)(3,3))
+        )
 
-    @Test
-    void testLookAround() {
-        assert false
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        List<? extends Annotation> tok = binding.getVariable('tok')
+        assert tok.size() == 3
+        assert tok[0].coveredText == 'was'
+        assert tok[1].coveredText == 'seen'
+        assert tok[2].coveredText == 'in'
+        assert !matcher.hasNext()
     }
 
     @Test
     void testNegativeLookBehind() {
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationRegex regex = new AnnotationRegex(
+            -$LB($A(Token, [text:/adenoma|seen|sigmoid/])) & +$N('tok', $A(Token))
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        List<? extends Annotation> tok = binding.getVariable('tok')
+        assert tok.size() == 1
+        assert tok[0].coveredText == 'Tubular'
+        binding = matcher.next()
+        tok = binding.getVariable('tok')
+        assert tok.size() == 1
+        assert tok[0].coveredText == 'adenoma'
+        binding = matcher.next()
+        tok = binding.getVariable('tok')
+        assert tok.size() == 1
+        assert tok[0].coveredText == 'seen'
+        binding = matcher.next()
+        tok = binding.getVariable('tok')
+        assert tok.size() == 1
+        assert tok[0].coveredText == 'the'
+        binding = matcher.next()
+        tok = binding.getVariable('tok')
+        assert tok.size() == 1
+        assert tok[0].coveredText == 'sigmoid'
+        assert !matcher.hasNext()
+    }
+
+    @Test
+    void testLookAround() {
         assert false
     }
 
