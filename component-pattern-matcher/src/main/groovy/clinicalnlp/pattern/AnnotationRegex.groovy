@@ -122,7 +122,7 @@ class AnnotationRegex {
         String result = baseRegex
         // check for range spec
         if (p.range) {
-            result = "(?:${result}){${p.range.min()},${p.range.max()}}"
+            result = "(?:${result}){${p.range.min()},${p.range.max()}}${p.greedy?'':'?'}"
         }
         // check for group type
         if (p.name) {

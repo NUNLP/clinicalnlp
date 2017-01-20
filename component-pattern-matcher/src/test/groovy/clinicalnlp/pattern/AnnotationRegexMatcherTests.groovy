@@ -412,7 +412,31 @@ class AnnotationRegexMatcherTests {
 
     @Test
     void testLazyQuantifier() {
-        assert false
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationRegex regex = new AnnotationRegex(
+            $N('tokens', $A(Token)(3,5, false))
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        def tokens = binding.getVariable('tokens')
+        assert tokens.size() == 3
+        assert matcher.hasNext()
+        binding = matcher.next()
+        tokens = binding.getVariable('tokens')
+        assert tokens.size() == 3
+        assert !matcher.hasNext()
     }
 
     @Test

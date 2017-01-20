@@ -41,6 +41,7 @@ abstract class AnnotationPattern {
     Boolean lookAhead
     Boolean positive
     Boolean lookBehind
+    Boolean greedy
 
     /**
      * Constructor
@@ -58,8 +59,9 @@ abstract class AnnotationPattern {
      * @param max
      * @return
      */
-    AnnotationPattern call(Integer min, Integer max) {
+    AnnotationPattern call(Integer min, Integer max, Boolean greedy=true) {
         this.range = (min..max)
+        this.greedy = greedy
         return this
     }
 
