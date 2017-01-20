@@ -194,7 +194,7 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
             [NamedEntityMention, Token])
-        AnnotationRegexMatcher matcher = regex.matcher(++(sequencer.iterator()))
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
