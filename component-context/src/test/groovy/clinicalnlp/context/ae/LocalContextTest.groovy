@@ -13,7 +13,7 @@ import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 
-import static clinicalnlp.dsl.UIMA_DSL.getAnd
+import static clinicalnlp.dsl.DSL.getAnd
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
 import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
@@ -22,7 +22,7 @@ class LocalContextTest {
 	
 	@BeforeClass
 	static void setupClass() {
-        Class.forName('clinicalnlp.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.DSL')
 		BasicConfigurator.configure()
 	}
 	

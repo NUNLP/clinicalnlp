@@ -19,7 +19,7 @@ class LocalTokenAnnotatorTest {
     @BeforeClass
     public static void setupClass() {
         BasicConfigurator.configure()
-        Class.forName('clinicalnlp.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.DSL')
     }
 
     @Test

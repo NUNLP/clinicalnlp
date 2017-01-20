@@ -28,7 +28,7 @@ class AnnotationSequencerTests {
         def config = new ConfigSlurper().parse(
             AnnotationRegexTests.class.getResource('/config.groovy').text)
         PropertyConfigurator.configure(config.toProperties())
-        Class.forName('clinicalnlp.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.DSL')
     }
 
     @Before

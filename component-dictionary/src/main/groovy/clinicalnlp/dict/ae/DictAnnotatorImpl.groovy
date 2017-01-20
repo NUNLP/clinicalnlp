@@ -2,7 +2,7 @@ package clinicalnlp.dict.ae
 
 import clinicalnlp.dict.*
 import clinicalnlp.dict.stringdist.MinEditDist
-import clinicalnlp.dsl.UIMA_DSL
+import clinicalnlp.dsl.DSL
 import clinicalnlp.types.DictMatch
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.common.io.Resources
@@ -31,7 +31,7 @@ class DictAnnotatorImpl {
 
         if (postScriptFile) {
             CompilerConfiguration config = new CompilerConfiguration()
-            config.setScriptBaseClass("clinicalnlp.dsl.UIMA_DSL")
+            config.setScriptBaseClass("clinicalnlp.dsl.DSL")
             GroovyShell shell = new GroovyShell(config)
             this.postScript = shell.parse(Resources.toString(
                     Resources.getResource(postScriptFile),
@@ -46,7 +46,7 @@ class DictAnnotatorImpl {
 
         jcas.select(type:ContainerClass).each { Annotation container ->
             Collection<Annotation> anns = jcas.select(type:TokenClass,
-                    filter:UIMA_DSL.coveredBy(container))
+                    filter:DSL.coveredBy(container))
             Collection<CharSequence> tokens = new ArrayList<>()
             anns.each { Annotation ann ->
                 tokens << (caseInsensitive ? ann.coveredText.toLowerCase() : ann.coveredText)

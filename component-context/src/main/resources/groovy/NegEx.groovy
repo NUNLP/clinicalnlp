@@ -1,9 +1,12 @@
 import clinicalnlp.dsl.AnnotationMatchResult
-import clinicalnlp.dsl.AnnotationPattern
+import clinicalnlp.pattern.AnnotationRegex
+import clinicalnlp.pattern.AnnotationRegexMatcher
+import clinicalnlp.pattern.AnnotationSequencer
 import clinicalnlp.types.*
 import gov.va.vinci.leo.sentence.types.Sentence
 
-import static clinicalnlp.dsl.UIMA_DSL.*
+import static clinicalnlp.dsl.DSL.*
+import static clinicalnlp.pattern.AnnotationPattern.*
 
 // ----------------------------------------------------------------------------
 // patterns
@@ -73,23 +76,14 @@ applyPatterns(
         jcas.create(type:NegationScopeTerminator, begin:m.start(0), end:m.end(0)) }
     )
 
-// create a negation scope between each pair of negation scope terminators
-//noinspection GroovyAssignabilityCheck
-AnnotationPattern pattern = new AnnotationPattern(
-    new NodeBuilder().regex (caseInsensitive:true) {
-        include(type:NegationScopeTerminator)
-        match {
-            node(type:NegationScopeTerminator, name:'n1')
-        }
-        lookAhead(positive:true) {
-            node(type:NegationScopeTerminator, name:'n2')
-        }
-    }
+AnnotationRegex regex = new AnnotationRegex(
+    $N('n1', $A(NegationScopeTerminator)) & +$LA($N('n2', $A(NegationScopeTerminator)))
 )
+
 sents.each { Sentence sent ->
-    jcas.create(type:NegationScopeTerminator, begin:sent.begin, end:sent.begin)
-    jcas.create(type:NegationScopeTerminator, begin:sent.end, end:sent.end)
-    pattern.matcher(sent).each { Binding b ->
+    AnnotationSequencer sequencer = new AnnotationSequencer(sent, [NegationScopeTerminator])
+    AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+    matcher.each { Binding b ->
         NegationScopeTerminator n1 = b.getVariable('n1')[0]
         NegationScopeTerminator n2 = b.getVariable('n2')[0]
         jcas.create(type:NegationScope, begin:n1.begin, end:n2.end)

@@ -1,6 +1,6 @@
 package clinicalnlp.dsl.ae
 
-import clinicalnlp.dsl.UIMA_DSL
+import clinicalnlp.dsl.DSL
 import com.google.common.io.Resources
 import groovy.util.logging.Log4j
 import org.apache.commons.io.Charsets
@@ -16,9 +16,9 @@ class DSLAnnotatorImpl {
     def initialize(String bindingsScriptFileName, String scriptFileName)
             throws ResourceInitializationException {
         log.level = Level.INFO
-        Class.forName(UIMA_DSL.canonicalName)
+        Class.forName(DSL.canonicalName)
         CompilerConfiguration config = new CompilerConfiguration()
-        config.setScriptBaseClass(UIMA_DSL.canonicalName)
+        config.setScriptBaseClass(DSL.canonicalName)
         GroovyShell shell = new GroovyShell(config)
 
         try {

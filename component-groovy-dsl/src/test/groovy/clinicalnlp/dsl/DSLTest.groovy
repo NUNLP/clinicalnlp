@@ -19,12 +19,12 @@ import org.junit.Test
 
 import java.util.regex.Matcher
 
-import static clinicalnlp.dsl.UIMA_DSL.*
+import static DSL.*
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
 import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
 @Log4j
-class UIMA_DSL_Test {
+class DSLTest {
     static class NamedEntityMentionMatcher extends JCasAnnotator_ImplBase {
         @Override
         void process(JCas jCas) throws AnalysisEngineProcessException {
@@ -49,7 +49,7 @@ class UIMA_DSL_Test {
     @BeforeClass
     static void setupClass() {
         // TODO: make sure static initializtion always occurs, remove need for this call
-        Class.forName('clinicalnlp.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.DSL')
     }
 
     AnalysisEngine engine;
@@ -126,68 +126,6 @@ The patient does not have pneumonia or sepsis.
 
         assert jcas.select(type:NamedEntityMention,
                 filter:after(60)).size() == 1
-    }
-
-    @Test
-    void testRemoveCovered() {
-        // -------------------------------------------------------------------
-        // run pipeline to generate annotations
-        // -------------------------------------------------------------------
-        def text = """\
-        Patient has fever but no cough and pneumonia is ruled out.
-        There is no increase in weakness.
-        Patient does not have measles.
-        """
-        JCas jcas = engine.newJCas()
-        jcas.setDocumentText(text)
-        jcas.create(type:NamedEntityMention, begin:19, end:23)
-        jcas.create(type:NamedEntityMention, begin:19, end:26)
-        jcas.create(type:NamedEntityMention, begin:19, end:26)
-        jcas.create(type:NamedEntityMention, begin:20, end:25)
-        jcas.create(type:NamedEntityMention, begin:20, end:25)
-        jcas.create(type:NamedEntityMention, begin:20, end:25)
-
-        Collection<NamedEntityMention> nems = jcas.select(type:NamedEntityMention)
-        assert nems.size() == 6
-
-        jcas.removeCovered(
-                anns:jcas.select(type:NamedEntityMention),
-                types:[NamedEntityMention]
-        )
-
-        nems = jcas.select(type:NamedEntityMention)
-        assert nems.size() == 1
-    }
-
-    @Test
-    void testRemoveCovering() {
-        // -------------------------------------------------------------------
-        // run pipeline to generate annotations
-        // -------------------------------------------------------------------
-        def text = """\
-        Patient has fever but no cough and pneumonia is ruled out.
-        There is no increase in weakness.
-        Patient does not have measles.
-        """
-        JCas jcas = engine.newJCas()
-        jcas.setDocumentText(text)
-        jcas.create(type:NamedEntityMention, begin:19, end:23)
-        jcas.create(type:NamedEntityMention, begin:19, end:26)
-        jcas.create(type:NamedEntityMention, begin:19, end:26)
-        jcas.create(type:NamedEntityMention, begin:20, end:25)
-        jcas.create(type:NamedEntityMention, begin:20, end:25)
-        jcas.create(type:NamedEntityMention, begin:20, end:25)
-
-        Collection<NamedEntityMention> nems = jcas.select(type:NamedEntityMention)
-        assert nems.size() == 6
-
-        jcas.removeCovering(
-                anns:jcas.select(type:NamedEntityMention),
-                types:[NamedEntityMention]
-        )
-
-        nems = jcas.select(type:NamedEntityMention)
-        assert nems.size() == 1
     }
 
     @Test
@@ -283,7 +221,7 @@ The patient does not have pneumonia or sepsis.
         assert nems.size() == 4
 
         Collection<Annotation> sents = jcas.select(type:Sentence)
-        UIMA_DSL.createMentions(
+        DSL.createMentions(
             patterns:[
                 (~/Patient/):[group:0, code:'PERSON']
             ],

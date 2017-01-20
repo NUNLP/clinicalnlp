@@ -26,7 +26,7 @@ import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 class LocalDictAnnotatorTest {
     @BeforeClass
     public static void setupClass() {
-        Class.forName('clinicalnlp.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.DSL')
         BasicConfigurator.configure()
     }
 

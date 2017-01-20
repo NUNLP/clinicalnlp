@@ -14,7 +14,7 @@ import org.codehaus.groovy.control.CompilerConfiguration
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-import static clinicalnlp.dsl.UIMA_DSL.between
+import static clinicalnlp.dsl.DSL.between
 
 @Log4j
 class SentenceDetectorImpl {
@@ -34,7 +34,7 @@ class SentenceDetectorImpl {
 
         if (segScriptFile) {
             CompilerConfiguration config = new CompilerConfiguration()
-            config.setScriptBaseClass('clinicalnlp.dsl.UIMA_DSL')
+            config.setScriptBaseClass('clinicalnlp.dsl.DSL')
             GroovyShell shell = new GroovyShell(config)
             def scriptContents = Resources.toString(Resources.getResource(segScriptFile),
                     org.apache.commons.io.Charsets.UTF_8)

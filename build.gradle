@@ -115,6 +115,7 @@ project(':component-segmenter') {
 project(':component-context') {
     dependencies {
         compile project(':component-groovy-dsl')
+        compile project(':component-pattern-matcher')
         testCompile project(':library-test')
     }
 }

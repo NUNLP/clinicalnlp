@@ -24,7 +24,7 @@ class LeoDictAnnotatorTest {
 
     @BeforeClass
     static void setupClass() {
-        Class.forName('clinicalnlp.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.DSL')
         BasicConfigurator.configure()
     }
 

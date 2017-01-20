@@ -73,7 +73,7 @@ class AnnotationRegexMatcherTests {
         def config = new ConfigSlurper().parse(
             AnnotationRegexMatcherTests.class.getResource('/config.groovy').text)
         PropertyConfigurator.configure(config.toProperties())
-        Class.forName('clinicalnlp.dsl.UIMA_DSL')
+        Class.forName('clinicalnlp.dsl.DSL')
     }
 
     JCas jcas;
@@ -185,8 +185,8 @@ class AnnotationRegexMatcherTests {
         // Create an AnnotationRegex instance
         //--------------------------------------------------------------------------------------------------------------
         AnnotationRegex regex = new AnnotationRegex(
-            $N('finding', $A(NamedEntityMention, [text:/(?i)tubular\s+adenoma/]) & $A(Token, [:])(1,5)) &
-                $N('site', $A(Token, [:])(1,3) & $A(NamedEntityMention, [:]))
+            $N('finding', $A(NamedEntityMention, [text:/(?i)tubular\s+adenoma/]) & $A(Token)(1,5)) &
+                $N('site', $A(Token)(1,3) & $A(NamedEntityMention))
         )
 
         //--------------------------------------------------------------------------------------------------------------
@@ -220,11 +220,11 @@ class AnnotationRegexMatcherTests {
         // Create an AnnotationRegex instance
         //--------------------------------------------------------------------------------------------------------------
         AnnotationRegex regex = new AnnotationRegex(
-            $A(Token, [:])(0,5) &
+            $A(Token)(0,5) &
                 $N('nem',
                     $A(NamedEntityMention, [text:/(?i)tubular\s+adenoma/]) |
                     $A(NamedEntityMention, [text:/(?i)sigmoid\s+colon/])) &
-                $A(Token, [:])(0,5)
+                $A(Token)(0,5)
         )
 
         //--------------------------------------------------------------------------------------------------------------
