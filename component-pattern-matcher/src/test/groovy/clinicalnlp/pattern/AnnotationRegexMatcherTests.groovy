@@ -104,9 +104,7 @@ class AnnotationRegexMatcherTests {
         // Create a sequence of annotations and a matcher
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
-        List sequence = sequencer.iterator().next()
-        AnnotationRegexMatcher matcher = regex.matcher(sequence)
-
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
@@ -115,7 +113,7 @@ class AnnotationRegexMatcherTests {
             assert binding.hasVariable('tokens')
         }
         // create a new matcher to start over
-        matcher = regex.matcher(sequence)
+        matcher = regex.matcher(sequencer.first())
         assert matcher.hasNext()
         Binding binding = matcher.next()
         List<Token> tokens = binding.getVariable('tokens')
@@ -157,7 +155,7 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
             [NamedEntityMention, Token])
-        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
@@ -235,7 +233,7 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
             [NamedEntityMention, Token])
-        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
@@ -265,7 +263,7 @@ class AnnotationRegexMatcherTests {
         // Create a sequence of annotations and a matcher
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
-        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
@@ -291,7 +289,7 @@ class AnnotationRegexMatcherTests {
         // Create a sequence of annotations and a matcher
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
-        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
@@ -330,7 +328,7 @@ class AnnotationRegexMatcherTests {
         // Create a sequence of annotations and a matcher
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
-        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
@@ -359,7 +357,7 @@ class AnnotationRegexMatcherTests {
         // Create a sequence of annotations and a matcher
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
-        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
@@ -404,7 +402,7 @@ class AnnotationRegexMatcherTests {
         // Create a sequence of annotations and a matcher
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
-        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
@@ -432,7 +430,7 @@ class AnnotationRegexMatcherTests {
         // Create a sequence of annotations and a matcher
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
-        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
@@ -465,7 +463,7 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
             [NamedEntityMention, Token])
-        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
 
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
@@ -492,7 +490,7 @@ class AnnotationRegexMatcherTests {
         // Create a sequence of annotations and a matcher
         //--------------------------------------------------------------------------------------------------------------
         sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [TextSpan])
-        matcher = regex2.matcher(sequencer.iterator().next())
+        matcher = regex2.matcher(sequencer.first())
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
         //--------------------------------------------------------------------------------------------------------------

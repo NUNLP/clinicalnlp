@@ -68,7 +68,7 @@ class AnnotationSequencerTests {
         Sentence sentence = this.jcas.select(type:Sentence)[0]
         AnnotationSequencer sequencer = new AnnotationSequencer(sentence, [NamedEntityMention, Token])
         int iterCount = 0
-        sequencer.iterator().each { List<? extends Annotation> seq ->
+        sequencer.each { List<? extends Annotation> seq ->
             String typeSeq = seq.inject('[') { prefix, next ->
                 "${prefix} ${next.class.simpleName}"
             }

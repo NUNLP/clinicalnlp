@@ -36,6 +36,15 @@ class AnnotationSequencer implements Iterable<List<? extends Annotation>> {
         return new AnnotationSequenceIterator()
     }
 
+    /**
+     * Support for common use case of needing just first sequence
+     * @return
+     */
+    List<? extends Annotation> first() {
+        AnnotationSequenceIterator iter = this.iterator()
+        return iter.next()
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     // Iterator
     // -----------------------------------------------------------------------------------------------------------------
