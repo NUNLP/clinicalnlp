@@ -82,7 +82,7 @@ AnnotationRegex regex = new AnnotationRegex(
 
 sents.each { Sentence sent ->
     AnnotationSequencer sequencer = new AnnotationSequencer(sent, [NegationScopeTerminator])
-    AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator()++)
+    AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next() )
     matcher.each { Binding b ->
         NegationScopeTerminator n1 = b.getVariable('n1')[0]
         NegationScopeTerminator n2 = b.getVariable('n2')[0]
