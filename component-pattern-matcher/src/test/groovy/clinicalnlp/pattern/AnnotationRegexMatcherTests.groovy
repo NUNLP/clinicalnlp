@@ -510,7 +510,7 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
         AnnotationRegex regex = new AnnotationRegex(
-            $N('tokens', $A(Token, [pos:/(N|V|D).+/, lemma:/.+/, stem:/.*/, text:/.*/]))
+            $N('tokens', $A(Token, [pos:/(N|V|D).+/, lemma:/.+/, stem:/.*/, text:/.+/]))
         )
 
         //--------------------------------------------------------------------------------------------------------------
