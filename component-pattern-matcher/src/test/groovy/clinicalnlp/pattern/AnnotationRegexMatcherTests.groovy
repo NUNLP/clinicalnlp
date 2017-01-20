@@ -2,6 +2,7 @@ package clinicalnlp.pattern
 
 import clinicalnlp.types.NamedEntityMention
 import clinicalnlp.types.Segment
+import clinicalnlp.types.TextSpan
 import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
 import gov.va.vinci.leo.window.types.Window
@@ -416,6 +417,56 @@ class AnnotationRegexMatcherTests {
 
     @Test
     void testTextSpan() {
-        assert false
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationRegex regex = new AnnotationRegex(
+            +$LB($A(NamedEntityMention, [code:'C01'])) &
+                $N('tok', $A(Token)(0,10)) &
+                +$LA($A(NamedEntityMention, [code:'C02']))
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
+            [NamedEntityMention, Token])
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.iterator().next())
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        List<? extends Annotation> tok = binding.getVariable('tok')
+        assert tok.size() == 4
+        assert tok[0].coveredText == 'was'
+        assert tok[1].coveredText == 'seen'
+        assert tok[2].coveredText == 'in'
+        assert tok[3].coveredText == 'the'
+        jcas.create(type:TextSpan, begin:tok[0].begin, end:tok[3].end)
+        assert jcas.select(type:TextSpan).size() == 1
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance that looks for the TextSpan
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationRegex regex2 = new AnnotationRegex(
+            $N('span', $A(TextSpan))
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [TextSpan])
+        matcher = regex2.matcher(sequencer.iterator().next())
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        assert matcher.hasNext()
+        binding = matcher.next()
+        def span = binding.getVariable('span')
+        assert span.size() == 1
+        assert span[0].coveredText == 'was seen in the'
+        assert !matcher.hasNext()
     }
 }
