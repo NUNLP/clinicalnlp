@@ -45,12 +45,12 @@ class AnnotationRegexMatcherTests {
             m.each {
                 Token t = jcas.create(type: Token, begin: m.start(0), end: m.end(0))
                 switch (t.coveredText) {
-                    case 'Tubular': t.pos = 'JJ'; break;
+                    case 'Tubular': t.pos = 'JJ'; t.lemma = 'tube'; t.stem = 'Tub'; break;
                     case 'adenoma': t.pos = 'NN'; break;
-                    case 'was': t.pos = 'AUX'; break;
-                    case 'seen': t.pos = 'VBN'; break;
-                    case 'in': t.pos = 'IN'; break;
-                    case 'the': t.pos = 'DT'; break;
+                    case 'was': t.pos = 'AUX'; t.lemma = 'is'; break;
+                    case 'seen': t.pos = 'VBN'; t.lemma = 'see'; t.stem = 'see'; break;
+                    case 'in': t.pos = 'IN'; t.lemma = 'in'; break;
+                    case 'the': t.pos = 'DT'; t.lemma = 'the'; break;
                     case 'sigmoid': t.pos = 'JJ'; break;
                     case 'colon': t.pos = 'NN'; break;
                     case '.': t.pos = 'PUNC'; break;
@@ -491,6 +491,7 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [TextSpan])
         matcher = regex2.matcher(sequencer.first())
+
         //--------------------------------------------------------------------------------------------------------------
         // Validate the matches
         //--------------------------------------------------------------------------------------------------------------
@@ -499,6 +500,38 @@ class AnnotationRegexMatcherTests {
         def span = binding.getVariable('span')
         assert span.size() == 1
         assert span[0].coveredText == 'was seen in the'
+        assert !matcher.hasNext()
+    }
+
+    @Test
+    void testWildcards() {
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        //noinspection GroovyAssignabilityCheck
+        AnnotationRegex regex = new AnnotationRegex(
+            $N('tokens', $A(Token, [pos:/(N|V|D).+/, lemma:/.+/, stem:/.*/, text:/.*/]))
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        List<? extends Annotation> tok = binding.getVariable('tokens')
+        tok = binding.getVariable('tokens')
+        assert tok.size() == 1
+        assert tok[0].coveredText == 'seen'
+        binding = matcher.next()
+        tok = binding.getVariable('tokens')
+        assert tok.size() == 1
+        assert tok[0].coveredText == 'the'
         assert !matcher.hasNext()
     }
 }

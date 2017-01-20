@@ -35,7 +35,7 @@ class AnnotationRegexMatcher implements Iterator {
         this.matchStr = sequence.inject('') { String resultPrefix, Annotation ann ->
             String typeCode = regex.typeMap[ann.class]
             String featString = regex.featMap[ann.class].inject('') { featPrefix, featName ->
-                String featVal = (featName == 'text' ? ann.coveredText : ann."${featName}")
+                String featVal = (featName == 'text' ? ann.coveredText : ann."${featName}" ?: '')
                 featPrefix + "${LBRACK}${featVal}${RBRACK}"
             }
             this.indexMap[resultPrefix.size()] = ann
