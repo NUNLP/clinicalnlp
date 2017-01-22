@@ -185,8 +185,11 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
         AnnotationRegex regex = new AnnotationRegex(
-            $N('finding', $A(NamedEntityMention, [text:/(?i)tubular\s+adenoma/]) & $A(Token)(1,5)) &
-                $N('site', $A(Token)(1,3) & $A(NamedEntityMention))
+            $N('finding',
+                $A(NamedEntityMention, [text:/(?i)tubular\s+adenoma/]) &
+                $A(Token)(1,5)) &
+                $N('site',
+                    $A(Token)(1,3) & $A(NamedEntityMention))
         )
 
         //--------------------------------------------------------------------------------------------------------------
@@ -414,6 +417,7 @@ class AnnotationRegexMatcherTests {
         assert tok[0].coveredText == 'seen'
         assert tok[1].coveredText == 'in'
         assert tok[2].coveredText == 'the'
+        assert !matcher.hasNext()
     }
 
     @Test
@@ -423,7 +427,7 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
         AnnotationRegex regex = new AnnotationRegex(
-            $N('tokens', $A(Token)(3,5, false))
+            $N('tokens', $A(Token)(3,5, false)) // 'false' -> greedy is false
         )
 
         //--------------------------------------------------------------------------------------------------------------
