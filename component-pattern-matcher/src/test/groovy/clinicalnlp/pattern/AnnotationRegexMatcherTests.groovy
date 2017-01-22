@@ -534,4 +534,127 @@ class AnnotationRegexMatcherTests {
         assert tok[0].coveredText == 'the'
         assert !matcher.hasNext()
     }
+
+    @Test
+    void testNamedGroups1() {
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        //noinspection GroovyAssignabilityCheck
+        AnnotationRegex regex = new AnnotationRegex(
+            $N('nem', $A(NamedEntityMention) & $N('tok', $A(Token)))
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0],
+            [NamedEntityMention, Token])
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        List<? extends Annotation> nem = binding.getVariable('nem')
+        assert nem.size() == 2
+        assert nem[0] instanceof NamedEntityMention
+        assert nem[1] instanceof Token
+        List<? extends Annotation> tok = binding.getVariable('tok')
+        assert tok.size() == 1
+        assert tok[0] instanceof Token
+        assert nem[1] == tok[0]
+    }
+
+    @Test
+    void testNamedGroups2() {
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        //noinspection GroovyAssignabilityCheck
+        AnnotationRegex regex = new AnnotationRegex(
+            $N('tokens', $N('tok1', $A(Token)) & $N('tok2', $A(Token)) & $N('tok3', $A(Token)))
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        assert matcher.hasNext()
+        Binding binding = matcher.next()
+        def tok1 = binding.getVariable('tok1')
+        assert tok1.size() == 1
+        def tok2 = binding.getVariable('tok2')
+        assert tok2.size() == 1
+        def tok3 = binding.getVariable('tok3')
+        assert tok3.size() == 1
+        def tokens = binding.getVariable('tokens')
+        assert tokens.size() == 3
+        assert tokens[0] == tok1[0]
+        assert tokens[1] == tok2[0]
+        assert tokens[2] == tok3[0]
+     }
+
+    @Test
+    void testNamedGroups3() {
+        //--------------------------------------------------------------------------------------------------------------
+        // Create an AnnotationRegex instance
+        //--------------------------------------------------------------------------------------------------------------
+        //noinspection GroovyAssignabilityCheck
+        AnnotationRegex regex = new AnnotationRegex(
+            $N('tokens',
+                $N('tok1', $A(Token, [text:/Tubul.*/])) |
+                $N('tok2', $A(Token, [text:/adenoma/])) |
+                $N('tok3', $N('sigmoid', $A(Token, [text:/sigmoid/])) &
+                    $N('colon', $A(Token, [text:/colon/]))))
+        )
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Create a sequence of annotations and a matcher
+        //--------------------------------------------------------------------------------------------------------------
+        AnnotationSequencer sequencer = new AnnotationSequencer(jcas.select(type:Sentence)[0], [Token])
+        AnnotationRegexMatcher matcher = regex.matcher(sequencer.first())
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Validate the matches
+        //--------------------------------------------------------------------------------------------------------------
+        Binding binding = matcher.next()
+        def tok = binding.getVariable('tok1')
+        assert tok.size() == 1
+        assert !binding.hasVariable('tok2')
+        assert !binding.hasVariable('tok3')
+        def tokens = binding.getVariable('tokens')
+        assert tokens.size() == 1
+        assert tokens[0] == tok[0]
+
+        binding = matcher.next()
+        tok = binding.getVariable('tok2')
+        assert tok.size() == 1
+        assert !binding.hasVariable('tok1')
+        assert !binding.hasVariable('tok3')
+        tokens = binding.getVariable('tokens')
+        assert tokens.size() == 1
+        assert tokens[0] == tok[0]
+
+        binding = matcher.next()
+        tok = binding.getVariable('tok3')
+        assert tok.size() == 2
+        assert binding.getVariable('sigmoid').size() == 1
+        assert binding.getVariable('colon').size() == 1
+        assert !binding.hasVariable('tok1')
+        assert !binding.hasVariable('tok2')
+        tokens = binding.getVariable('tokens')
+        assert tokens.size() == 2
+        assert tokens[0] == binding.getVariable('sigmoid')[0]
+        assert tokens[1] == binding.getVariable('colon')[0]
+
+        assert !matcher.hasNext()
+    }
+
 }
