@@ -610,9 +610,10 @@ class AnnotationRegexMatcherTests {
         AnnotationRegex regex = new AnnotationRegex(
             $N('tokens',
                 $N('tok1', $A(Token, [text:/Tubul.*/])) |
-                $N('tok2', $A(Token, [text:/adenoma/])) |
-                $N('tok3', $N('sigmoid', $A(Token, [text:/sigmoid/])) &
-                    $N('colon', $A(Token, [text:/colon/]))))
+                $N('tok2', $A(Token, [text:/aden.../])) |
+                $N('tok3',
+                    $N('sigmoid', $A(Token, [text:/...moid/])) &
+                    $N('colon', $A(Token, [text:/(?i)COLON(IC)?/]))))
         )
 
         //--------------------------------------------------------------------------------------------------------------
