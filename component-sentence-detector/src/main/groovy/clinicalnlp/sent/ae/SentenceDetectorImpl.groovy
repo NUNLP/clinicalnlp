@@ -19,13 +19,13 @@ import static clinicalnlp.dsl.DSL.between
 @Log4j
 class SentenceDetectorImpl {
 
-    private SentenceDetectorME sentDetect;
-    private Pattern splitPattern;
-    private int spanSize;
-    private String[] anchorTypes;
-    private Script segSelectScript;
+    private SentenceDetectorME sentDetect
+    private Pattern splitPattern
+    private int spanSize
+    private String[] anchorTypes
+    private Script segSelectScript
 
-    public SentenceDetectorImpl(SentenceDetectorME sentDetect, String splitPatternStr, String segScriptFile,
+    SentenceDetectorImpl(SentenceDetectorME sentDetect, String splitPatternStr, String segScriptFile,
                                 Integer spanSize, String[] anchorTypes) {
         this.sentDetect = sentDetect
         this.spanSize = spanSize
@@ -42,7 +42,7 @@ class SentenceDetectorImpl {
         }
     }
 
-    public void process(JCas jcas) {
+    void process(JCas jcas) {
         Collection<Segment> segs = null;
         if (this.segSelectScript) {
             this.segSelectScript.setProperty('jcas', jcas)

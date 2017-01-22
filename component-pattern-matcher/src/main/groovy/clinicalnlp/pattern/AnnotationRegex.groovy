@@ -35,6 +35,7 @@ class AnnotationRegex {
      * @param annotationPattern
      */
     AnnotationRegex(AnnotationPattern annotationPattern) {
+        this.extractTypes(annotationPattern)
         this.pattern = genRegExPattern(annotationPattern)
     }
 
@@ -53,7 +54,6 @@ class AnnotationRegex {
 
     // generate Pattern instance from AnnotationPattern structure
     private Pattern genRegExPattern(AnnotationPattern annotationPattern) {
-        this.extractTypes(annotationPattern)
         return Pattern.compile(this.genRegexString(annotationPattern))
     }
 

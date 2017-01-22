@@ -16,10 +16,10 @@ class AnnotationRegexMatcher implements Iterator {
     // Instance fields
     // -----------------------------------------------------------------------------------------------------------------
     private final Set<String> groupNames
-    private final String matchStr
+    private final String seqString
     private final Map<Integer, Annotation> indexMap = [:]
     private final Matcher matcher
-    private final Iterator matchIter
+    private final Iterator iterator
 
     // -----------------------------------------------------------------------------------------------------------------
     // Public methods
@@ -32,7 +32,7 @@ class AnnotationRegexMatcher implements Iterator {
      */
     AnnotationRegexMatcher(final AnnotationRegex regex, final List<? extends Annotation> sequence) {
         this.groupNames = regex.groupNames
-        this.matchStr = sequence.inject('') { String resultPrefix, Annotation ann ->
+        this.seqString = sequence.inject('') { String resultPrefix, Annotation ann ->
             String typeCode = regex.typeMap[ann.class]
             String featString = regex.featMap[ann.class].inject('') { featPrefix, featName ->
                 String featVal = (featName == 'text' ? ann.coveredText : ann."${featName}" ?: '')
@@ -41,21 +41,21 @@ class AnnotationRegexMatcher implements Iterator {
             this.indexMap[resultPrefix.size()] = ann
             resultPrefix + typeCode + featString
         }
-        this.matcher = regex.pattern.matcher(this.matchStr)
-        this.matchIter = StringGroovyMethods.iterator(this.matcher)
+        this.matcher = regex.pattern.matcher(this.seqString)
+        this.iterator = StringGroovyMethods.iterator(this.matcher)
 
         ////println "Pattern: ${regex.pattern.toString()}"
-        ////println "Match string: ${this.matchStr}"
+        ////println "Match string: ${this.seqString}"
     }
 
     @Override
     boolean hasNext() {
-        return this.matchIter.hasNext()
+        return this.iterator.hasNext()
     }
 
     @Override
     Object next() {
-        this.matchIter.next()
+        this.iterator.next()
         Binding binding = new Binding()
         this.groupNames.each { String name ->
             String matchedText = this.matcher.group(name)
