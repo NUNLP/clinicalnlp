@@ -125,9 +125,11 @@ class AnnotationRegex {
         // add range information, and check for lazy vs. greedy evaluation
         if (p.range) { result = "(?:${result}){${p.range.min()},${p.range.max()}}${p.greedy?'':'?'}" }
 
-        // check for group type
+        // check for a name
         if (p.name) { result = "(?<${p.name}>${result})" }
-        else if (p.lookAhead && p.positive) { result = "(?=${result})" }
+
+        // check for group type
+        if (p.lookAhead && p.positive) { result = "(?=${result})" }
         else if (p.lookAhead && !p.positive) { result = "(?!${result})" }
         else if (p.lookBehind && p.positive) { result = "(?<=${result})" }
         else if (p.lookBehind && !p.positive) { result = "(?<!${result})" }

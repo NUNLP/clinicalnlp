@@ -74,7 +74,8 @@ class AnnotationPatternTests {
 
         AnnotationPattern pattern6 =
                 $N('seq1', $A(Token, [pos:'NN', text:'/Foo/']) &
-                        $N('seq2', $A(Token, [pos:'VB', text:'/Bar/']) & $A(NamedEntityMention, [cui:'C01'])))
+                    $N('seq2', $A(Token, [pos:'VB', text:'/Bar/']) &
+                        $A(NamedEntityMention, [cui:'C01'])))
         assert pattern6 != null
         assert pattern6 instanceof SequenceAnnotationPattern
         assert pattern6.name == 'seq1'
@@ -158,9 +159,8 @@ class AnnotationPatternTests {
         AnnotationPattern p2 = $A(Token, [pos:'VB', text:'tastes'])
         AnnotationPattern p3 = $A(Token, [pos:'JJ', text:'great'])
 
-        AnnotationPattern pattern
-
-        pattern = +$LB(p1) & p2 & -$LA(p3)
+        AnnotationPattern pattern = +$LB(p1) & p2 & -$LA(p3)
+        assert pattern instanceof SequenceAnnotationPattern
         assert p1.lookBehind == true
         assert p1.positive == true
         assert p3.lookAhead == true

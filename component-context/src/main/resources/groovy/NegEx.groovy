@@ -77,7 +77,7 @@ applyPatterns(
     )
 
 AnnotationRegex regex = new AnnotationRegex(
-    $N('n1', $A(NegationScopeTerminator)) & +$LA($N('n2', $A(NegationScopeTerminator)))
+    $N('n1', $A(NegationScopeTerminator)) & $N('n2', $A(NegationScopeTerminator))>>true
 )
 
 sents.each { Sentence sent ->
@@ -87,6 +87,7 @@ sents.each { Sentence sent ->
         NegationScopeTerminator n1 = b.getVariable('n1')[0]
         NegationScopeTerminator n2 = b.getVariable('n2')[0]
         jcas.create(type:NegationScope, begin:n1.begin, end:n2.end)
+        println "Creating NegationScope"
     }
 }
 

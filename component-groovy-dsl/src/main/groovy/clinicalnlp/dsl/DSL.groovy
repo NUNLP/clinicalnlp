@@ -245,8 +245,8 @@ class DSL extends Script {
         }
     }
 
-    static coveredBy = { TOP coveringAnn ->
-        { TOP ann ->
+    static coveredBy = { Annotation coveringAnn ->
+        { Annotation ann ->
             (ann != coveringAnn &&
                     coveringAnn.begin <= ann.begin &&
                     coveringAnn.end >= ann.end)

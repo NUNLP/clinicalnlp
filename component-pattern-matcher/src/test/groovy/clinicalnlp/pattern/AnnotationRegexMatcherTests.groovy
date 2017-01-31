@@ -227,7 +227,7 @@ class AnnotationRegexMatcherTests {
             $A(Token)(0,5) &
                 $N('nem',
                     $A(NamedEntityMention, [text:/(?i)tubular\s+adenoma/]) |
-                    $A(NamedEntityMention, [text:/(?i)sigmoid\s+colon/])) &
+                        $A(NamedEntityMention, [text:/(?i)sigmoid\s+colon/])) &
                 $A(Token)(0,5)
         )
 
@@ -259,7 +259,7 @@ class AnnotationRegexMatcherTests {
         // Create an AnnotationRegex instance
         //--------------------------------------------------------------------------------------------------------------
         AnnotationRegex regex = new AnnotationRegex(
-            $N('tok', $A(Token)) & +$LA($A(Token, [text:/adenoma/]))
+            $N('tok', $A(Token)) & $N('adenoma', $A(Token, [text:/adenoma/]))>>true
         )
 
         //--------------------------------------------------------------------------------------------------------------
@@ -285,7 +285,7 @@ class AnnotationRegexMatcherTests {
         // Create an AnnotationRegex instance
         //--------------------------------------------------------------------------------------------------------------
         AnnotationRegex regex = new AnnotationRegex(
-            $N('tok', $A(Token)) & -$LA($A(Token, [text:/adenoma|seen|sigmoid|colon/]))
+            $N('tok', $A(Token)) & $A(Token, [text:/adenoma|seen|sigmoid|colon/])>>false
         )
 
         //--------------------------------------------------------------------------------------------------------------
@@ -324,7 +324,7 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
         AnnotationRegex regex = new AnnotationRegex(
-            +$LB($A(Token, [text:/adenoma/])) & $N('tok', $A(Token)(3,3))
+            $A(Token, [text:/adenoma/])<<true & $N('tok', $A(Token)(3,3))
         )
 
         //--------------------------------------------------------------------------------------------------------------
@@ -353,7 +353,7 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
         AnnotationRegex regex = new AnnotationRegex(
-            -$LB($A(Token, [text:/adenoma|seen|sigmoid/])) & $N('tok', $A(Token))
+            $A(Token, [text:/adenoma|seen|sigmoid/])<<false & $N('tok', $A(Token))
         )
 
         //--------------------------------------------------------------------------------------------------------------
@@ -396,9 +396,9 @@ class AnnotationRegexMatcherTests {
         //--------------------------------------------------------------------------------------------------------------
         //noinspection GroovyAssignabilityCheck
         AnnotationRegex regex = new AnnotationRegex(
-            +$LB($A(Token, [text:/was/])) &
+            $A(Token, [text:/was/])<<true &
                 $N('tok', $A(Token)(0,3)) &
-                +$LA($A(Token, [text:/sigmoid/]))
+                $A(Token, [text:/sigmoid/])>>true
         )
 
         //--------------------------------------------------------------------------------------------------------------

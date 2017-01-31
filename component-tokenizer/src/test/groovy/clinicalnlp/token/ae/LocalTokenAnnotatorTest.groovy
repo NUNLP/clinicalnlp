@@ -17,13 +17,13 @@ import org.junit.Test
 class LocalTokenAnnotatorTest {
 
     @BeforeClass
-    public static void setupClass() {
+    static void setupClass() {
         BasicConfigurator.configure()
         Class.forName('clinicalnlp.dsl.DSL')
     }
 
     @Test
-    public void testBreakIteratorTokenAnnotator() {
+    void testBreakIteratorTokenAnnotator() {
         AnalysisEngineDescription desc = AnalysisEngineFactory.createEngineDescription(
                 BreakIteratorTokenAnnotator,
                 BreakIteratorTokenAnnotator.PARAM_CONTAINER_TYPE,
@@ -47,7 +47,7 @@ class LocalTokenAnnotatorTest {
     }
     
     @Test
-    public void smokeTest() {
+    void smokeTest() {
 		
 		ExternalResourceDescription tokenModelRes = ExternalResourceFactory.createExternalResourceDescription(
 			 opennlp.uima.tokenize.TokenizerModelResourceImpl, "file:clinicalnlp/models/en-token.bin")

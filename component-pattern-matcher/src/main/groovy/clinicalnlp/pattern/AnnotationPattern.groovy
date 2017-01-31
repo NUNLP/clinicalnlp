@@ -91,6 +91,28 @@ abstract class AnnotationPattern {
 
     /**
      *
+     * @param positive
+     * @return
+     */
+    AnnotationPattern leftShift(Boolean positive) {
+        this.lookBehind = true
+        this.positive = positive
+        return this
+    }
+
+    /**
+     *
+     * @param positive
+     * @return
+     */
+    AnnotationPattern rightShift(Boolean positive) {
+        this.lookAhead = true
+        this.positive = positive
+        return this
+    }
+
+    /**
+     *
      * @param pattern
      * @return
      */

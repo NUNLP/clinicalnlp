@@ -21,7 +21,7 @@ import org.springframework.core.io.DefaultResourceLoader
 import org.springframework.core.io.Resource
 
 @Log4j
-public class LeoTokenAnnotator extends LeoBaseAnnotator {
+class LeoTokenAnnotator extends LeoBaseAnnotator {
 
     @LeoConfigurationParameter(mandatory = true)
 	protected String tokenModelPath
@@ -41,32 +41,32 @@ public class LeoTokenAnnotator extends LeoBaseAnnotator {
     @LeoConfigurationParameter(mandatory = false)
     protected Boolean useStemmer
 
-    public LeoTokenAnnotator setTokenModelPath(String tokenModelPath) {
+    LeoTokenAnnotator setTokenModelPath(String tokenModelPath) {
         this.tokenModelPath = tokenModelPath
         return this
     }
 
-    public LeoTokenAnnotator setPosModelPath(String posModelPath) {
+    LeoTokenAnnotator setPosModelPath(String posModelPath) {
         this.posModelPath = posModelPath
         return this
     }
 
-    public LeoTokenAnnotator setContainerTypeName(String containerTypeName) {
+    LeoTokenAnnotator setContainerTypeName(String containerTypeName) {
         this.containerTypeName = containerTypeName
         return this
     }
 
-    public LeoTokenAnnotator setSplitPattern(String splitPatternStr) {
+    LeoTokenAnnotator setSplitPattern(String splitPatternStr) {
         this.splitPatternStr = splitPatternStr
         return this
     }
 
-    public LeoTokenAnnotator setLemmatizerDict(String lemmatizerDict) {
+    LeoTokenAnnotator setLemmatizerDict(String lemmatizerDict) {
         this.lemmatizerDict = lemmatizerDict
         return this
     }
 
-    public LeoTokenAnnotator setUseStemmer(Boolean useStemmer) {
+    LeoTokenAnnotator setUseStemmer(Boolean useStemmer) {
         this.useStemmer = useStemmer
         return this
     }
@@ -74,7 +74,7 @@ public class LeoTokenAnnotator extends LeoBaseAnnotator {
     private TokenAnnotatorImpl impl;
 
     @Override
-	public void initialize(UimaContext aContext) throws ResourceInitializationException {
+	void initialize(UimaContext aContext) throws ResourceInitializationException {
 		super.initialize(aContext)
         Tokenizer tokenizer;
         POSTagger posTagger;
@@ -112,7 +112,7 @@ public class LeoTokenAnnotator extends LeoBaseAnnotator {
     }
 
 	@Override
-	public void annotate(JCas aJCas) throws AnalysisEngineProcessException {
+	void annotate(JCas aJCas) throws AnalysisEngineProcessException {
         this.impl.process(aJCas)
 	}
 

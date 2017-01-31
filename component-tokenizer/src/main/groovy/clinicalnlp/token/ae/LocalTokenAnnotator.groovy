@@ -20,7 +20,7 @@ import org.apache.uima.resource.ResourceAccessException
 import org.apache.uima.resource.ResourceInitializationException
 
 @Log4j
-public final class LocalTokenAnnotator extends JCasAnnotator_ImplBase {
+final class LocalTokenAnnotator extends JCasAnnotator_ImplBase {
     public static final String TOKEN_MODEL_KEY = 'token_model'
     @ExternalResource(key = 'token_model', mandatory = true)
     TokenizerModelResource tokenModelResource;

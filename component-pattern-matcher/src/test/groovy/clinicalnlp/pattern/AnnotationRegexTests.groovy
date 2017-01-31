@@ -43,7 +43,7 @@ class AnnotationRegexTests {
         // add a name
         pattern = $N('n1', pattern)
         regex = new AnnotationRegex(pattern)
-        assert regex.pattern.toString() == '(?<n1>(?:①‹(?:NN)›‹(?:all_caps)›‹(?:Foo)›){0,3})'
+        assert regex.pattern.toString() == '(?:(?<n1>(?:①‹(?:NN)›‹(?:all_caps)›‹(?:Foo)›){0,3}))'
     }
 
     @Test
@@ -59,7 +59,7 @@ class AnnotationRegexTests {
         pattern = $N('group1', pattern(0,3))
         AnnotationRegex regex = new AnnotationRegex(pattern)
         assert regex.pattern.toString() ==
-            '(?<group1>(?:(?:①‹(?:NN)›‹(?:[^‹›]+)›)(?:②‹(?:(?i)Bar)›)(?:③‹(?:Bar)›)(?:②‹(?:(?i)Bar)›)(?:①‹(?:[^‹›]*)›‹(?:Baz)›)){0,3})'
+            '(?:(?<group1>(?:(?:①‹(?:NN)›‹(?:[^‹›]+)›)(?:②‹(?:(?i)Bar)›)(?:③‹(?:Bar)›)(?:②‹(?:(?i)Bar)›)(?:①‹(?:[^‹›]*)›‹(?:Baz)›)){0,3}))'
     }
 
     @Test

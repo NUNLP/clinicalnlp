@@ -5,6 +5,7 @@ import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription
 import gov.va.vinci.leo.regex.ae.RegexAnnotator
 import gov.va.vinci.leo.types.TypeLibrarian
 import gov.va.vinci.leo.window.ae.WindowAnnotator
+import org.apache.uima.jcas.cas.TOP
 import org.apache.uima.resource.metadata.impl.TypeDescription_impl
 
 //-----------------------------------------------------------------------------
@@ -17,7 +18,7 @@ types.addType(TypeLibrarian.getValidationAnnotationTypeSystemDescription())
 types.addTypeSystemDescription(new WindowAnnotator().getLeoTypeSystemDescription())
 types.addTypeSystemDescription(new RegexAnnotator().getLeoTypeSystemDescription())
 types.addTypeSystemDescription(new AnnotationPatternAnnotator().getLeoTypeSystemDescription())
-types.addTypeSystemDescription(new LeoTypeSystemDescription('gov.va.vinci.leo.sentence.types.SentenceAnnotatorType', true))
+////types.addTypeSystemDescription(new LeoTypeSystemDescription('gov.va.vinci.leo.sentence.types.SentenceAnnotatorType', true))
 
 //-----------------------------------------------------------------------------
 // Token types
@@ -40,12 +41,19 @@ types.addType(textSpan)
 //-----------------------------------------------------------------------------
 // Named entity types
 //-----------------------------------------------------------------------------
+// TODO: regenerate type system
+TypeDescription_impl concept = new TypeDescription_impl('clinicalnlp.types.Concept',
+    '', TOP.canonicalName)
+concept.addFeature('code', '', 'uima.cas.String')
+concept.addFeature('codeSystem', '', 'uima.cas.String')
+types.addType(concept)
+
 TypeDescription_impl nem = new TypeDescription_impl('clinicalnlp.types.NamedEntityMention',
-        '', 'uima.tcas.Annotation')
-nem.addFeature('code', '', 'uima.cas.String')
-nem.addFeature('codeSystem', '', 'uima.cas.String')
+    '', 'uima.tcas.Annotation')
+nem.addFeature('norm', '', 'uima.cas.String')
+nem.addFeature("concepts", "array of concepts", "uima.cas.FSArray", "clinicalnlp.types.Concept", false)
 nem.addFeature('provenance', '', 'uima.cas.String')
-nem.addFeature('polarity', '', 'uima.cas.Integer');
+nem.addFeature('polarity', '', 'uima.cas.Integer')
 types.addType(nem)
 
 //-----------------------------------------------------------------------------
@@ -97,5 +105,6 @@ types.addType(dictMatch)
 //-----------------------------------------------------------------------------
 // Generate source and descriptors
 //-----------------------------------------------------------------------------
+// TODO: use UIMAFit to do this instead of Leo
 types.toXML('src/main/resources/clinicalnlp/types/CoreTypeSystem.xml')
-types.jCasGen('src/main/java/', 'build/classes')
+////types.jCasGen('src/main/java/', 'build/classes')
