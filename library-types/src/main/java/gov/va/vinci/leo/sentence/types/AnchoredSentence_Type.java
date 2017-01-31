@@ -1,6 +1,6 @@
 
 /* First created by JCasGen Tue Jan 31 09:32:09 CST 2017 */
-package gov.va.vinci.leo.window.types;
+package gov.va.vinci.leo.sentence.types;
 
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
@@ -13,10 +13,10 @@ import org.apache.uima.cas.impl.FeatureImpl;
 import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
-/** Window Type
+/** Sentence Type
  * Updated by JCasGen Tue Jan 31 09:32:09 CST 2017
  * @generated */
-public class Window_Type extends Annotation_Type {
+public class AnchoredSentence_Type extends Annotation_Type {
   /** @generated 
    * @return the generator for this type
    */
@@ -26,25 +26,25 @@ public class Window_Type extends Annotation_Type {
   private final FSGenerator fsGenerator = 
     new FSGenerator() {
       public FeatureStructure createFS(int addr, CASImpl cas) {
-  			 if (Window_Type.this.useExistingInstance) {
+  			 if (AnchoredSentence_Type.this.useExistingInstance) {
   			   // Return eq fs instance if already created
-  		     FeatureStructure fs = Window_Type.this.jcas.getJfsFromCaddr(addr);
+  		     FeatureStructure fs = AnchoredSentence_Type.this.jcas.getJfsFromCaddr(addr);
   		     if (null == fs) {
-  		       fs = new Window(addr, Window_Type.this);
-  			   Window_Type.this.jcas.putJfsFromCaddr(addr, fs);
+  		       fs = new AnchoredSentence(addr, AnchoredSentence_Type.this);
+  			   AnchoredSentence_Type.this.jcas.putJfsFromCaddr(addr, fs);
   			   return fs;
   		     }
   		     return fs;
-        } else return new Window(addr, Window_Type.this);
+        } else return new AnchoredSentence(addr, AnchoredSentence_Type.this);
   	  }
     };
   /** @generated */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = Window.typeIndexID;
+  public final static int typeIndexID = AnchoredSentence.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("gov.va.vinci.leo.window.types.Window");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("gov.va.vinci.leo.sentence.types.AnchoredSentence");
  
   /** @generated */
   final Feature casFeat_Anchor;
@@ -56,7 +56,7 @@ public class Window_Type extends Annotation_Type {
    */ 
   public int getAnchor(int addr) {
         if (featOkTst && casFeat_Anchor == null)
-      jcas.throwFeatMissing("Anchor", "gov.va.vinci.leo.window.types.Window");
+      jcas.throwFeatMissing("Anchor", "gov.va.vinci.leo.sentence.types.AnchoredSentence");
     return ll_cas.ll_getRefValue(addr, casFeatCode_Anchor);
   }
   /** @generated
@@ -65,7 +65,7 @@ public class Window_Type extends Annotation_Type {
    */    
   public void setAnchor(int addr, int v) {
         if (featOkTst && casFeat_Anchor == null)
-      jcas.throwFeatMissing("Anchor", "gov.va.vinci.leo.window.types.Window");
+      jcas.throwFeatMissing("Anchor", "gov.va.vinci.leo.sentence.types.AnchoredSentence");
     ll_cas.ll_setRefValue(addr, casFeatCode_Anchor, v);}
     
   
@@ -77,7 +77,7 @@ public class Window_Type extends Annotation_Type {
 	 * @param jcas JCas
 	 * @param casType Type 
 	 */
-  public Window_Type(JCas jcas, Type casType) {
+  public AnchoredSentence_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 

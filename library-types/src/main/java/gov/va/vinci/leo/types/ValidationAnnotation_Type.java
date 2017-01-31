@@ -1,20 +1,20 @@
 
-/* First created by JCasGen Thu Dec 01 10:19:00 CST 2016 */
+/* First created by JCasGen Tue Jan 31 09:32:09 CST 2017 */
 package gov.va.vinci.leo.types;
 
-import org.apache.uima.cas.Feature;
-import org.apache.uima.cas.FeatureStructure;
-import org.apache.uima.cas.Type;
-import org.apache.uima.cas.impl.CASImpl;
-import org.apache.uima.cas.impl.FSGenerator;
-import org.apache.uima.cas.impl.FeatureImpl;
-import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
+import org.apache.uima.cas.impl.CASImpl;
+import org.apache.uima.cas.impl.FSGenerator;
+import org.apache.uima.cas.FeatureStructure;
+import org.apache.uima.cas.impl.TypeImpl;
+import org.apache.uima.cas.Type;
+import org.apache.uima.cas.impl.FeatureImpl;
+import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** Validation Annotations
- * Updated by JCasGen Thu Dec 01 10:19:00 CST 2016
+ * Updated by JCasGen Tue Jan 31 09:32:09 CST 2017
  * @generated */
 public class ValidationAnnotation_Type extends Annotation_Type {
   /** @generated 

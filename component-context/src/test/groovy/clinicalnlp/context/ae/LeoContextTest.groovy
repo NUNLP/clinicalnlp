@@ -25,12 +25,12 @@ class LeoContextTest {
     }
 
     @AfterClass
-    public static void stopService() {
+    static void stopService() {
         this.process.destroy()
     }
 
     @Test
-    public void smokeTest() {
+    void smokeTest() {
         def text = """\
         Patient has fever but no cough and pneumonia is ruled out.
         There is no increase in weakness.

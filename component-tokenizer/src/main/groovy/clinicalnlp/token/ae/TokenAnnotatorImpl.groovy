@@ -21,7 +21,7 @@ class TokenAnnotatorImpl {
     Pattern splitPattern;
     Class<Annotation> containerType;
 
-    public TokenAnnotatorImpl(Tokenizer tokenizer,
+    TokenAnnotatorImpl(Tokenizer tokenizer,
                               POSTagger posTagger,
                               SimpleLemmatizer lemmatizer,
                               Stemmer stemmer,
@@ -42,7 +42,7 @@ class TokenAnnotatorImpl {
         }
     }
 
-    public void process(JCas jcas) {
+    void process(JCas jcas) {
         jcas.select(type: (this.containerType)).each { Annotation ann ->
             List<Span> tokenSpans = []
 

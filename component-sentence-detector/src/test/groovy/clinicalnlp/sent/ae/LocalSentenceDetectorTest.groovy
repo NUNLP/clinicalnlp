@@ -34,7 +34,7 @@ import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
 @Log4j
 class LocalSentenceDetectorTest {
-    public static class NamedEntityMentionMatcher extends JCasAnnotator_ImplBase {
+    static class NamedEntityMentionMatcher extends JCasAnnotator_ImplBase {
         public static final String PATTERN = 'patternStr'
 
         @ConfigurationParameter(name = 'patternStr', mandatory = false,
@@ -63,18 +63,18 @@ class LocalSentenceDetectorTest {
     }
     
     @BeforeClass
-    public static void setupClass() {
+    static void setupClass() {
         Class.forName('clinicalnlp.dsl.DSL')
         BasicConfigurator.configure()
     }
     
     @Before
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         log.setLevel(Level.INFO)
     }
 
     @Test
-    public void smokeTestOpenNLP() {
+    void smokeTestOpenNLP() {
         AnalysisEngineDescription desc = createEngineDescription(
                 opennlp.uima.sentdetect.SentenceDetector,
                 'opennlp.uima.SentenceType', Sentence.name,
@@ -86,7 +86,7 @@ class LocalSentenceDetectorTest {
     }
 
     @Test
-    public void smokeTest() {
+    void smokeTest() {
         // construct the pipeline
         ExternalResourceDescription extDesc = ExternalResourceFactory.createExternalResourceDescription(
                 opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
@@ -115,7 +115,7 @@ class LocalSentenceDetectorTest {
     }
 
     @Test
-    public void testWithNoOptions() {
+    void testWithNoOptions() {
         // construct the pipeline
         ExternalResourceDescription extDesc = ExternalResourceFactory.createExternalResourceDescription(
                 opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
@@ -146,7 +146,7 @@ class LocalSentenceDetectorTest {
     }
 
     @Test
-    public void testWithSegmentSelected() {
+    void testWithSegmentSelected() {
         // construct the pipeline
         ExternalResourceDescription extDesc = ExternalResourceFactory.createExternalResourceDescription(
                 opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
@@ -179,7 +179,7 @@ class LocalSentenceDetectorTest {
     }
 
     @Test
-    public void testWithSentenceBreakingPattern() {
+    void testWithSentenceBreakingPattern() {
         // construct the pipeline
         ExternalResourceDescription extDesc = ExternalResourceFactory.createExternalResourceDescription(
                 opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
@@ -211,7 +211,7 @@ class LocalSentenceDetectorTest {
     }
 
     @Test
-    public void testWithNewlineSentenceBreakingPattern() {
+    void testWithNewlineSentenceBreakingPattern() {
         // construct the pipeline
         ExternalResourceDescription extDesc = ExternalResourceFactory.createExternalResourceDescription(
                 opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
@@ -243,7 +243,7 @@ class LocalSentenceDetectorTest {
     }
 
     @Test
-    public void testAnchoredSentenceDetection() {
+    void testAnchoredSentenceDetection() {
 
         def text = """\
         Patient has fever but no cough and pneumonia is ruled out.

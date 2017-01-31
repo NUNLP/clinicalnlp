@@ -41,6 +41,20 @@
                     <typeSystemDescription>
                         <types>
                             <typeDescription>
+                                <name>clinicalnlp.types.CompositeNamedEntity</name>
+                                <description/>
+                                <supertypeName>uima.tcas.Annotation</supertypeName>
+                                <features>
+                                    <featureDescription>
+                                        <name>concepts</name>
+                                        <description>array of concepts</description>
+                                        <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+                                        <elementType>clinicalnlp.types.NamedEntityMention</elementType>
+                                        <multipleReferencesAllowed>false</multipleReferencesAllowed>
+                                    </featureDescription>
+                                </features>
+                            </typeDescription>
+                            <typeDescription>
                                 <name>clinicalnlp.types.DictMatch</name>
                                 <description/>
                                 <supertypeName>uima.tcas.Annotation</supertypeName>
@@ -77,6 +91,11 @@
                                 <description/>
                                 <supertypeName>uima.tcas.Annotation</supertypeName>
                                 <features>
+                                    <featureDescription>
+                                        <name>norm</name>
+                                        <description/>
+                                        <rangeTypeName>uima.cas.String</rangeTypeName>
+                                    </featureDescription>
                                     <featureDescription>
                                         <name>code</name>
                                         <description/>
@@ -248,6 +267,18 @@
                                         <rangeTypeName>uima.cas.StringArray</rangeTypeName>
                                         <elementType>uima.cas.String</elementType>
                                         <multipleReferencesAllowed>false</multipleReferencesAllowed>
+                                    </featureDescription>
+                                </features>
+                            </typeDescription>
+                            <typeDescription>
+                                <name>gov.va.vinci.leo.sentence.types.AnchoredSentence</name>
+                                <description>Sentence Type</description>
+                                <supertypeName>uima.tcas.Annotation</supertypeName>
+                                <features>
+                                    <featureDescription>
+                                        <name>Anchor</name>
+                                        <description>Anchor Annotation around which the sentence was created</description>
+                                        <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
                                     </featureDescription>
                                 </features>
                             </typeDescription>
@@ -403,6 +434,20 @@
                     <typeSystemDescription>
                         <types>
                             <typeDescription>
+                                <name>clinicalnlp.types.CompositeNamedEntity</name>
+                                <description/>
+                                <supertypeName>uima.tcas.Annotation</supertypeName>
+                                <features>
+                                    <featureDescription>
+                                        <name>concepts</name>
+                                        <description>array of concepts</description>
+                                        <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+                                        <elementType>clinicalnlp.types.NamedEntityMention</elementType>
+                                        <multipleReferencesAllowed>false</multipleReferencesAllowed>
+                                    </featureDescription>
+                                </features>
+                            </typeDescription>
+                            <typeDescription>
                                 <name>clinicalnlp.types.DictMatch</name>
                                 <description/>
                                 <supertypeName>uima.tcas.Annotation</supertypeName>
@@ -439,6 +484,11 @@
                                 <description/>
                                 <supertypeName>uima.tcas.Annotation</supertypeName>
                                 <features>
+                                    <featureDescription>
+                                        <name>norm</name>
+                                        <description/>
+                                        <rangeTypeName>uima.cas.String</rangeTypeName>
+                                    </featureDescription>
                                     <featureDescription>
                                         <name>code</name>
                                         <description/>
@@ -610,6 +660,18 @@
                                         <rangeTypeName>uima.cas.StringArray</rangeTypeName>
                                         <elementType>uima.cas.String</elementType>
                                         <multipleReferencesAllowed>false</multipleReferencesAllowed>
+                                    </featureDescription>
+                                </features>
+                            </typeDescription>
+                            <typeDescription>
+                                <name>gov.va.vinci.leo.sentence.types.AnchoredSentence</name>
+                                <description>Sentence Type</description>
+                                <supertypeName>uima.tcas.Annotation</supertypeName>
+                                <features>
+                                    <featureDescription>
+                                        <name>Anchor</name>
+                                        <description>Anchor Annotation around which the sentence was created</description>
+                                        <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
                                     </featureDescription>
                                 </features>
                             </typeDescription>

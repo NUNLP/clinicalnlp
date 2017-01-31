@@ -1,17 +1,17 @@
 
 
-/* First created by JCasGen Thu Dec 01 10:19:00 CST 2016 */
+/* First created by JCasGen Tue Jan 31 09:32:09 CST 2017 */
 package clinicalnlp.types;
 
-import org.apache.uima.jcas.JCas;
+import org.apache.uima.jcas.JCas; 
 import org.apache.uima.jcas.JCasRegistry;
 import org.apache.uima.jcas.cas.TOP_Type;
 
 
 
 /** 
- * Updated by JCasGen Thu Dec 01 10:19:00 CST 2016
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_9c746650-7fc5-4251-84ba-a95f2e2f8a7e5732350469364197911.xml
+ * Updated by JCasGen Tue Jan 31 09:32:09 CST 2017
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_58ffb175-3b54-4884-8264-ec13641de8dc2638628757084761241.xml
  * @generated */
 public class WordToken extends Token {
   /** @generated

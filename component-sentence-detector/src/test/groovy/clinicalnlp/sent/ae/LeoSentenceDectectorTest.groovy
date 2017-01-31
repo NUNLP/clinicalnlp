@@ -16,15 +16,15 @@ import org.junit.*
 @Log4j
 class LeoSentenceDectectorTest {
 
-    private Process process = null;
+    private Process process
 
     @BeforeClass
-	public static void setupClass() {
+	static void setupClass() {
 		BasicConfigurator.configure()
     }
 
     @Before
-    public void startService() {
+    void startService() {
         log.setLevel(Level.INFO)
 
         String UIMA_HOME = System.getenv('UIMA_HOME')
@@ -36,7 +36,7 @@ class LeoSentenceDectectorTest {
     }
 
     @After
-    public void stopService() {
+    void stopService() {
         this.process.destroy()
         this.process = null
     }
@@ -44,7 +44,7 @@ class LeoSentenceDectectorTest {
 
     @Ignore
     @Test
-    public void smokeTest() {
+    void smokeTest() {
 
         def text = """\
         Patient has fever but no cough and pneumonia is ruled out.
@@ -97,7 +97,7 @@ class LeoSentenceDectectorTest {
     }
 
     @Test
-    public void testAnchoredSentenceDetection() {
+    void testAnchoredSentenceDetection() {
 
         def text = """\
         Patient has fever but no cough and pneumonia is ruled out.
@@ -156,5 +156,4 @@ class LeoSentenceDectectorTest {
         // validate output
         assert listener.collected.size == 2
     }
-
 }

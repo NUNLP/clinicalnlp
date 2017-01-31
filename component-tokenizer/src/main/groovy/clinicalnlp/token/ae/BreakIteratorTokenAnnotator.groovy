@@ -14,7 +14,7 @@ import org.apache.uima.resource.ResourceInitializationException
 import static com.ibm.icu.text.BreakIterator.wordInstance
 
 @Log4j
-public final class BreakIteratorTokenAnnotator extends JCasAnnotator_ImplBase {
+final class BreakIteratorTokenAnnotator extends JCasAnnotator_ImplBase {
     public static final String PARAM_CONTAINER_TYPE = 'containerTypeName'
     @ConfigurationParameter(name = 'containerTypeName', mandatory = false,
             defaultValue = 'org.apache.uima.jcas.tcas.DocumentAnnotation')
@@ -23,7 +23,7 @@ public final class BreakIteratorTokenAnnotator extends JCasAnnotator_ImplBase {
     private Class<Annotation> containerType;
 
     @Override
-    public void initialize(UimaContext context) throws ResourceInitializationException {
+    void initialize(UimaContext context) throws ResourceInitializationException {
         super.initialize(context)
         try {
             this.containerType = Class.forName(this.containerTypeName)
@@ -34,11 +34,11 @@ public final class BreakIteratorTokenAnnotator extends JCasAnnotator_ImplBase {
     }
 
     @Override
-    public void destroy() {
+    void destroy() {
     }
 
     @Override
-    public void process(JCas aJCas) throws AnalysisEngineProcessException {
+    void process(JCas aJCas) throws AnalysisEngineProcessException {
         aJCas.select(type: (this.containerType)).each {
             int offset = it.getBegin()
             BreakIterator boundary = wordInstance

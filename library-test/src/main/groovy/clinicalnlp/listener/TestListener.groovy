@@ -14,7 +14,7 @@ class TestListener extends BaseListener {
     }
 
     @Override
-    public void entityProcessComplete(CAS aCas, EntityProcessStatus aStatus) {
+    void entityProcessComplete(CAS aCas, EntityProcessStatus aStatus) {
         super.entityProcessComplete(aCas, aStatus);
         Class CollectClass = Class.forName(this.typeName)
         aCas.getJCas().select(type:CollectClass).each {
@@ -23,7 +23,7 @@ class TestListener extends BaseListener {
     }
 
     @Override
-    public void collectionProcessComplete(EntityProcessStatus aStatus) {
+    void collectionProcessComplete(EntityProcessStatus aStatus) {
         super.collectionProcessComplete(aStatus)
     }
 }

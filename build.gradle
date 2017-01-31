@@ -4,7 +4,7 @@ allprojects {
     apply plugin: 'maven'
 
     group 'clinicalnlp'
-    version '1.0'
+    version '1.1'
 
     repositories {
         mavenCentral()
@@ -22,8 +22,8 @@ allprojects {
         compile 'org.codehaus.groovy:groovy-all:2.4.7'
         compile 'com.google.guava:guava:20.0'
         compile 'org.apache.commons:commons-lang3:3.5'
-        compile 'org.apache.logging.log4j:log4j:2.7'
-//        compile 'org.apache.logging.log4j:log4j-core:2.7'
+        compile 'org.apache.logging.log4j:log4j:2.8'
+        compile 'org.apache.logging.log4j:log4j-core:2.8'
         compile 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
 
 //        compile 'org.apache.uima:uimaj-core:2.9.0'
@@ -87,7 +87,7 @@ project(':') {
 
 project(':library-types') {
     dependencies {
-        compile 'gov.va.vinci.leo:leo-core:2016.05.2'
+//        compile 'gov.va.vinci.leo:leo-core:2016.05.2'
 //        compile 'org.apache.ctakes:ctakes-type-system:3.2.2'
     }
 }

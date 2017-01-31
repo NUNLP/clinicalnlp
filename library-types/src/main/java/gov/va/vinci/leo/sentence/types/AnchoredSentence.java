@@ -1,7 +1,7 @@
 
 
 /* First created by JCasGen Tue Jan 31 09:32:09 CST 2017 */
-package clinicalnlp.types;
+package gov.va.vinci.leo.sentence.types;
 
 import org.apache.uima.jcas.JCas; 
 import org.apache.uima.jcas.JCasRegistry;
@@ -10,16 +10,16 @@ import org.apache.uima.jcas.cas.TOP_Type;
 import org.apache.uima.jcas.tcas.Annotation;
 
 
-/** 
+/** Sentence Type
  * Updated by JCasGen Tue Jan 31 09:32:09 CST 2017
  * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_58ffb175-3b54-4884-8264-ec13641de8dc2638628757084761241.xml
  * @generated */
-public class TextSpan extends Annotation {
+public class AnchoredSentence extends Annotation {
   /** @generated
    * @ordered 
    */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = JCasRegistry.register(TextSpan.class);
+  public final static int typeIndexID = JCasRegistry.register(AnchoredSentence.class);
   /** @generated
    * @ordered 
    */
@@ -33,14 +33,14 @@ public class TextSpan extends Annotation {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected TextSpan() {/* intentionally empty block */}
+  protected AnchoredSentence() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
    * @generated
    * @param addr low level Feature Structure reference
    * @param type the type of this Feature Structure 
    */
-  public TextSpan(int addr, TOP_Type type) {
+  public AnchoredSentence(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
@@ -48,7 +48,7 @@ public class TextSpan extends Annotation {
   /** @generated
    * @param jcas JCas to which this Feature Structure belongs 
    */
-  public TextSpan(JCas jcas) {
+  public AnchoredSentence(JCas jcas) {
     super(jcas);
     readObject();   
   } 
@@ -58,7 +58,7 @@ public class TextSpan extends Annotation {
    * @param begin offset to the begin spot in the SofA
    * @param end offset to the end spot in the SofA 
   */  
-  public TextSpan(JCas jcas, int begin, int end) {
+  public AnchoredSentence(JCas jcas, int begin, int end) {
     super(jcas);
     setBegin(begin);
     setEnd(end);
@@ -74,6 +74,28 @@ public class TextSpan extends Annotation {
    */
   private void readObject() {/*default - does nothing empty block */}
      
-}
+ 
+    
+  //*--------------*
+  //* Feature: Anchor
+
+  /** getter for Anchor - gets Anchor Annotation around which the sentence was created
+   * @generated
+   * @return value of the feature 
+   */
+  public Annotation getAnchor() {
+    if (AnchoredSentence_Type.featOkTst && ((AnchoredSentence_Type)jcasType).casFeat_Anchor == null)
+      jcasType.jcas.throwFeatMissing("Anchor", "gov.va.vinci.leo.sentence.types.AnchoredSentence");
+    return (Annotation)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((AnchoredSentence_Type)jcasType).casFeatCode_Anchor)));}
+    
+  /** setter for Anchor - sets Anchor Annotation around which the sentence was created 
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setAnchor(Annotation v) {
+    if (AnchoredSentence_Type.featOkTst && ((AnchoredSentence_Type)jcasType).casFeat_Anchor == null)
+      jcasType.jcas.throwFeatMissing("Anchor", "gov.va.vinci.leo.sentence.types.AnchoredSentence");
+    jcasType.ll_cas.ll_setRefValue(addr, ((AnchoredSentence_Type)jcasType).casFeatCode_Anchor, jcasType.ll_cas.ll_getFSRef(v));}    
+  }
 
     

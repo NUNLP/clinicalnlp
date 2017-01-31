@@ -18,12 +18,12 @@ class LeoSegmenterTest {
     private static Process process = null;
 
     @BeforeClass
-	public static void setupClass() {
+	static void setupClass() {
 		BasicConfigurator.configure()
     }
 
     @BeforeClass
-    public static void startService() {
+    static void startService() {
         String UIMA_HOME = System.getenv('UIMA_HOME')
         String OS_NAME = System.getProperty("os.name")
         String ext = OS_NAME == 'Mac OS X' ? 'sh' : 'bat'
@@ -32,21 +32,21 @@ class LeoSegmenterTest {
     }
 
     @AfterClass
-    public static void stopService() {
+    static void stopService() {
         this.process.destroy()
     }
 
     @Before
-	public void setUp() throws Exception {
+	void setUp() throws Exception {
 		log.setLevel(Level.INFO)
 	}
 
 	@After
-	public void tearDown() throws Exception {
+	void tearDown() throws Exception {
 	}
 
     @Test
-    public void testSegmenter() {
+    void testSegmenter() {
 
         def text = """\
         Patient has fever but no cough and pneumonia is ruled out.

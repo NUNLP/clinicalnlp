@@ -14,7 +14,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 @Log4j2
-public class NamedEntityMatcher extends LeoBaseAnnotator {
+class NamedEntityMatcher extends LeoBaseAnnotator {
     public static final String PATTERN = 'patternStr'
 
     @LeoConfigurationParameter(mandatory = false)
@@ -22,7 +22,7 @@ public class NamedEntityMatcher extends LeoBaseAnnotator {
 
     private Pattern pattern;
 
-    public NamedEntityMatcher setPatternStr(String patternStr) {
+    NamedEntityMatcher setPatternStr(String patternStr) {
         this.patternStr = patternStr
         return this
     }
@@ -34,7 +34,7 @@ public class NamedEntityMatcher extends LeoBaseAnnotator {
     }
 
     @Override
-    public void annotate(JCas jcas) throws AnalysisEngineProcessException {
+    void annotate(JCas jcas) throws AnalysisEngineProcessException {
         Matcher matcher = jcas.documentText =~ this.pattern
         matcher.each {
             NamedEntityMention nem = new NamedEntityMention(jcas)
@@ -50,7 +50,7 @@ public class NamedEntityMatcher extends LeoBaseAnnotator {
     }
 
     @Override
-    def <T extends LeoBaseAnnotator> T setLeoTypeSystemDescription(LeoTypeSystemDescription typeSystemDescription) {
+    <T extends LeoBaseAnnotator> T setLeoTypeSystemDescription(LeoTypeSystemDescription typeSystemDescription) {
         return super.setLeoTypeSystemDescription(typeSystemDescription)
     }
 }
