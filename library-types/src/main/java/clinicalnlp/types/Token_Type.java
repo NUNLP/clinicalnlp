@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Tue Jan 31 21:25:28 CST 2017 */
+/* First created by JCasGen Wed Feb 01 00:47:54 CST 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas;
@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Tue Jan 31 21:25:28 CST 2017
+ * Updated by JCasGen Wed Feb 01 00:47:54 CST 2017
  * @generated */
 public class Token_Type extends Annotation_Type {
   /** @generated 

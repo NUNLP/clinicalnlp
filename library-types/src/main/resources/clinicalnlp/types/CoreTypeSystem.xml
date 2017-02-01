@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
-    <name>leoTypeDescription_cbb28e9b-179d-4bac-9058-3bce55c87c90</name>
+    <name>leoTypeDescription_7aad5a97-058b-4426-80b5-a51b57a4b49e</name>
     <types>
         <typeDescription>
             <name>gov.va.vinci.leo.types.CSI</name>

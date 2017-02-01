@@ -100,6 +100,7 @@ class DSL extends Script {
             Class<? extends Annotation> WindowType = args.windowType
             Class<? extends Annotation> RightWindowType = args.rightWindowType
             Class<? extends Annotation> LeftWindowType = args.leftWindowType
+            Boolean includeAnchor = args.includeAnchor ?: false
 
             int leftTokenCount = args.leftTokenCount
             int rightTokenCount = args.rightTokenCount
@@ -118,10 +119,10 @@ class DSL extends Script {
 
                 jcas.create(type:WindowType, begin:beginIdx, end:endIdx)
                 if (RightWindowType) {
-                    jcas.create(type:RightWindowType, begin:anchor.end, end:endIdx)
+                    jcas.create(type:RightWindowType, begin:(includeAnchor ? anchor.begin : anchor.end), end:endIdx)
                 }
                 if (LeftWindowType) {
-                    jcas.create(type:LeftWindowType, begin:beginIdx, end:anchor.begin)
+                    jcas.create(type:LeftWindowType, begin:beginIdx, end:(includeAnchor ? anchor.end : anchor.begin))
                 }
             }
         }
