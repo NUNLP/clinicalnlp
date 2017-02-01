@@ -180,6 +180,7 @@ class DSL extends Script {
         Collection searchSet = args.searchSet
         Class type = args.type
         Boolean longestMatch = args.longestMatch
+        Integer group = args.group ?: 0
 
         List<NamedEntityMention> mentions = []
         searchSet.each { Annotation ann ->
@@ -189,11 +190,12 @@ class DSL extends Script {
                     // create an annotation for each match
                     assert jcas != null
                     NamedEntityMention mention = jcas.create(
-                            type:type,
-                            begin:(matcher.start(vals.group) + ann.begin),
-                            end:(matcher.end(vals.group) + ann.begin),
-                            code:vals.code,
-                            codeSystem:vals.codeSystem
+                        type:type,
+                        begin:(matcher.start(group) + ann.begin),
+                        end:(matcher.end(group) + ann.begin),
+                        code:vals.code,
+                        codeSystem:vals.codeSystem,
+                        norm:vals.norm
                     )
                     mentions << mention
                 }
