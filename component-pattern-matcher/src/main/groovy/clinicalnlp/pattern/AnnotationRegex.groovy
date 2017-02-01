@@ -48,6 +48,11 @@ class AnnotationRegex {
         return new AnnotationRegexMatcher(this, sequence)
     }
 
+    @Override
+    String toString() {
+        return this.pattern.toString()
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     // Private methods
     // -----------------------------------------------------------------------------------------------------------------
