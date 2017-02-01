@@ -100,6 +100,9 @@ public class TypeBuilder {
         heading.addFeature("codeSystem", "", "uima.cas.String");
         types.addType(heading);
 
+        types.addType("clinicalnlp.types.LeftWindow", "", "uima.tcas.Annotation");
+        types.addType("clinicalnlp.types.RightWindow", "", "uima.tcas.Annotation");
+
         //-----------------------------------------------------------------------------
         // Dictionary types
         //-----------------------------------------------------------------------------

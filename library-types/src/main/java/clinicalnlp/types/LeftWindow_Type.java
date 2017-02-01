@@ -14,7 +14,7 @@ import org.apache.uima.jcas.tcas.Annotation_Type;
 /** 
  * Updated by JCasGen Tue Jan 31 21:25:28 CST 2017
  * @generated */
-public class TextSpan_Type extends Annotation_Type {
+public class LeftWindow_Type extends Annotation_Type {
   /** @generated 
    * @return the generator for this type
    */
@@ -24,25 +24,25 @@ public class TextSpan_Type extends Annotation_Type {
   private final FSGenerator fsGenerator = 
     new FSGenerator() {
       public FeatureStructure createFS(int addr, CASImpl cas) {
-  			 if (TextSpan_Type.this.useExistingInstance) {
+  			 if (LeftWindow_Type.this.useExistingInstance) {
   			   // Return eq fs instance if already created
-  		     FeatureStructure fs = TextSpan_Type.this.jcas.getJfsFromCaddr(addr);
+  		     FeatureStructure fs = LeftWindow_Type.this.jcas.getJfsFromCaddr(addr);
   		     if (null == fs) {
-  		       fs = new TextSpan(addr, TextSpan_Type.this);
-  			   TextSpan_Type.this.jcas.putJfsFromCaddr(addr, fs);
+  		       fs = new LeftWindow(addr, LeftWindow_Type.this);
+  			   LeftWindow_Type.this.jcas.putJfsFromCaddr(addr, fs);
   			   return fs;
   		     }
   		     return fs;
-        } else return new TextSpan(addr, TextSpan_Type.this);
+        } else return new LeftWindow(addr, LeftWindow_Type.this);
   	  }
     };
   /** @generated */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = TextSpan.typeIndexID;
+  public final static int typeIndexID = LeftWindow.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("clinicalnlp.types.TextSpan");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("clinicalnlp.types.LeftWindow");
 
 
 
@@ -51,7 +51,7 @@ public class TextSpan_Type extends Annotation_Type {
 	 * @param jcas JCas
 	 * @param casType Type 
 	 */
-  public TextSpan_Type(JCas jcas, Type casType) {
+  public LeftWindow_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 

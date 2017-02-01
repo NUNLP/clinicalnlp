@@ -41,7 +41,7 @@ class LeoDSLAnnotatorTest {
         pipeline.addDelegate(
                 new LeoDSLAnnotator()
                         .setScriptFileName('groovy/TestConceptDetector.groovy')
-                        .setSBindingScriptFileName('groovy/TestBindingScript.groovy')
+                        .setBindingScriptFileName('groovy/TestBindingScript.groovy')
                         .setLeoTypeSystemDescription(new LeoTypeSystemDescription('clinicalnlp.types.CoreTypeSystem', true))
                         .getLeoAEDescriptor()
         )

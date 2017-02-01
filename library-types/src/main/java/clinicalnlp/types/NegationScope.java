@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Tue Jan 31 09:32:09 CST 2017 */
+/* First created by JCasGen Tue Jan 31 21:25:28 CST 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Tue Jan 31 09:32:09 CST 2017
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_58ffb175-3b54-4884-8264-ec13641de8dc2638628757084761241.xml
+ * Updated by JCasGen Tue Jan 31 21:25:28 CST 2017
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_7b137e80-296a-485d-88dc-f9f994b57aa65542413090411876594.xml
  * @generated */
 public class NegationScope extends Annotation {
   /** @generated

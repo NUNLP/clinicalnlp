@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Tue Jan 31 09:32:09 CST 2017 */
+/* First created by JCasGen Tue Jan 31 21:25:28 CST 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas;
@@ -12,7 +12,7 @@ import org.apache.uima.cas.Type;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Tue Jan 31 09:32:09 CST 2017
+ * Updated by JCasGen Tue Jan 31 21:25:28 CST 2017
  * @generated */
 public class NegationTrigger_Type extends Annotation_Type {
   /** @generated 

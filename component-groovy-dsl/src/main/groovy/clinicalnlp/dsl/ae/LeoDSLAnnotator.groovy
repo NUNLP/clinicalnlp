@@ -23,7 +23,7 @@ class LeoDSLAnnotator extends LeoBaseAnnotator {
 		return this;
 	}
 
-	LeoDSLAnnotator setSBindingScriptFileName(String bindingScriptFileName) {
+	LeoDSLAnnotator setBindingScriptFileName(String bindingScriptFileName) {
 		this.bindingScriptFileName = bindingScriptFileName
 		return this;
 	}
@@ -47,7 +47,7 @@ class LeoDSLAnnotator extends LeoBaseAnnotator {
 	}
 
 	@Override
-	def <T extends LeoBaseAnnotator> T setLeoTypeSystemDescription(LeoTypeSystemDescription typeSystemDescription) {
+	<T extends LeoBaseAnnotator> T setLeoTypeSystemDescription(LeoTypeSystemDescription typeSystemDescription) {
 		return super.setLeoTypeSystemDescription(typeSystemDescription)
 	}
 }

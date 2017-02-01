@@ -1,7 +1,7 @@
 
 
 /* First created by JCasGen Tue Jan 31 21:25:28 CST 2017 */
-package gov.va.vinci.leo.sentence.types;
+package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas; 
 import org.apache.uima.jcas.JCasRegistry;
@@ -10,16 +10,16 @@ import org.apache.uima.jcas.cas.TOP_Type;
 import org.apache.uima.jcas.tcas.Annotation;
 
 
-/** Sentence Type
+/** 
  * Updated by JCasGen Tue Jan 31 21:25:28 CST 2017
  * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_7b137e80-296a-485d-88dc-f9f994b57aa65542413090411876594.xml
  * @generated */
-public class Sentence extends Annotation {
+public class RightWindow extends Annotation {
   /** @generated
    * @ordered 
    */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = JCasRegistry.register(Sentence.class);
+  public final static int typeIndexID = JCasRegistry.register(RightWindow.class);
   /** @generated
    * @ordered 
    */
@@ -33,14 +33,14 @@ public class Sentence extends Annotation {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected Sentence() {/* intentionally empty block */}
+  protected RightWindow() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
    * @generated
    * @param addr low level Feature Structure reference
    * @param type the type of this Feature Structure 
    */
-  public Sentence(int addr, TOP_Type type) {
+  public RightWindow(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
@@ -48,7 +48,7 @@ public class Sentence extends Annotation {
   /** @generated
    * @param jcas JCas to which this Feature Structure belongs 
    */
-  public Sentence(JCas jcas) {
+  public RightWindow(JCas jcas) {
     super(jcas);
     readObject();   
   } 
@@ -58,7 +58,7 @@ public class Sentence extends Annotation {
    * @param begin offset to the begin spot in the SofA
    * @param end offset to the end spot in the SofA 
   */  
-  public Sentence(JCas jcas, int begin, int end) {
+  public RightWindow(JCas jcas, int begin, int end) {
     super(jcas);
     setBegin(begin);
     setEnd(end);
@@ -74,28 +74,6 @@ public class Sentence extends Annotation {
    */
   private void readObject() {/*default - does nothing empty block */}
      
- 
-    
-  //*--------------*
-  //* Feature: Anchor
-
-  /** getter for Anchor - gets Anchor Annotation around which the sentence was created
-   * @generated
-   * @return value of the feature 
-   */
-  public Annotation getAnchor() {
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_Anchor == null)
-      jcasType.jcas.throwFeatMissing("Anchor", "gov.va.vinci.leo.sentence.types.Sentence");
-    return (Annotation)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_Anchor)));}
-    
-  /** setter for Anchor - sets Anchor Annotation around which the sentence was created 
-   * @generated
-   * @param v value to set into the feature 
-   */
-  public void setAnchor(Annotation v) {
-    if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_Anchor == null)
-      jcasType.jcas.throwFeatMissing("Anchor", "gov.va.vinci.leo.sentence.types.Sentence");
-    jcasType.ll_cas.ll_setRefValue(addr, ((Sentence_Type)jcasType).casFeatCode_Anchor, jcasType.ll_cas.ll_getFSRef(v));}    
-  }
+}
 
     
