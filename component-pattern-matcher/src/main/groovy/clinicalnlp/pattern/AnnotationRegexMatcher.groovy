@@ -44,8 +44,8 @@ class AnnotationRegexMatcher implements Iterator {
         this.matcher = regex.pattern.matcher(this.seqString)
         this.iterator = StringGroovyMethods.iterator(this.matcher)
 
-        ////println "Pattern: ${regex.pattern.toString()}"
-        ////println "Match string: ${this.seqString}"
+        println "Pattern: ${regex.pattern.toString()}"
+        println "Match string: ${this.seqString}"
     }
 
     @Override

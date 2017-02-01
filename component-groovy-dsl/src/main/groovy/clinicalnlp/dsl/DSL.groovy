@@ -104,13 +104,13 @@ class DSL extends Script {
             int leftTokenCount = args.leftTokenCount
             int rightTokenCount = args.rightTokenCount
 
-            Collection<Annotation> anchors = jcas.select type:AnchorType, filter:coveredBy(ann)
+            Collection<Annotation> anchors = jcas.select type:AnchorType, filter:DSL.coveredBy(ann)
             anchors.each { Annotation anchor ->
                 Collection<Annotation> beforeTokens = jcas.select type:TokenType,
-                        filter:between(ann.begin, anchor.begin)
+                        filter:DSL.between(ann.begin, anchor.begin)
                 int beforeCount = [beforeTokens.size(), leftTokenCount].min()
                 Collection<Annotation> afterTokens = jcas.select type:TokenType,
-                        filter:between(anchor.end, ann.end)
+                        filter:DSL.between(anchor.end, ann.end)
                 int afterCount = [afterTokens.size(), rightTokenCount].min()
 
                 int beginIdx = (beforeCount ? beforeTokens[-beforeCount].begin : anchor.begin)
@@ -118,10 +118,10 @@ class DSL extends Script {
 
                 jcas.create(type:WindowType, begin:beginIdx, end:endIdx)
                 if (RightWindowType) {
-                    jcas.create(type:RightWindowType, begin:anchor.begin, end:endIdx)
+                    jcas.create(type:RightWindowType, begin:anchor.end, end:endIdx)
                 }
                 if (LeftWindowType) {
-                    jcas.create(type:LeftWindowType, begin:beginIdx, end:anchor.end)
+                    jcas.create(type:LeftWindowType, begin:beginIdx, end:anchor.begin)
                 }
             }
         }
