@@ -54,6 +54,7 @@ class AnnotationRegexMatcher implements Iterator {
     Object next() {
         this.iterator.next()
         Binding binding = new Binding()
+        binding.$matchString = this.seqString
         this.groupNames.each { String name ->
             String matchedText = this.matcher.group(name)
             if (matchedText) {
