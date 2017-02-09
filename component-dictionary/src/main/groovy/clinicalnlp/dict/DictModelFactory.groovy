@@ -13,17 +13,17 @@ class DictModelFactory {
     public static String DICT_MODEL_TYPE_PHRASE = "Phrase"
     public static String DICT_MODEL_TYPE_TRIE = "Trie"
 
-    static public DictModel make(final String dictModelType,
+    static DictModel make(final String dictModelType,
                                  final AbstractionSchema schema,
                                  final Tokenizer tokenizer,
                                  final Boolean caseInsensitive) {
 
-        DictModel model;
+        DictModel model
 
         switch (dictModelType) {
             case DICT_MODEL_TYPE_TRIE:
                 model = new TrieDictModel<DictEntry>()
-                break;
+                break
 
             case DICT_MODEL_TYPE_PHRASE:
                 model = new PhraseDictModel<DictEntry>()
@@ -44,7 +44,7 @@ class DictModelFactory {
         return model
     }
 
-    static public Collection<CharSequence> tokenize(String phrase, TokenizerME tokenizer,
+    static Collection<CharSequence> tokenize(String phrase, TokenizerME tokenizer,
                                                     Boolean caseInsensitive) {
         Collection<Sequence> tokens = new ArrayList<>()
         Span[] tokenSpans = tokenizer.tokenizePos(phrase)
@@ -56,11 +56,11 @@ class DictModelFactory {
         return tokens
     }
 
-    static public String join(final Collection<CharSequence> tokens, boolean wrap = false) {
+    static String join(final Collection<CharSequence> tokens, boolean wrap = false) {
         return join(tokens as CharSequence[], wrap)
     }
 
-    static public String join(final CharSequence[] tokens, boolean wrap = false) {
+    static String join(final CharSequence[] tokens, boolean wrap = false) {
         StringJoiner joiner;
         if (wrap == true) {
             joiner = new StringJoiner(TOKEN_SEP, TOKEN_SEP, TOKEN_SEP)

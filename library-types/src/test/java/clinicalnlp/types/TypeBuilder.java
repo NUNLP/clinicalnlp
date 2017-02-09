@@ -34,6 +34,9 @@ public class TypeBuilder {
         token.addFeature("pos", "", "uima.cas.String");
         token.addFeature("lemma", "", "uima.cas.String");
         token.addFeature("stem", "", "uima.cas.String");
+        token.addFeature("normText", "", "uima.cas.String");
+        token.addFeature("normDist", "", "uima.cas.Float");
+
         types.addType(token);
 
         TypeDescription_impl wordToken = new TypeDescription_impl("clinicalnlp.types.WordToken",

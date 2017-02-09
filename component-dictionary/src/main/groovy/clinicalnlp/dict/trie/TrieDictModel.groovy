@@ -9,6 +9,8 @@ import clinicalnlp.dict.stringdist.MinEditDist
 
 class TrieDictModel<Value> implements DictModel<Value> {
 
+    static final Integer MAX_RAW_SCORE = 5
+
 	// ------------------------------------------------------------------------
 	// Inner Classes
 	// ------------------------------------------------------------------------
@@ -108,13 +110,13 @@ class TrieDictModel<Value> implements DictModel<Value> {
 		agenda.push(new SearchState<Value>(this.root))
 		while (!agenda.isEmpty()) {
 			SearchState<Value> topSS = agenda.peek()
-		
-			// if the top search state is exhausted, pop it off the agenda
+
+            // if the top search state is exhausted, pop it off the agenda
 			if (topSS.index >= topSS.node.next.length) { 
 				dist.pop(); agenda.pop()
 			}
 			// evaluate top search state
-			else if (dist.push(topSS.node.next[topSS.index].c) > tolerance) {
+			else if (dist.push(topSS.node.next[topSS.index].c) > MAX_RAW_SCORE) {
 				dist.pop()
 			}
 			// examine current search state and look for matches
@@ -122,12 +124,15 @@ class TrieDictModel<Value> implements DictModel<Value> {
 				Node<Value> nextNode = topSS.node.next[topSS.index]
 				agenda.push(new SearchState<Value>(nextNode))
 				if (nextNode.value != null) {
-					Collection strm = dist.matches(tolerance)
+					Collection strm = dist.matches(MAX_RAW_SCORE)
 					for (Match m : strm) {
-						println "Node value: ${nextNode.value}"
-						matches.add(new TokenMatch<Value>(begin:m.begin,
-							end:m.end, score:m.score,
-								value:nextNode.value))
+                        Float normScore = m.score/m.matchString.length()
+                        if (normScore <= tolerance) {
+                            println "Match string: ${m.matchString}"
+                            matches.add(new TokenMatch<Value>(begin:m.begin,
+                                end:m.end, score:normScore,
+                                value:nextNode.value))
+                        }
 					}
 				}
 			}

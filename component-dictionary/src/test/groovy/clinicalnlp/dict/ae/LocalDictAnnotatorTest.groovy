@@ -182,7 +182,7 @@ class LocalDictAnnotatorTest {
         assert matches.size() == 0
 
         // run the pipeline again with looser tolerance
-        engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/tolerance', new Float(2.0))
+        engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/tolerance', new Float(0.1))
         engine.reconfigure()
 
         jcas.reset()

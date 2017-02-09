@@ -78,7 +78,7 @@ class MinEditDist implements DynamicStringDist {
 	 * 
 	 */
 	@Override
-	Double push(final char c) {
+	Float push(final char c) {
 		prefix.append(c)
 		BackPtr[] toprow = rows.peek()
 		BackPtr[] newrow = new BackPtr[toprow.length]
@@ -115,7 +115,7 @@ class MinEditDist implements DynamicStringDist {
 	 * 
 	 */
 	@Override
-	Collection<Match> matches(final Double tolerance) {
+	Collection<Match> matches(final Float tolerance) {
 		Collection<Integer[]> matches = new ArrayList<>()
 		BackPtr[] toprow = rows.peek()
 		toprow.eachWithIndex { BackPtr bptr, Integer endIndex ->
@@ -124,11 +124,12 @@ class MinEditDist implements DynamicStringDist {
                 (endIndex+1 == text.size() ||
                     text.charAt(endIndex+1) == DictModelFactory.TOKEN_SEP)) {
 				matches << new Match(
-                        begin:(text.charAt(bptr.startIdx) == DictModelFactory.TOKEN_SEP ?
-                                this.str2tok[bptr.startIdx+1] : this.str2tok[bptr.startIdx]),
-                        end:(text.charAt(endIndex) == DictModelFactory.TOKEN_SEP ?
-                                this.str2tok[endIndex-1] : this.str2tok[endIndex]),
-                        score:bptr.score
+                    begin:(text.charAt(bptr.startIdx) == DictModelFactory.TOKEN_SEP ?
+                        this.str2tok[bptr.startIdx+1] : this.str2tok[bptr.startIdx]),
+                    end:(text.charAt(endIndex) == DictModelFactory.TOKEN_SEP ?
+                        this.str2tok[endIndex-1] : this.str2tok[endIndex]),
+                    score:bptr.score,
+                    matchString:prefix
                 )
             }
 		}
@@ -136,7 +137,7 @@ class MinEditDist implements DynamicStringDist {
 	}
 
 	@Override
-	Double add(Collection<CharSequence> tokens) {
+	Float add(Collection<CharSequence> tokens) {
 		if (tokens == null) { throw new NullPointerException() }
 		if (tokens.size() == 0) { throw new IllegalArgumentException("must have at least one token to match") }
 

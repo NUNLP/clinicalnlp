@@ -13,10 +13,11 @@ class Match {
     Integer begin
     Integer end
     Double score
+    String matchString
 }
 
 interface StringDist {
 	void set(final Collection<CharSequence> tokens);
-	Double add(final Collection<CharSequence> tokens);
-	Collection<Match> matches(final Double tolerance);
+	Float add(final Collection<CharSequence> tokens);
+	Collection<Match> matches(final Float tolerance);
 }
