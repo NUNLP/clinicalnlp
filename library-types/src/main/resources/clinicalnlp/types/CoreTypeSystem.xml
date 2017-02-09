@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
-    <name>leoTypeDescription_baa87642-dd94-40fc-8725-fd015561df2a</name>
+    <name>leoTypeDescription_b9d00a66-8737-4b17-9377-d15235d2afd4</name>
     <types>
         <typeDescription>
             <name>gov.va.vinci.leo.types.CSI</name>
@@ -353,7 +353,7 @@
                 <featureDescription>
                     <name>score</name>
                     <description/>
-                    <rangeTypeName>uima.cas.Integer</rangeTypeName>
+                    <rangeTypeName>uima.cas.Float</rangeTypeName>
                 </featureDescription>
                 <featureDescription>
                     <name>container</name>

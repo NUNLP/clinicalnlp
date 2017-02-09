@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Thu Feb 09 11:52:35 CST 2017 */
+/* First created by JCasGen Thu Feb 09 11:53:48 CST 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas;
@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Thu Feb 09 11:52:35 CST 2017
+ * Updated by JCasGen Thu Feb 09 11:53:48 CST 2017
  * @generated */
 public class DictMatch_Type extends Annotation_Type {
   /** @generated 
@@ -177,19 +177,19 @@ public class DictMatch_Type extends Annotation_Type {
    * @param addr low level Feature Structure reference
    * @return the feature value 
    */ 
-  public int getScore(int addr) {
+  public float getScore(int addr) {
         if (featOkTst && casFeat_score == null)
       jcas.throwFeatMissing("score", "clinicalnlp.types.DictMatch");
-    return ll_cas.ll_getIntValue(addr, casFeatCode_score);
+    return ll_cas.ll_getFloatValue(addr, casFeatCode_score);
   }
   /** @generated
    * @param addr low level Feature Structure reference
    * @param v value to set 
    */    
-  public void setScore(int addr, int v) {
+  public void setScore(int addr, float v) {
         if (featOkTst && casFeat_score == null)
       jcas.throwFeatMissing("score", "clinicalnlp.types.DictMatch");
-    ll_cas.ll_setIntValue(addr, casFeatCode_score, v);}
+    ll_cas.ll_setFloatValue(addr, casFeatCode_score, v);}
     
   
  
@@ -245,7 +245,7 @@ public class DictMatch_Type extends Annotation_Type {
     casFeatCode_vocabulary  = (null == casFeat_vocabulary) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_vocabulary).getCode();
 
  
-    casFeat_score = jcas.getRequiredFeatureDE(casType, "score", "uima.cas.Integer", featOkTst);
+    casFeat_score = jcas.getRequiredFeatureDE(casType, "score", "uima.cas.Float", featOkTst);
     casFeatCode_score  = (null == casFeat_score) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_score).getCode();
 
  
