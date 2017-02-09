@@ -5,7 +5,7 @@ import groovy.transform.ToString
 import groovy.util.logging.Log4j
 
 @Log4j
-public class MinEditDist implements DynamicStringDist {
+class MinEditDist implements DynamicStringDist {
 		
 	// ------------------------------------------------------------------------
 	// Inner Classes
@@ -17,7 +17,7 @@ public class MinEditDist implements DynamicStringDist {
 		Integer startIdx
 		
 		@Override
-		public int compareTo(Object other) {
+		int compareTo(Object other) {
 			return Double.compare(score, ((BackPtr)other).score) 
 		}
 	}
@@ -57,7 +57,7 @@ public class MinEditDist implements DynamicStringDist {
 	 * 
 	 */
 	@Override
-	public void set(final Collection<CharSequence> tokens) {
+	void set(final Collection<CharSequence> tokens) {
 		if (tokens == null) { throw new NullPointerException() }
 		if (tokens.size() == 0) { throw new IllegalArgumentException("must have at least one token to match") }
 
@@ -78,7 +78,7 @@ public class MinEditDist implements DynamicStringDist {
 	 * 
 	 */
 	@Override
-	public Double push(final char c) {
+	Double push(final char c) {
 		prefix.append(c)
 		BackPtr[] toprow = rows.peek()
 		BackPtr[] newrow = new BackPtr[toprow.length]
@@ -105,7 +105,7 @@ public class MinEditDist implements DynamicStringDist {
 	 * 
 	 */
 	@Override
-	public void pop() {
+	void pop() {
 		if (prefix.length() == 0) { return }
 		prefix.deleteCharAt(prefix.length()-1)
 		this.rows.pop()
@@ -115,11 +115,14 @@ public class MinEditDist implements DynamicStringDist {
 	 * 
 	 */
 	@Override
-	public Collection<Match> matches(final Double tolerance) {
+	Collection<Match> matches(final Double tolerance) {
 		Collection<Integer[]> matches = new ArrayList<>()
 		BackPtr[] toprow = rows.peek()
 		toprow.eachWithIndex { BackPtr bptr, Integer endIndex ->
-			if (bptr.score <= tolerance && (endIndex+1 == text.size() || text.charAt(endIndex+1) == DictModelFactory.TOKEN_SEP)) {
+            Float normScore = bptr.score
+            if (normScore <= tolerance &&
+                (endIndex+1 == text.size() ||
+                    text.charAt(endIndex+1) == DictModelFactory.TOKEN_SEP)) {
 				matches << new Match(
                         begin:(text.charAt(bptr.startIdx) == DictModelFactory.TOKEN_SEP ?
                                 this.str2tok[bptr.startIdx+1] : this.str2tok[bptr.startIdx]),
@@ -127,13 +130,13 @@ public class MinEditDist implements DynamicStringDist {
                                 this.str2tok[endIndex-1] : this.str2tok[endIndex]),
                         score:bptr.score
                 )
-			}
+            }
 		}
 		return matches
 	}
 
 	@Override
-	public Double add(Collection<CharSequence> tokens) {
+	Double add(Collection<CharSequence> tokens) {
 		if (tokens == null) { throw new NullPointerException() }
 		if (tokens.size() == 0) { throw new IllegalArgumentException("must have at least one token to match") }
 

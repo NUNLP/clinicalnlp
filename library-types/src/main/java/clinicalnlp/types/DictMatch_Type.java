@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Wed Feb 01 00:47:53 CST 2017 */
+/* First created by JCasGen Thu Feb 09 11:52:35 CST 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas;
@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Wed Feb 01 00:47:53 CST 2017
+ * Updated by JCasGen Thu Feb 09 11:52:35 CST 2017
  * @generated */
 public class DictMatch_Type extends Annotation_Type {
   /** @generated 
@@ -170,6 +170,30 @@ public class DictMatch_Type extends Annotation_Type {
   
  
   /** @generated */
+  final Feature casFeat_score;
+  /** @generated */
+  final int     casFeatCode_score;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public int getScore(int addr) {
+        if (featOkTst && casFeat_score == null)
+      jcas.throwFeatMissing("score", "clinicalnlp.types.DictMatch");
+    return ll_cas.ll_getIntValue(addr, casFeatCode_score);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setScore(int addr, int v) {
+        if (featOkTst && casFeat_score == null)
+      jcas.throwFeatMissing("score", "clinicalnlp.types.DictMatch");
+    ll_cas.ll_setIntValue(addr, casFeatCode_score, v);}
+    
+  
+ 
+  /** @generated */
   final Feature casFeat_container;
   /** @generated */
   final int     casFeatCode_container;
@@ -219,6 +243,10 @@ public class DictMatch_Type extends Annotation_Type {
  
     casFeat_vocabulary = jcas.getRequiredFeatureDE(casType, "vocabulary", "uima.cas.String", featOkTst);
     casFeatCode_vocabulary  = (null == casFeat_vocabulary) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_vocabulary).getCode();
+
+ 
+    casFeat_score = jcas.getRequiredFeatureDE(casType, "score", "uima.cas.Integer", featOkTst);
+    casFeatCode_score  = (null == casFeat_score) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_score).getCode();
 
  
     casFeat_container = jcas.getRequiredFeatureDE(casType, "container", "uima.tcas.Annotation", featOkTst);

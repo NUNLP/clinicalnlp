@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Wed Feb 01 00:47:54 CST 2017 */
+/* First created by JCasGen Thu Feb 09 11:52:36 CST 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Wed Feb 01 00:47:54 CST 2017
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_ded8d962-e470-474a-ad8c-58f286fb359d6355760929296680102.xml
+ * Updated by JCasGen Thu Feb 09 11:52:36 CST 2017
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_f6f8e3dd-0bc9-486d-80f1-8fd7dea8366d4857444325554038522.xml
  * @generated */
 public class TextSpan extends Annotation {
   /** @generated

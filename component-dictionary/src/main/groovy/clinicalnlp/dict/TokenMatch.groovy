@@ -5,7 +5,7 @@ import groovy.transform.ToString
 
 @ToString
 @EqualsAndHashCode
-public class TokenMatch<Value extends Comparable<Value>> implements Comparable {
+class TokenMatch<Value extends Comparable<Value>> implements Comparable {
 	Integer begin
 	Integer end
 	Float score

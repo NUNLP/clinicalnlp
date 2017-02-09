@@ -38,7 +38,7 @@ class TrieDictTest {
 	}
 
     @Test
-    public void smokeTest() {
+    void smokeTest() {
 		assert dict.numEntries == entries.size()
 		entries.each { k,v ->
 			assert dict.get(k) == v
@@ -46,7 +46,7 @@ class TrieDictTest {
     }
 	
 	@Test
-	public void findMatches() {
+	void findMatches() {
 		Collection<CharSequence> tokens = new ArrayList<>()
 		tokens << 'bee' << 'bees'
 		

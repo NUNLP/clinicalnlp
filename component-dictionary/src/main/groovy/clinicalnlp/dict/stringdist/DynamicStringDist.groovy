@@ -1,6 +1,6 @@
 package clinicalnlp.dict.stringdist
 
-public interface DynamicStringDist extends StringDist {
-	public Double push(final char c);
-	public void pop();
+interface DynamicStringDist extends StringDist {
+	Double push(final char c)
+	void pop()
 }

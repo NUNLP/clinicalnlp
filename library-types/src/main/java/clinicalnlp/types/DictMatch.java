@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Wed Feb 01 00:47:53 CST 2017 */
+/* First created by JCasGen Thu Feb 09 11:52:35 CST 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -13,8 +13,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Wed Feb 01 00:47:53 CST 2017
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_ded8d962-e470-474a-ad8c-58f286fb359d6355760929296680102.xml
+ * Updated by JCasGen Thu Feb 09 11:52:35 CST 2017
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_f6f8e3dd-0bc9-486d-80f1-8fd7dea8366d4857444325554038522.xml
  * @generated */
 public class DictMatch extends Annotation {
   /** @generated
@@ -186,6 +186,28 @@ public class DictMatch extends Annotation {
     if (DictMatch_Type.featOkTst && ((DictMatch_Type)jcasType).casFeat_vocabulary == null)
       jcasType.jcas.throwFeatMissing("vocabulary", "clinicalnlp.types.DictMatch");
     jcasType.ll_cas.ll_setStringValue(addr, ((DictMatch_Type)jcasType).casFeatCode_vocabulary, v);}    
+   
+    
+  //*--------------*
+  //* Feature: score
+
+  /** getter for score - gets 
+   * @generated
+   * @return value of the feature 
+   */
+  public int getScore() {
+    if (DictMatch_Type.featOkTst && ((DictMatch_Type)jcasType).casFeat_score == null)
+      jcasType.jcas.throwFeatMissing("score", "clinicalnlp.types.DictMatch");
+    return jcasType.ll_cas.ll_getIntValue(addr, ((DictMatch_Type)jcasType).casFeatCode_score);}
+    
+  /** setter for score - sets  
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setScore(int v) {
+    if (DictMatch_Type.featOkTst && ((DictMatch_Type)jcasType).casFeat_score == null)
+      jcasType.jcas.throwFeatMissing("score", "clinicalnlp.types.DictMatch");
+    jcasType.ll_cas.ll_setIntValue(addr, ((DictMatch_Type)jcasType).casFeatCode_score, v);}    
    
     
   //*--------------*

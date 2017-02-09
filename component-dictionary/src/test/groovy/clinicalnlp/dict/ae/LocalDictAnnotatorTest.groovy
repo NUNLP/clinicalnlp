@@ -25,18 +25,18 @@ import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 @Log4j
 class LocalDictAnnotatorTest {
     @BeforeClass
-    public static void setupClass() {
+    static void setupClass() {
         Class.forName('clinicalnlp.dsl.DSL')
         BasicConfigurator.configure()
     }
 
     @Before
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         log.setLevel(Level.INFO)
     }
 
 	@Test
-	public void smokeTest() {
+	void smokeTest() {
         String text = """\
         The patient has a diagnosis of spongioblastoma multiforme.  GBM does not have a good prognosis.
         But I can't rule out meningioma in the brain and spinal cord.
@@ -125,7 +125,7 @@ class LocalDictAnnotatorTest {
     }
 
     @Test
-    public void testStringSimilarityLookup() {
+    void testStringSimilarityLookup() {
         String text = """\
         The patient has a diagnosis of spngioblastoma multifourme.  GBM does not have a good prognosis.
         But I can't rule out meningiomal.
@@ -178,6 +178,7 @@ class LocalDictAnnotatorTest {
         assert tokens.size() == 25
 
         Collection<DictMatch> matches = jcas.select(type:DictMatch)
+        matches.each { println it.coveredText }
         assert matches.size() == 0
 
         // run the pipeline again with looser tolerance
@@ -191,6 +192,7 @@ class LocalDictAnnotatorTest {
 
         // test results
         matches = jcas.select(type:DictMatch)
+        matches.each { println it.coveredText }
         assert matches.size() == 2
     }
 }

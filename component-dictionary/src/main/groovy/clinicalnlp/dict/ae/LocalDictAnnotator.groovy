@@ -12,7 +12,7 @@ import org.apache.uima.jcas.JCas
 import org.apache.uima.resource.ResourceInitializationException
 
 @Log4j
-public class LocalDictAnnotator extends JCasAnnotator_ImplBase {
+class LocalDictAnnotator extends JCasAnnotator_ImplBase {
 
 	public static final String TOKEN_MODEL_KEY = 'token_model'
 	@ExternalResource(key = 'token_model')
@@ -54,7 +54,7 @@ public class LocalDictAnnotator extends JCasAnnotator_ImplBase {
 	DictAnnotatorImpl impl;
 
     @Override
-	public void initialize(UimaContext aContext) throws ResourceInitializationException {
+	void initialize(UimaContext aContext) throws ResourceInitializationException {
 		super.initialize(aContext)
 
         this.impl = new DictAnnotatorImpl()
@@ -66,7 +66,7 @@ public class LocalDictAnnotator extends JCasAnnotator_ImplBase {
     }
 
 	@Override
-	public void process(JCas jcas) throws AnalysisEngineProcessException {
+	void process(JCas jcas) throws AnalysisEngineProcessException {
         this.impl.process(jcas,
                 this.longestMatch,
                 this.caseInsensitive,

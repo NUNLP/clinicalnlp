@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
-    <name>leoTypeDescription_7aad5a97-058b-4426-80b5-a51b57a4b49e</name>
+    <name>leoTypeDescription_baa87642-dd94-40fc-8725-fd015561df2a</name>
     <types>
         <typeDescription>
             <name>gov.va.vinci.leo.types.CSI</name>
@@ -349,6 +349,11 @@
                     <name>vocabulary</name>
                     <description/>
                     <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>score</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.Integer</rangeTypeName>
                 </featureDescription>
                 <featureDescription>
                     <name>container</name>

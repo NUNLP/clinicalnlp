@@ -112,6 +112,7 @@ public class TypeBuilder {
         dictMatch.addFeature("canonical", "", "uima.cas.String");
         dictMatch.addFeature("code", "", "uima.cas.String");
         dictMatch.addFeature("vocabulary", "", "uima.cas.String");
+        dictMatch.addFeature("score", "", "uima.cas.Integer");
         dictMatch.addFeature("container", "", "uima.tcas.Annotation");
         types.addType(dictMatch);
 

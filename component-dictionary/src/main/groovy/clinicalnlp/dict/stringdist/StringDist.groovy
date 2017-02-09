@@ -15,8 +15,8 @@ class Match {
     Double score
 }
 
-public interface StringDist {
-	public void set(final Collection<CharSequence> tokens);
-	public Double add(final Collection<CharSequence> tokens);
-	public Collection<Match> matches(final Double tolerance);
+interface StringDist {
+	void set(final Collection<CharSequence> tokens);
+	Double add(final Collection<CharSequence> tokens);
+	Collection<Match> matches(final Double tolerance);
 }

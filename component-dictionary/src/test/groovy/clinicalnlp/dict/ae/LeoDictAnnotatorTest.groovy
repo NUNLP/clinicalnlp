@@ -82,7 +82,7 @@ class LeoDictAnnotatorTest {
                         .setContainerClassName('gov.va.vinci.leo.sentence.types.Sentence')
                         .setTokenClassName('clinicalnlp.types.Token')
                         .setLongestMatch(true)
-                        .setTolerance(1.0)
+                        .setTolerance(0.0)
                         .setLeoTypeSystemDescription(types)
                         .getLeoAEDescriptor()
         )

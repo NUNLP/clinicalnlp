@@ -20,7 +20,7 @@ class TrieDictModel<Value> implements DictModel<Value> {
 		Node<Value>[] next = new Node<Value>[0]
 		
 		@Override
-		public int compareTo(Object other) {
+		int compareTo(Object other) {
 			if (other instanceof Node<Value>) {
 				return Character.compare(c, ((Node<Value>)other).c)
 			}
@@ -31,8 +31,8 @@ class TrieDictModel<Value> implements DictModel<Value> {
 	}	
 	
 	private static class SearchState<Value> {
-		Node<Value> node;
-		int index = 0;
+		Node<Value> node
+		int index = 0
 		SearchState(Node<Value> node) { this.node = node }
 	}
 	
@@ -48,10 +48,10 @@ class TrieDictModel<Value> implements DictModel<Value> {
 	// ------------------------------------------------------------------------
 	
 	@Override
-	public Integer getNumEntries() { return numEntries; }
+	Integer getNumEntries() { return numEntries }
 
 	@Override	
-	public Value get (final Collection<CharSequence> tokens) {
+	Value get (final Collection<CharSequence> tokens) {
 		return (getNode(root,DictModelFactory.join(tokens), 0))?.value
 	}
 	
@@ -63,7 +63,7 @@ class TrieDictModel<Value> implements DictModel<Value> {
 	}
 	
 	@Override
-	public void put(final Collection<CharSequence> keyTokens, final Value value) {
+	void put(final Collection<CharSequence> keyTokens, final Value value) {
 		root = putNode(root, DictModelFactory.join(keyTokens), value, 0)
 	}
 			
@@ -87,51 +87,52 @@ class TrieDictModel<Value> implements DictModel<Value> {
 	}
 	
 	@Override
-	public TreeSet<TokenMatch> matches(final Collection<CharSequence> tokens) {
-		return this.matches(tokens, new MinEditDist(), 0.0, false, false);
+	TreeSet<TokenMatch> matches(final Collection<CharSequence> tokens) {
+		return this.matches(tokens, new MinEditDist(), 0.0, false, false)
 	}
 
 	@Override
-	public TreeSet<TokenMatch<Value>> matches(final Collection<CharSequence> tokens,
+	TreeSet<TokenMatch<Value>> matches(final Collection<CharSequence> tokens,
                                               final DynamicStringDist dist,
                                               final Float tolerance,
                                               final Boolean longestMatch) {
 
 //        TreeMultiset<TokenMatch<Value>> matches = TreeMultiset.create()
-		Set<TokenMatch<Value>> matches = new TreeSet<>();
+		Set<TokenMatch<Value>> matches = new TreeSet<>()
 
 		// initialize string distance instance with tokens
-		dist.set(tokens);
+		dist.set(tokens)
 		
 		// traverse trie to find matches
-		Stack<SearchState<Value>> agenda = new Stack<>();
-		agenda.push(new SearchState<Value>(this.root));
+		Stack<SearchState<Value>> agenda = new Stack<>()
+		agenda.push(new SearchState<Value>(this.root))
 		while (!agenda.isEmpty()) {
-			SearchState<Value> topSS = agenda.peek();
+			SearchState<Value> topSS = agenda.peek()
 		
 			// if the top search state is exhausted, pop it off the agenda
 			if (topSS.index >= topSS.node.next.length) { 
-				dist.pop(); agenda.pop(); 
+				dist.pop(); agenda.pop()
 			}
 			// evaluate top search state
 			else if (dist.push(topSS.node.next[topSS.index].c) > tolerance) {
-				dist.pop();
+				dist.pop()
 			}
 			// examine current search state and look for matches
 			else {
 				Node<Value> nextNode = topSS.node.next[topSS.index]
 				agenda.push(new SearchState<Value>(nextNode))
 				if (nextNode.value != null) {
-					Collection<Integer[]> strm = dist.matches(tolerance);
+					Collection strm = dist.matches(tolerance)
 					for (Match m : strm) {
+						println "Node value: ${nextNode.value}"
 						matches.add(new TokenMatch<Value>(begin:m.begin,
 							end:m.end, score:m.score,
-								value:nextNode.value));
+								value:nextNode.value))
 					}
 				}
 			}
 			// advance index to next child state
-			topSS.index++;
+			topSS.index++
 		}
 
         /* if longest match is selected, filter out embedded matches
@@ -158,6 +159,6 @@ class TrieDictModel<Value> implements DictModel<Value> {
         }
 
 		// return matches with scores inside tolerance
-		return matches;
+		return matches
 	}
 }
