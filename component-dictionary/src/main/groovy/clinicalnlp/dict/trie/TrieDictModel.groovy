@@ -9,7 +9,7 @@ import clinicalnlp.dict.stringdist.MinEditDist
 
 class TrieDictModel<Value> implements DictModel<Value> {
 
-    static final Integer MAX_RAW_SCORE = 5
+    static final Integer MAX_RAW_SCORE = 3
 
 	// ------------------------------------------------------------------------
 	// Inner Classes
