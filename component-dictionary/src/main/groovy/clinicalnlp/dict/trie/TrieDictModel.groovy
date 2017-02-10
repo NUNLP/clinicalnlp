@@ -98,6 +98,8 @@ class TrieDictModel<Value> implements DictModel<Value> {
                                               final DynamicStringDist dist,
                                               final Float tolerance,
                                               final Boolean longestMatch) {
+        // if tolerance is zero, then we tolerate no mismatches.
+        int max_raw_score = (tolerance == 0 ? 0 : MAX_RAW_SCORE)
 
 //        TreeMultiset<TokenMatch<Value>> matches = TreeMultiset.create()
 		Set<TokenMatch<Value>> matches = new TreeSet<>()
@@ -116,7 +118,7 @@ class TrieDictModel<Value> implements DictModel<Value> {
 				dist.pop(); agenda.pop()
 			}
 			// evaluate top search state
-			else if (dist.push(topSS.node.next[topSS.index].c) > MAX_RAW_SCORE) {
+			else if (dist.push(topSS.node.next[topSS.index].c) > max_raw_score) {
 				dist.pop()
 			}
 			// examine current search state and look for matches
@@ -124,7 +126,7 @@ class TrieDictModel<Value> implements DictModel<Value> {
 				Node<Value> nextNode = topSS.node.next[topSS.index]
 				agenda.push(new SearchState<Value>(nextNode))
 				if (nextNode.value != null) {
-					Collection strm = dist.matches(MAX_RAW_SCORE)
+					Collection strm = dist.matches(max_raw_score)
 					for (Match m : strm) {
                         Float normScore = m.score/m.matchString.length()
                         if (normScore <= tolerance) {
