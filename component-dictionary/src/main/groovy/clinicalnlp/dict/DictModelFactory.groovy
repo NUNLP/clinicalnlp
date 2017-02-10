@@ -34,7 +34,7 @@ class DictModelFactory {
             DictEntry entry = new DictEntry()
             entry.vocab = objVal.vocabulary
             entry.code = objVal.vocabulary_code
-//            entry.canonical = tokenize(objVal.value, tokenizer, caseInsensitive)
+            entry.canonical = [objVal.value]
 //            model.put(entry.canonical, entry)
             objVal.object_value_variants.each { ObjectValueVariant variant ->
                 model.put(tokenize(variant.value, tokenizer, caseInsensitive), entry)

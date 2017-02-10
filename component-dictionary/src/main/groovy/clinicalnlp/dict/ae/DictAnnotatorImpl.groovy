@@ -33,6 +33,7 @@ class DictAnnotatorImpl {
         this.dict = DictModelFactory.make(dictionaryType, schema, tokenizer, caseInsensitive)
 
         if (postScriptFile) {
+            log.info "Loading groovy config post-script file: ${bindingScriptFile}"
             CompilerConfiguration config = new CompilerConfiguration()
             config.setScriptBaseClass("clinicalnlp.dsl.DSL")
             GroovyShell shell = new GroovyShell(config)
