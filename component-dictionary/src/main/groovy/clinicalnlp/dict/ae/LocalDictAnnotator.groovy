@@ -46,12 +46,17 @@ class LocalDictAnnotator extends JCasAnnotator_ImplBase {
 	@ConfigurationParameter(name='caseInsensitive', mandatory=true, defaultValue='false')
 	private Boolean caseInsensitive
 
+	public static final String PARAM_BINDING_SCRIPT_FILE = 'bindingScriptFile'
+	@ConfigurationParameter(name = 'bindingScriptFile', mandatory = false,
+		description = 'File holding Groovy script for bindings')
+	private String bindingScriptFile
+
 	public static final String PARAM_POST_SCRIPT_FILE = 'postScriptFile'
 	@ConfigurationParameter(name = 'postScriptFile', mandatory = false,
 			description = 'Script for execution after dictionary lookup runs')
-	private String postScriptFile;
+	private String postScriptFile
 
-	DictAnnotatorImpl impl;
+	DictAnnotatorImpl impl
 
     @Override
 	void initialize(UimaContext aContext) throws ResourceInitializationException {
@@ -59,10 +64,11 @@ class LocalDictAnnotator extends JCasAnnotator_ImplBase {
 
         this.impl = new DictAnnotatorImpl()
         this.impl.initialize(this.dictionaryPath,
-                this.dictionaryType,
-                new TokenizerME(this.tokenizerModelResource.model),
-                this.caseInsensitive,
-                this.postScriptFile)
+			this.dictionaryType,
+			new TokenizerME(this.tokenizerModelResource.model),
+			this.caseInsensitive,
+			this.bindingScriptFile,
+			this.postScriptFile)
     }
 
 	@Override

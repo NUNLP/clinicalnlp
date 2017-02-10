@@ -6,13 +6,16 @@ import clinicalnlp.dsl.DSL
 import clinicalnlp.types.DictMatch
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.common.io.Resources
+import groovy.util.logging.Log4j
 import opennlp.tools.tokenize.TokenizerME
+import org.apache.commons.io.Charsets
 import org.apache.uima.jcas.JCas
 import org.apache.uima.jcas.tcas.Annotation
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.springframework.core.io.DefaultResourceLoader
 import org.springframework.core.io.Resource
 
+@Log4j
 class DictAnnotatorImpl {
     private DictModel dict
     private Script postScript
@@ -20,8 +23,8 @@ class DictAnnotatorImpl {
     void initialize(String dictionaryPath, String dictionaryType,
                     TokenizerME tokenizer,
                     Boolean caseInsensitive,
+                    String bindingScriptFile,
                     String postScriptFile) {
-
 
         ObjectMapper mapper = new ObjectMapper()
         DefaultResourceLoader loader = new DefaultResourceLoader(ClassLoader.getSystemClassLoader());
@@ -36,6 +39,12 @@ class DictAnnotatorImpl {
             this.postScript = shell.parse(Resources.toString(
                     Resources.getResource(postScriptFile),
                     org.apache.commons.io.Charsets.UTF_8))
+            if (bindingScriptFile) {
+                log.info "Loading groovy config binding file: ${bindingScriptFile}"
+                Script bindingsScript = shell.parse(Resources.toString(
+                    Resources.getResource(bindingScriptFile), Charsets.UTF_8))
+                this.postScript.setBinding(new Binding(bindingsScript.run()))
+            }
         }
     }
 

@@ -13,7 +13,7 @@ import org.codehaus.groovy.control.CompilerConfiguration
 class DSLAnnotatorImpl {
     private Script script
 
-    def initialize(String bindingsScriptFileName, String scriptFileName)
+    def initialize(String bindingScriptFile, String scriptFileName)
             throws ResourceInitializationException {
         log.level = Level.INFO
         Class.forName(DSL.canonicalName)
@@ -26,10 +26,10 @@ class DSLAnnotatorImpl {
             URL url = Resources.getResource(scriptFileName)
             String scriptContents = Resources.toString(url, Charsets.UTF_8)
             this.script = shell.parse(scriptContents)
-            if (bindingsScriptFileName) {
-                log.info "Loading groovy config binding file: ${bindingsScriptFileName}"
+            if (bindingScriptFile) {
+                log.info "Loading groovy config binding file: ${bindingScriptFile}"
                 Script bindingsScript = shell.parse(Resources.toString(
-                    Resources.getResource(bindingsScriptFileName), Charsets.UTF_8))
+                    Resources.getResource(bindingScriptFile), Charsets.UTF_8))
                 this.script.setBinding(new Binding(bindingsScript.run()))
             }
 
