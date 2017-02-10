@@ -80,11 +80,21 @@
                                         <rangeTypeName>uima.cas.String</rangeTypeName>
                                     </featureDescription>
                                     <featureDescription>
+                                        <name>score</name>
+                                        <description/>
+                                        <rangeTypeName>uima.cas.Float</rangeTypeName>
+                                    </featureDescription>
+                                    <featureDescription>
                                         <name>container</name>
                                         <description/>
                                         <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
                                     </featureDescription>
                                 </features>
+                            </typeDescription>
+                            <typeDescription>
+                                <name>clinicalnlp.types.LeftWindow</name>
+                                <description/>
+                                <supertypeName>uima.tcas.Annotation</supertypeName>
                             </typeDescription>
                             <typeDescription>
                                 <name>clinicalnlp.types.NamedEntityMention</name>
@@ -147,6 +157,11 @@
                                 <name>clinicalnlp.types.PseudoNegationTrigger</name>
                                 <description/>
                                 <supertypeName>clinicalnlp.types.NegationTrigger</supertypeName>
+                            </typeDescription>
+                            <typeDescription>
+                                <name>clinicalnlp.types.RightWindow</name>
+                                <description/>
+                                <supertypeName>uima.tcas.Annotation</supertypeName>
                             </typeDescription>
                             <typeDescription>
                                 <name>clinicalnlp.types.Segment</name>
@@ -473,11 +488,21 @@
                                         <rangeTypeName>uima.cas.String</rangeTypeName>
                                     </featureDescription>
                                     <featureDescription>
+                                        <name>score</name>
+                                        <description/>
+                                        <rangeTypeName>uima.cas.Float</rangeTypeName>
+                                    </featureDescription>
+                                    <featureDescription>
                                         <name>container</name>
                                         <description/>
                                         <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
                                     </featureDescription>
                                 </features>
+                            </typeDescription>
+                            <typeDescription>
+                                <name>clinicalnlp.types.LeftWindow</name>
+                                <description/>
+                                <supertypeName>uima.tcas.Annotation</supertypeName>
                             </typeDescription>
                             <typeDescription>
                                 <name>clinicalnlp.types.NamedEntityMention</name>
@@ -540,6 +565,11 @@
                                 <name>clinicalnlp.types.PseudoNegationTrigger</name>
                                 <description/>
                                 <supertypeName>clinicalnlp.types.NegationTrigger</supertypeName>
+                            </typeDescription>
+                            <typeDescription>
+                                <name>clinicalnlp.types.RightWindow</name>
+                                <description/>
+                                <supertypeName>uima.tcas.Annotation</supertypeName>
                             </typeDescription>
                             <typeDescription>
                                 <name>clinicalnlp.types.Segment</name>

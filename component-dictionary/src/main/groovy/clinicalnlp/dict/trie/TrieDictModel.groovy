@@ -128,7 +128,6 @@ class TrieDictModel<Value> implements DictModel<Value> {
 					for (Match m : strm) {
                         Float normScore = m.score/m.matchString.length()
                         if (normScore <= tolerance) {
-                            println "Match string: ${m.matchString}"
                             matches.add(new TokenMatch<Value>(begin:m.begin,
                                 end:m.end, score:normScore,
                                 value:nextNode.value))

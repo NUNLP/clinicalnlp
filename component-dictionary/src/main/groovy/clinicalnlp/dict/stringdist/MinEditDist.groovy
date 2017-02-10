@@ -36,7 +36,7 @@ class MinEditDist implements DynamicStringDist {
 		if (c1 == null && c2 == null) { throw new IllegalArgumentException('at least one character must be non-null') }
 		if (c1 == null) {
 			// insertion
-			return 1.0
+            return 1.0
 		}
 		else if (c2 == null) {
 			// deletion

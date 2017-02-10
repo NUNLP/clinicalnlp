@@ -67,7 +67,8 @@ class DictAnnotatorImpl {
                         code:m.value.code,
                         vocabulary:m.value.vocab,
                         container:container,
-                        matchedTokens:matched
+                        matchedTokens:matched,
+                        score:m.score
                 )
             }
         }
