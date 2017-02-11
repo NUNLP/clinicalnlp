@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Thu Feb 09 13:22:32 CST 2017 */
+/* First created by JCasGen Sat Feb 11 11:23:44 CST 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Thu Feb 09 13:22:32 CST 2017
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_79f2429d-db11-46c1-9bc4-85ec5be3b1952833143552229313850.xml
+ * Updated by JCasGen Sat Feb 11 11:23:44 CST 2017
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_116007de-f8ce-4535-baaa-b13aa71dd24e5550980219044642548.xml
  * @generated */
 public class Token extends Annotation {
   /** @generated
@@ -140,6 +140,50 @@ public class Token extends Annotation {
     if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_stem == null)
       jcasType.jcas.throwFeatMissing("stem", "clinicalnlp.types.Token");
     jcasType.ll_cas.ll_setStringValue(addr, ((Token_Type)jcasType).casFeatCode_stem, v);}    
+   
+    
+  //*--------------*
+  //* Feature: normText
+
+  /** getter for normText - gets 
+   * @generated
+   * @return value of the feature 
+   */
+  public String getNormText() {
+    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_normText == null)
+      jcasType.jcas.throwFeatMissing("normText", "clinicalnlp.types.Token");
+    return jcasType.ll_cas.ll_getStringValue(addr, ((Token_Type)jcasType).casFeatCode_normText);}
+    
+  /** setter for normText - sets  
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setNormText(String v) {
+    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_normText == null)
+      jcasType.jcas.throwFeatMissing("normText", "clinicalnlp.types.Token");
+    jcasType.ll_cas.ll_setStringValue(addr, ((Token_Type)jcasType).casFeatCode_normText, v);}    
+   
+    
+  //*--------------*
+  //* Feature: normDist
+
+  /** getter for normDist - gets 
+   * @generated
+   * @return value of the feature 
+   */
+  public float getNormDist() {
+    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_normDist == null)
+      jcasType.jcas.throwFeatMissing("normDist", "clinicalnlp.types.Token");
+    return jcasType.ll_cas.ll_getFloatValue(addr, ((Token_Type)jcasType).casFeatCode_normDist);}
+    
+  /** setter for normDist - sets  
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setNormDist(float v) {
+    if (Token_Type.featOkTst && ((Token_Type)jcasType).casFeat_normDist == null)
+      jcasType.jcas.throwFeatMissing("normDist", "clinicalnlp.types.Token");
+    jcasType.ll_cas.ll_setFloatValue(addr, ((Token_Type)jcasType).casFeatCode_normDist, v);}    
   }
 
     

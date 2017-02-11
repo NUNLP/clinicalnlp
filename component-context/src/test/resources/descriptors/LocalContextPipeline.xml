@@ -67,7 +67,7 @@
                                     <featureDescription>
                                         <name>canonical</name>
                                         <description/>
-                                        <rangeTypeName>uima.cas.String</rangeTypeName>
+                                        <rangeTypeName>uima.cas.StringArray</rangeTypeName>
                                     </featureDescription>
                                     <featureDescription>
                                         <name>code</name>
@@ -221,6 +221,16 @@
                                         <name>stem</name>
                                         <description/>
                                         <rangeTypeName>uima.cas.String</rangeTypeName>
+                                    </featureDescription>
+                                    <featureDescription>
+                                        <name>normText</name>
+                                        <description/>
+                                        <rangeTypeName>uima.cas.String</rangeTypeName>
+                                    </featureDescription>
+                                    <featureDescription>
+                                        <name>normDist</name>
+                                        <description/>
+                                        <rangeTypeName>uima.cas.Float</rangeTypeName>
                                     </featureDescription>
                                 </features>
                             </typeDescription>
@@ -475,7 +485,7 @@
                                     <featureDescription>
                                         <name>canonical</name>
                                         <description/>
-                                        <rangeTypeName>uima.cas.String</rangeTypeName>
+                                        <rangeTypeName>uima.cas.StringArray</rangeTypeName>
                                     </featureDescription>
                                     <featureDescription>
                                         <name>code</name>
@@ -629,6 +639,16 @@
                                         <name>stem</name>
                                         <description/>
                                         <rangeTypeName>uima.cas.String</rangeTypeName>
+                                    </featureDescription>
+                                    <featureDescription>
+                                        <name>normText</name>
+                                        <description/>
+                                        <rangeTypeName>uima.cas.String</rangeTypeName>
+                                    </featureDescription>
+                                    <featureDescription>
+                                        <name>normDist</name>
+                                        <description/>
+                                        <rangeTypeName>uima.cas.Float</rangeTypeName>
                                     </featureDescription>
                                 </features>
                             </typeDescription>

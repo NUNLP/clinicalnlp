@@ -52,7 +52,7 @@ final class LocalTokenAnnotator extends JCasAnnotator_ImplBase {
     private TokenAnnotatorImpl impl;
 
     @Override
-    public void initialize(UimaContext context) throws ResourceInitializationException {
+    void initialize(UimaContext context) throws ResourceInitializationException {
         super.initialize(context)
 
         Tokenizer tokenizer;

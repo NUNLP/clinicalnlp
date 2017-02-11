@@ -8,9 +8,7 @@ import groovy.transform.ToString
 @EqualsAndHashCode
 @Sortable(includes = ['vocab', 'code'])
 class DictEntry {
+	String canonical
 	String vocab
 	String code
-	Collection<CharSequence> canonical
-//	Collection<Collection<CharSequence>> variants = new ArrayList<>()
-//	Map<String, String> attrs = new HashMap<>()
 }

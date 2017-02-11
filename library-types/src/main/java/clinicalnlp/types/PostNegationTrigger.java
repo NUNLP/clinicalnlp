@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Thu Feb 09 13:22:32 CST 2017 */
+/* First created by JCasGen Sat Feb 11 11:23:44 CST 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -10,8 +10,8 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** 
- * Updated by JCasGen Thu Feb 09 13:22:32 CST 2017
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_79f2429d-db11-46c1-9bc4-85ec5be3b1952833143552229313850.xml
+ * Updated by JCasGen Sat Feb 11 11:23:44 CST 2017
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_116007de-f8ce-4535-baaa-b13aa71dd24e5550980219044642548.xml
  * @generated */
 public class PostNegationTrigger extends NegationTrigger {
   /** @generated

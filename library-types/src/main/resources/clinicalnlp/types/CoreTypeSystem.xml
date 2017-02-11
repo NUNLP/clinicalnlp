@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
-    <name>leoTypeDescription_5ff1075f-5655-4335-b76f-08e4b413f583</name>
+    <name>leoTypeDescription_9a248754-1f04-4121-a14d-003e6bea1304</name>
     <types>
         <typeDescription>
             <name>gov.va.vinci.leo.types.CSI</name>
@@ -192,6 +192,16 @@
                     <name>stem</name>
                     <description/>
                     <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>normText</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>normDist</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.Float</rangeTypeName>
                 </featureDescription>
             </features>
         </typeDescription>

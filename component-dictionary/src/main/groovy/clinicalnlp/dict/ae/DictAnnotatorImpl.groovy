@@ -10,6 +10,7 @@ import groovy.util.logging.Log4j
 import opennlp.tools.tokenize.TokenizerME
 import org.apache.commons.io.Charsets
 import org.apache.uima.jcas.JCas
+import org.apache.uima.jcas.cas.StringArray
 import org.apache.uima.jcas.tcas.Annotation
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.springframework.core.io.DefaultResourceLoader
@@ -70,15 +71,15 @@ class DictAnnotatorImpl {
                 for (int i = m.begin; i <= m.end; i++) {
                     matched << anns.get(i)
                 }
-                jcas.create(type:DictMatch,
-                        begin:matched[0].begin,
-                        end:matched[matched.size()-1].end,
-                        canonical:m.value.canonical,
-                        code:m.value.code,
-                        vocabulary:m.value.vocab,
-                        container:container,
-                        matchedTokens:matched,
-                        score:m.score
+                DictMatch dictMatch = jcas.create(type:DictMatch,
+                    begin:matched[0].begin,
+                    end:matched[matched.size()-1].end,
+                    canonical:m.value.canonical,
+                    code:m.value.code,
+                    vocabulary:m.value.vocab,
+                    container:container,
+                    matchedTokens:matched,
+                    score:m.score
                 )
             }
         }

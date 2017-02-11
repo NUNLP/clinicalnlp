@@ -41,6 +41,9 @@ class AnnotationRegexMatcher implements Iterator {
             this.indexMap[resultPrefix.size()] = ann
             resultPrefix + typeCode + featString
         }
+
+        println "Pattern: ${regex.pattern}"
+        println "Match string: ${this.seqString}"
         this.matcher = regex.pattern.matcher(this.seqString)
         this.iterator = StringGroovyMethods.iterator(this.matcher)
     }
