@@ -67,7 +67,7 @@
                                     <featureDescription>
                                         <name>canonical</name>
                                         <description/>
-                                        <rangeTypeName>uima.cas.StringArray</rangeTypeName>
+                                        <rangeTypeName>uima.cas.String</rangeTypeName>
                                     </featureDescription>
                                     <featureDescription>
                                         <name>code</name>
@@ -485,7 +485,7 @@
                                     <featureDescription>
                                         <name>canonical</name>
                                         <description/>
-                                        <rangeTypeName>uima.cas.StringArray</rangeTypeName>
+                                        <rangeTypeName>uima.cas.String</rangeTypeName>
                                     </featureDescription>
                                     <featureDescription>
                                         <name>code</name>
