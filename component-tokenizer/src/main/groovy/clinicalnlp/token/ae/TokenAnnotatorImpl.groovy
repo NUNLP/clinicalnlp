@@ -80,10 +80,11 @@ class TokenAnnotatorImpl {
         int beginOffset = ann.begin + span.start
         int endOffset = ann.begin+span.end
 
-        if (splitPattern == null) {
+        if (splitPattern == null || (span.end-span.start < 2)) {
             spans << new Span(beginOffset, endOffset)
             return spans
         }
+
         Matcher matcher = splitPattern.matcher(text.substring(span.start, span.end))
         while(matcher.find()) {
             spans << new Span(beginOffset, beginOffset+matcher.start(0))
@@ -92,6 +93,6 @@ class TokenAnnotatorImpl {
         }
         spans << new Span(beginOffset, ann.begin+span.end)
 
-        return spans;
+        return spans
     }
 }
