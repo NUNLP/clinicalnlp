@@ -48,7 +48,7 @@ class TokenAnnotatorImpl {
 
             if (this.splitPattern) {
                 (tokenizer.tokenizePos(ann.coveredText)).each {
-                    tokenSpans.addAll(this.splitSpan(it, ann, this.splitPattern))
+                    tokenSpans.addAll(this.splitSpan(it, ann.coveredText, this.splitPattern))
                 }
             }
             else {
@@ -73,25 +73,26 @@ class TokenAnnotatorImpl {
         }
     }
 
-    private Collection<Span> splitSpan(Span span, Annotation ann, Pattern splitPattern) {
+    private Collection<Span> splitSpan(Span span, String text, Pattern splitPattern) {
+
         List<Span> spans = []
 
-        String text = ann.coveredText
-        int beginOffset = ann.begin + span.start
-        int endOffset = ann.begin+span.end
-
-        if (splitPattern == null || (span.end-span.start < 2)) {
-            spans << new Span(beginOffset, endOffset)
+        if (splitPattern == null || (span.length() < 2)) {
+            spans << new Span(span.start, span.end)
             return spans
         }
 
-        Matcher matcher = splitPattern.matcher(text.substring(span.start, span.end))
+        int subSpanBegin = span.start
+        String spanText = text.substring(span.start, span.end)
+        Matcher matcher = splitPattern.matcher(spanText)
         while(matcher.find()) {
-            spans << new Span(beginOffset, beginOffset+matcher.start(0))
-            spans << new Span(beginOffset+matcher.start(0), beginOffset+matcher.end(0))
-            beginOffset = beginOffset+matcher.end(0)
+            spans << new Span(subSpanBegin, matcher.start(0)+span.start)
+            spans << new Span(matcher.start(0)+span.start, matcher.end(0)+span.start)
+            subSpanBegin = span.start + matcher.end(0)
         }
-        spans << new Span(beginOffset, ann.begin+span.end)
+        if (span.end-subSpanBegin > 0) {
+            spans << new Span(subSpanBegin, span.end)
+        }
 
         return spans
     }

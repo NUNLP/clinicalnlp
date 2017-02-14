@@ -16,6 +16,7 @@ class AnnotationSequencer implements Iterable<List<? extends Annotation>> {
     // -----------------------------------------------------------------------------------------------------------------
     Annotation span
     Collection<Class<? extends  Annotation>> types
+    Boolean createTextSpans
 
     // -----------------------------------------------------------------------------------------------------------------
     // Public methods
@@ -26,9 +27,11 @@ class AnnotationSequencer implements Iterable<List<? extends Annotation>> {
      * @param span
      * @param types
      */
-    AnnotationSequencer(Annotation span, Collection<Class<? extends  Annotation>> types) {
+    AnnotationSequencer(Annotation span, Collection<Class<? extends  Annotation>> types,
+                        Boolean createTextSpans = false) {
         this.span = span
         this.types = types
+        this.createTextSpans = createTextSpans
     }
 
     @Override
