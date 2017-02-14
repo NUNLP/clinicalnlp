@@ -22,11 +22,11 @@ class TokenAnnotatorImpl {
     Class<Annotation> containerType;
 
     TokenAnnotatorImpl(Tokenizer tokenizer,
-                              POSTagger posTagger,
-                              SimpleLemmatizer lemmatizer,
-                              Stemmer stemmer,
-                              String containerTypeName,
-                              String splitPatternStr) {
+                       POSTagger posTagger,
+                       SimpleLemmatizer lemmatizer,
+                       Stemmer stemmer,
+                       String containerTypeName,
+                       String splitPatternStr) {
         this.tokenizer = tokenizer
         this.posTagger = posTagger
         this.lemmatizer = lemmatizer
