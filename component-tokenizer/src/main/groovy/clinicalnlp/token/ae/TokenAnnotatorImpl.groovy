@@ -86,9 +86,11 @@ class TokenAnnotatorImpl {
         String spanText = text.substring(span.start, span.end)
         Matcher matcher = splitPattern.matcher(spanText)
         while(matcher.find()) {
-            spans << new Span(subSpanBegin, matcher.start(0)+span.start)
-            spans << new Span(matcher.start(0)+span.start, matcher.end(0)+span.start)
-            subSpanBegin = span.start + matcher.end(0)
+            int matchStart = matcher.start(0)+span.start
+            int matchEnd = matcher.end(0)+span.start
+            if (matchStart-subSpanBegin > 0) { spans << new Span(subSpanBegin, matchStart) }
+            if (matchEnd-matchStart > 0) { spans << new Span(matchStart, matchEnd) }
+            subSpanBegin = matchEnd
         }
         if (span.end-subSpanBegin > 0) {
             spans << new Span(subSpanBegin, span.end)
