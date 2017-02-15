@@ -70,8 +70,7 @@ class LocalTokenAnnotatorTest {
         assert tokenizer != null
 
         // create a new JCas and seed with sentences
-        String text = 'Test (DCIS)'
-//        String text = "X-Y-Z: Exam extent reached: identified the cecum and visualized the ileocecal valve/appendiceal orifice."
+        String text = "X-Y-Z: Exam extent reached: identified the cecum and visualized the ileocecal valve/appendiceal orifice."
         JCas jcas = tokenizer.newJCas()
         jcas.setDocumentText(text)
         jcas.create(type:Sentence, begin:0, end:text.length())
@@ -81,7 +80,7 @@ class LocalTokenAnnotatorTest {
 
         // verify number of tokens
         Collection<Token> tokens = jcas.select(type:Token)
-        ////assert tokens.size() == 22
+        assert tokens.size() == 22
         tokens.each { println "'${it.coveredText}': [pos:$it.pos, lemma:$it.lemma, stem:$it.stem]" }
     }
 }
