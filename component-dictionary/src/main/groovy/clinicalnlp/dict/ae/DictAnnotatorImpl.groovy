@@ -21,7 +21,8 @@ class DictAnnotatorImpl {
     private DictModel dict
     private Script postScript
 
-    void initialize(String dictionaryPath, String dictionaryType,
+    void initialize(String dictionaryPath,
+                    String dictionaryType,
                     TokenizerME tokenizer,
                     Boolean caseInsensitive,
                     String bindingScriptFile,
@@ -50,8 +51,12 @@ class DictAnnotatorImpl {
         }
     }
 
-    void process(JCas jcas, Boolean longestMatch, Boolean caseInsensitive, Float tolerance,
-                 String containerClassName, String tokenClassName) {
+    void process(JCas jcas,
+                 Boolean caseInsensitive,
+                 Float tolerance,
+                 Integer maxRawScore,
+                 String containerClassName,
+                 String tokenClassName) {
         Class<Annotation> ContainerClass = Class.forName(containerClassName)
         Class<Annotation> TokenClass = Class.forName(tokenClassName)
 
@@ -64,8 +69,7 @@ class DictAnnotatorImpl {
             }
             Collection<TokenMatch<DictEntry>> matches = this.dict.matches(tokens,
                     new MinEditDist(),
-                    tolerance,
-                    longestMatch)
+                    tolerance, maxRawScore)
             matches.each { TokenMatch m ->
                 Collection<Annotation> matched = new ArrayList<>()
                 for (int i = m.begin; i <= m.end; i++) {

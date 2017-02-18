@@ -17,11 +17,11 @@
  ******************************************************************************/
 package clinicalnlp.dict.phrase
 
-public class PhraseTree
+class PhraseTree
 {
     private PhraseTreeElement root;
 
-    public PhraseTree()
+    PhraseTree()
     {
         root = new PhraseTreeElement(null);
     }
@@ -29,7 +29,7 @@ public class PhraseTree
     /**
      * Add a phrase, each array entry is a phrase token
      */
-    public void addPhrase(String[] phraseParts)
+    void addPhrase(String[] phraseParts)
     {
         PhraseTreeElement current = root;
 
@@ -48,7 +48,7 @@ public class PhraseTree
      *            Phrase as token array
      * @return true if contained, false otherwise
      */
-    public boolean contains(String[] phraseParts)
+    boolean contains(String[] phraseParts)
     {
         int i = 0;
 
@@ -79,7 +79,7 @@ public class PhraseTree
      *            Text to match against, pre-tokenized
      * @return End index of longest matching phrase stored in the tree
      */
-    public Integer getLongestMatch(String[] matchText)
+    Integer getLongestMatch(String[] matchText)
     {
         int i = 0;
 

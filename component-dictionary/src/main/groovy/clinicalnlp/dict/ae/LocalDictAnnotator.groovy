@@ -38,9 +38,9 @@ class LocalDictAnnotator extends JCasAnnotator_ImplBase {
 	@ConfigurationParameter(name='tolerance', mandatory=false, defaultValue='0.0')
 	private Float tolerance
 
-    public static final String PARAM_LONGEST_MATCH = 'longestMatch'
-    @ConfigurationParameter(name='longestMatch', mandatory=true, defaultValue='false')
-    private Boolean longestMatch
+	public static final String PARAM_MAX_RAW_SCORE = 'maxRawScore'
+	@ConfigurationParameter(name='maxRawScore', mandatory=false, defaultValue='0')
+	private Integer maxRawScore
 
 	public static final String PARAM_CASE_INSENSITIVE = 'caseInsensitive'
 	@ConfigurationParameter(name='caseInsensitive', mandatory=true, defaultValue='false')
@@ -74,10 +74,10 @@ class LocalDictAnnotator extends JCasAnnotator_ImplBase {
 	@Override
 	void process(JCas jcas) throws AnalysisEngineProcessException {
         this.impl.process(jcas,
-                this.longestMatch,
-                this.caseInsensitive,
-                this.tolerance,
-                this.containerClassName,
-                this.tokenClassName)
+			this.caseInsensitive,
+			this.tolerance,
+			this.maxRawScore,
+			this.containerClassName,
+			this.tokenClassName)
 	}
 }

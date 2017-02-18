@@ -9,8 +9,6 @@ import clinicalnlp.dict.stringdist.MinEditDist
 
 class TrieDictModel<Value> implements DictModel<Value> {
 
-    static final Integer MAX_RAW_SCORE = 3
-
 	// ------------------------------------------------------------------------
 	// Inner Classes
 	// ------------------------------------------------------------------------
@@ -95,11 +93,11 @@ class TrieDictModel<Value> implements DictModel<Value> {
 
 	@Override
 	TreeSet<TokenMatch<Value>> matches(final Collection<CharSequence> tokens,
-                                              final DynamicStringDist dist,
-                                              final Float tolerance,
-                                              final Boolean longestMatch) {
+									   final DynamicStringDist dist,
+									   final Float tolerance,
+									   final Integer maxRawScore) {
         // if tolerance is zero, then we tolerate no mismatches.
-        int max_raw_score = (tolerance == 0 ? 0 : MAX_RAW_SCORE)
+        int max_raw_score = (tolerance == 0 ? 0 : maxRawScore)
 
 //        TreeMultiset<TokenMatch<Value>> matches = TreeMultiset.create()
 		Set<TokenMatch<Value>> matches = new TreeSet<>()
@@ -140,29 +138,6 @@ class TrieDictModel<Value> implements DictModel<Value> {
 			// advance index to next child state
 			topSS.index++
 		}
-
-        /* if longest match is selected, filter out embedded matches
-           NOTE: this does not filter out matches that overlap,
-           nor matches of equal span */
-        if (longestMatch && matches.size() > 0) {
-            Collection<TokenMatch<Value>> removes = new ArrayList<>()
-            TokenMatch<Value> anchor = matches[0]
-            matches.each { TokenMatch<Value> tm ->
-                if (tm.begin >= anchor.begin && tm.end < anchor.end) {
-                    removes << tm
-                }
-                else if (anchor.begin >= tm.begin && anchor.end < tm.end) {
-                    removes << anchor
-                    anchor = tm
-                }
-                else if (tm.begin > anchor.end) {
-                    anchor = tm
-                }
-            }
-            removes.each {
-                matches.remove(it)
-            }
-        }
 
 		// return matches with scores inside tolerance
 		return matches

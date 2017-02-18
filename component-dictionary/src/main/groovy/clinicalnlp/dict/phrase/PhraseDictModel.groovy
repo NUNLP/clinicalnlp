@@ -12,29 +12,29 @@ import com.wcohen.ss.tokens.SimpleTokenizer
 import groovy.util.logging.Log4j
 
 @Log4j
-public class PhraseDictModel<Value> implements DictModel<Value> {
+class PhraseDictModel<Value> implements DictModel<Value> {
 		
 	private Map<Collection<CharSequence>, Value> entries = new HashMap<>()
 	private PhraseTree phrases = new PhraseTree()
 	private Integer numEntries = 0
 	
 	@Override
-	public Integer getNumEntries() { return numEntries; }
+	Integer getNumEntries() { return numEntries; }
 	
 	@Override
-	public DictEntry get(final Collection<CharSequence> tokens) {
+	DictEntry get(final Collection<CharSequence> tokens) {
 		return this.entries.get(DictModelFactory.join(tokens))
 	}
 	
 	@Override
-	public void put (final Collection<CharSequence> tokens, final Value entry) {
+	void put (final Collection<CharSequence> tokens, final Value entry) {
 		this.phrases.addPhrase(tokens as String[])
 		this.entries.put(DictModelFactory.join(tokens), entry)
 		this.numEntries++
 	}
 		
 	@Override
-	public TreeSet<TokenMatch> matches(final Collection<CharSequence> tokens) {
+	TreeSet<TokenMatch> matches(final Collection<CharSequence> tokens) {
 
 		// TODO: doesn't appear to be working proerply
 		Set<TokenMatch> matches = new TreeSet<>()
@@ -56,10 +56,10 @@ public class PhraseDictModel<Value> implements DictModel<Value> {
 	}
 	
 	@Override
-	public TreeSet<TokenMatch> matches(final Collection<CharSequence> tokens,
-                                       final DynamicStringDist dist,
-                                       final Float tolerance,
-                                       final Boolean longestMatch) {
+	TreeSet<TokenMatch> matches(final Collection<CharSequence> tokens,
+								final DynamicStringDist dist,
+								final Float tolerance,
+								final Integer maxRawScore) {
 		Set<TokenMatch> matches = new TreeSet<>()
 		
 		Tokenizer tokenizer = new SimpleTokenizer(false,true);

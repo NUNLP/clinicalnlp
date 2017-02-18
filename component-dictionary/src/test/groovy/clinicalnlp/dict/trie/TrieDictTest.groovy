@@ -51,11 +51,11 @@ class TrieDictTest {
 		tokens << 'bee' << 'bees'
 		
 		DynamicStringDist dist = new MinEditDist()
-		TreeSet<TokenMatch> matches = this.dict.matches(tokens, dist, 0.0, false)
+		TreeSet<TokenMatch> matches = this.dict.matches(tokens, dist, 0.0, 0)
 		matches.each { log.info it }
 		assert matches.size() == 2
 
-		matches = this.dict.matches(tokens, dist, 1.0, false)
+		matches = this.dict.matches(tokens, dist, 1.0, 3)
 		matches.each { log.info it }
 		assert matches.size() == 4
 	}

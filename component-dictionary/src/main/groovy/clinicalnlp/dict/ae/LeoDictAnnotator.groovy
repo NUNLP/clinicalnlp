@@ -32,7 +32,7 @@ class LeoDictAnnotator extends LeoBaseAnnotator {
     private Float tolerance = 0
 
     @LeoConfigurationParameter(mandatory = false)
-    private Boolean longestMatch = false
+    private Integer maxRawScore = 0
 
     @LeoConfigurationParameter(mandatory = false)
     private Boolean caseInsensitive = false
@@ -90,8 +90,8 @@ class LeoDictAnnotator extends LeoBaseAnnotator {
         return this
     }
 
-    LeoDictAnnotator setLongestMatch(Boolean longestMatch) {
-        this.longestMatch = longestMatch
+    LeoDictAnnotator setMaxRawScore(Integer maxRawScore) {
+        this.maxRawScore = maxRawScore
         return this
     }
 
@@ -122,10 +122,10 @@ class LeoDictAnnotator extends LeoBaseAnnotator {
     @Override
     void annotate(JCas jcas) throws AnalysisEngineProcessException {
         this.impl.process(jcas,
-                this.longestMatch,
-                this.caseInsensitive,
-                this.tolerance,
-                this.containerClassName,
-                this.tokenClassName)
+            this.caseInsensitive,
+            this.tolerance,
+            this.maxRawScore,
+            this.containerClassName,
+            this.tokenClassName)
     }
 }

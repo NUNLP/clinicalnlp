@@ -69,7 +69,6 @@ class LocalDictAnnotatorTest {
                 'gov.va.vinci.leo.sentence.types.Sentence',
                 LocalDictAnnotator.PARAM_TOKEN_CLASS,
                 'clinicalnlp.types.Token',
-                LocalDictAnnotator.PARAM_LONGEST_MATCH, true,
                 LocalDictAnnotator.TOKEN_MODEL_KEY, tokenResDesc,
                 LocalDictAnnotator.PARAM_DICTIONARY_PATH,
                 'classpath:abstractionSchema/histology-abstraction-schema.json',
@@ -155,6 +154,7 @@ class LocalDictAnnotatorTest {
                 LocalDictAnnotator.PARAM_TOKEN_CLASS,
                 'clinicalnlp.types.Token',
                 LocalDictAnnotator.PARAM_TOLERANCE, new Float(0),
+                LocalDictAnnotator.PARAM_MAX_RAW_SCORE, new Integer(0),
                 LocalDictAnnotator.TOKEN_MODEL_KEY, tokenResDesc,
                 LocalDictAnnotator.PARAM_DICTIONARY_PATH,
                 'classpath:abstractionSchema/histology-abstraction-schema.json',
@@ -183,6 +183,7 @@ class LocalDictAnnotatorTest {
 
         // run the pipeline again with looser tolerance
         engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/tolerance', new Float(0.1))
+        engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/maxRawScore', new Integer(3))
         engine.reconfigure()
 
         jcas.reset()
