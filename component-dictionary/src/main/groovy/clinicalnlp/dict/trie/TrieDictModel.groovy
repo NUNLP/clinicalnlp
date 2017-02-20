@@ -99,7 +99,6 @@ class TrieDictModel<Value> implements DictModel<Value> {
         // if tolerance is zero, then we tolerate no mismatches.
         int max_raw_score = (tolerance == 0 ? 0 : maxRawScore)
 
-//        TreeMultiset<TokenMatch<Value>> matches = TreeMultiset.create()
 		Set<TokenMatch<Value>> matches = new TreeSet<>()
 
 		// initialize string distance instance with tokens

@@ -5,6 +5,7 @@ import com.google.common.io.Resources
 import groovy.util.logging.Log4j
 import org.apache.commons.io.Charsets
 import org.apache.log4j.Level
+import org.apache.uima.UimaContext
 import org.apache.uima.jcas.JCas
 import org.apache.uima.resource.ResourceInitializationException
 import org.codehaus.groovy.control.CompilerConfiguration
@@ -13,7 +14,7 @@ import org.codehaus.groovy.control.CompilerConfiguration
 class DSLAnnotatorImpl {
     private Script script
 
-    def initialize(String bindingScriptFile, String scriptFileName)
+    def initialize(UimaContext context, String bindingScriptFile, String scriptFile)
             throws ResourceInitializationException {
         log.level = Level.INFO
         Class.forName(DSL.canonicalName)
@@ -22,14 +23,15 @@ class DSLAnnotatorImpl {
         GroovyShell shell = new GroovyShell(config)
 
         try {
-            log.info "Loading groovy config file: ${scriptFileName}"
-            URL url = Resources.getResource(scriptFileName)
+            log.info "Loading groovy config file: ${scriptFile}"
+            URL url = Resources.getResource(scriptFile)
             String scriptContents = Resources.toString(url, Charsets.UTF_8)
             this.script = shell.parse(scriptContents)
             if (bindingScriptFile) {
                 log.info "Loading groovy config binding file: ${bindingScriptFile}"
                 Script bindingsScript = shell.parse(Resources.toString(
                     Resources.getResource(bindingScriptFile), Charsets.UTF_8))
+                bindingsScript.setProperty('context', context)
                 this.script.setBinding(new Binding(bindingsScript.run()))
             }
 

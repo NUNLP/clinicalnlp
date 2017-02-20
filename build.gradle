@@ -109,6 +109,7 @@ project(':component-pattern-matcher') {
     dependencies {
         compile project(':library-types')
         compile project(':component-groovy-dsl')
+        compile 'org.apache.lucene:lucene-core:6.4.1'
         testCompile project(':library-test')
     }
 }
@@ -167,6 +168,7 @@ project(':component-dictionary') {
         compile project(':component-tokenizer')
         compile fileTree(dir: 'lib', include: '*.jar')
         compile 'info.debatty:java-string-similarity:0.19'
+        compile 'com.github.universal-automata:liblevenshtein:3.0.0'
         testCompile project(':library-test')
         testCompile project(':component-segmenter')
         testCompile project(':component-context')

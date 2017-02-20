@@ -33,7 +33,7 @@ class LeoDSLAnnotator extends LeoBaseAnnotator {
 	@Override
 	void initialize(UimaContext aContext) throws ResourceInitializationException {
 		super.initialize(aContext)
-		this.impl.initialize(this.bindingScriptFileName, this.scriptFileName)
+		this.impl.initialize(aContext, this.bindingScriptFileName, this.scriptFileName)
 	}
 
 	@Override
