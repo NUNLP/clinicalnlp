@@ -2,6 +2,7 @@ package clinicalnlp.dict.ae
 
 import clinicalnlp.dict.DictEntry
 import clinicalnlp.dict.DictModelFactory
+import clinicalnlp.dict.automata.LevenshteinAutomatonModel
 import clinicalnlp.dict.trie.TrieDictModel
 import clinicalnlp.sent.ae.LocalSentenceDetector
 import clinicalnlp.token.ae.LocalTokenAnnotator
@@ -12,6 +13,7 @@ import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
 import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level
+import org.apache.lucene.util.automaton.LevenshteinAutomata
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.fit.factory.AggregateBuilder
 import org.apache.uima.fit.factory.ExternalResourceFactory
@@ -38,7 +40,7 @@ class LocalDictAnnotatorTest {
     }
 
 	@Test
-	void smokeTest() {
+	void trieDictTest() {
         String text = """\
         The patient has a diagnosis of spongioblastoma multiforme.  GBM does not have a good prognosis.
         But I can't rule out meningioma in the brain and spinal cord.
@@ -125,7 +127,7 @@ class LocalDictAnnotatorTest {
     }
 
     @Test
-    void testStringSimilarityLookup() {
+    void trieDictStringDistTest() {
         String text = """\
         The patient has a diagnosis of spngioblastoma multifourme.  GBM does not have a good prognosis.
         But I can't rule out meningiomal.
@@ -194,6 +196,93 @@ class LocalDictAnnotatorTest {
         // test results
         matches = jcas.select(type:DictMatch)
         matches.each { println it.coveredText }
+        assert matches.size() == 2
+    }
+
+    @Test
+    void levenshteinDictTest() {
+        String text = """\
+        The patient has a diagnosis of spongioblastoma multiforme.  GBM does not have a good prognosis.
+        But I can't rule out meningioma in the brain and spinal cord.
+        """
+
+        // -------------------------------------------------------------------
+        // Construct the pipeline
+        // -------------------------------------------------------------------
+        ExternalResourceDescription tokenResDesc = ExternalResourceFactory.createExternalResourceDescription(
+            opennlp.uima.tokenize.TokenizerModelResourceImpl, "file:clinicalnlp/models/en-token.bin")
+
+        ExternalResourceDescription sentResDesc = ExternalResourceFactory.createExternalResourceDescription(
+            opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
+
+        AggregateBuilder builder = new AggregateBuilder()
+        builder.with {
+            add(createEngineDescription(
+                LocalSentenceDetector,
+                LocalSentenceDetector.SENT_MODEL_KEY, sentResDesc
+            ))
+            add(createEngineDescription(
+                LocalTokenAnnotator,
+                LocalTokenAnnotator.PARAM_CONTAINER_TYPE,
+                'gov.va.vinci.leo.sentence.types.Sentence',
+                LocalTokenAnnotator.TOKEN_MODEL_KEY, tokenResDesc
+            ))
+            add(createEngineDescription(
+                LocalDictAnnotator,
+                LocalDictAnnotator.PARAM_CONTAINER_CLASS,
+                'gov.va.vinci.leo.sentence.types.Sentence',
+                LocalDictAnnotator.PARAM_TOKEN_CLASS,
+                'clinicalnlp.types.Token',
+                LocalDictAnnotator.TOKEN_MODEL_KEY, tokenResDesc,
+                LocalDictAnnotator.PARAM_DICTIONARY_PATH,
+                'classpath:abstractionSchema/histology-abstraction-schema.json',
+                LocalDictAnnotator.PARAM_DICTIONARY_TYPE, LevenshteinAutomatonModel.canonicalName
+            ))
+        }
+        AnalysisEngine engine = builder.createAggregate()
+
+        // -------------------------------------------------------------------
+        // Run the pipeline
+        // -------------------------------------------------------------------
+        JCas jcas = engine.newJCas()
+        jcas.setDocumentText(text)
+        jcas.create(type:Segment, begin:0, end:text.length())
+        runPipeline(jcas, engine)
+
+        // -------------------------------------------------------------------
+        // Test results
+        // -------------------------------------------------------------------
+        Collection<Sentence> sents = jcas.select(type:Sentence)
+        assert sents.size() == 3
+
+        Collection<Token> tokens = jcas.select(type:Token)
+        assert tokens.size() == 31
+
+        Collection<DictMatch> matches = jcas.select(type:DictMatch)
+        assert matches.size() == 2
+
+        // -------------------------------------------------------------------
+        // Load a different dictionary
+        // -------------------------------------------------------------------
+        engine.setConfigParameterValue('gov.va.queri.dict.ae.LocalDictAnnotator/dictionaryPath',
+            'classpath:abstractionSchema/morphology-abstraction-schema.json')
+        engine.reconfigure()
+
+        // -------------------------------------------------------------------
+        // Run the pipeline
+        // -------------------------------------------------------------------
+        jcas.reset()
+        jcas.setDocumentText(text)
+        jcas.create(type:Segment, begin:0, end:text.length())
+        runPipeline(jcas, engine)
+
+        // -------------------------------------------------------------------
+        // Test results
+        // -------------------------------------------------------------------
+        tokens = jcas.select(type:Token)
+        assert tokens.size() == 31
+
+        matches = jcas.select(type:DictMatch)
         assert matches.size() == 2
     }
 }

@@ -52,8 +52,9 @@ class TrieDictModel implements DictModel {
 	Integer getNumEntries() { return numEntries }
 
 	@Override	
-	DictEntry get (final Collection<CharSequence> tokens) {
-		return (getNode(root,DictModelFactory.join(tokens), 0))?.value
+	Set<DictEntry> get (final Collection<CharSequence> tokens) {
+		// TODO: modify trie structure to allow for multiple DictEntry instances, allowing for ambiguity in dictionary
+		return [(getNode(root,DictModelFactory.join(tokens), 0))?.value] as Set<DictEntry>
 	}
 	
 	private Node getNode(Node node, CharSequence key, int index) {
@@ -67,6 +68,9 @@ class TrieDictModel implements DictModel {
 	void put(final Collection<CharSequence> keyTokens, final DictEntry value) {
 		root = putNode(root, DictModelFactory.join(keyTokens), value, 0)
 	}
+
+	@Override
+	void complete() {}
 			
 	private Node putNode(Node node, CharSequence key, DictEntry value, int index) {
 		if (index == key.length()) {
@@ -86,19 +90,14 @@ class TrieDictModel implements DictModel {
 		node.next[idx] = putNode(node.next[idx], key, value, index+1)
 		return node
 	}
-	
-	@Override
-	TreeSet<TokenMatch> matches(final Collection<CharSequence> tokens) {
-		return this.matches(tokens, new MinEditDist(), 0.0, false, false)
-	}
+
 
 	@Override
 	TreeSet<TokenMatch> matches(final Collection<CharSequence> tokens,
-									   final DynamicStringDist dist,
-									   final Float tolerance,
-									   final Integer maxRawScore) {
-        // if tolerance is zero, then we tolerate no mismatches.
-        int max_raw_score = (tolerance == 0 ? 0 : maxRawScore)
+								final Float tolerance,
+								final Integer maxRawScore) {
+
+		DynamicStringDist dist = new MinEditDist()
 
 		Set<TokenMatch> matches = new TreeSet<>()
 
@@ -116,7 +115,7 @@ class TrieDictModel implements DictModel {
 				dist.pop(); agenda.pop()
 			}
 			// evaluate top search state
-			else if (dist.push(topSS.node.next[topSS.index].c) > max_raw_score) {
+			else if (dist.push(topSS.node.next[topSS.index].c) > maxRawScore) {
 				dist.pop()
 			}
 			// examine current search state and look for matches
@@ -124,7 +123,7 @@ class TrieDictModel implements DictModel {
 				Node nextNode = topSS.node.next[topSS.index]
 				agenda.push(new SearchState(nextNode))
 				if (nextNode.value != null) {
-					Collection strm = dist.matches(max_raw_score)
+					Collection strm = dist.matches(maxRawScore)
 					for (Match m : strm) {
                         Float normScore = m.score/m.matchString.length()
                         if (normScore <= tolerance) {

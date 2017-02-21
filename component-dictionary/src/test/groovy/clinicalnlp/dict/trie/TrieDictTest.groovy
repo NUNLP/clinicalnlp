@@ -3,8 +3,6 @@ package clinicalnlp.dict.trie
 import clinicalnlp.dict.DictEntry
 import clinicalnlp.dict.DictModel
 import clinicalnlp.dict.TokenMatch
-import clinicalnlp.dict.stringdist.DynamicStringDist
-import clinicalnlp.dict.stringdist.MinEditDist
 import groovy.util.logging.Log4j
 import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level
@@ -35,13 +33,14 @@ class TrieDictTest {
 		this.entries.each { Collection<CharSequence> k, DictEntry v ->
 			dict.put(k, v)
 		}
+		dict.complete()
 	}
 
     @Test
     void smokeTest() {
 		assert dict.numEntries == entries.size()
 		entries.each { k,v ->
-			assert dict.get(k) == v
+			assert dict.get(k)[0] == v
 		}
     }
 	
@@ -50,12 +49,11 @@ class TrieDictTest {
 		Collection<CharSequence> tokens = new ArrayList<>()
 		tokens << 'bee' << 'bees'
 		
-		DynamicStringDist dist = new MinEditDist()
-		TreeSet<TokenMatch> matches = this.dict.matches(tokens, dist, 0.0, 0)
+		TreeSet<TokenMatch> matches = this.dict.matches(tokens, 0.0, 0)
 		matches.each { log.info it }
 		assert matches.size() == 2
 
-		matches = this.dict.matches(tokens, dist, 1.0, 3)
+		matches = this.dict.matches(tokens, 1.0, 3)
 		matches.each { log.info it }
 		assert matches.size() == 4
 	}

@@ -26,6 +26,7 @@ class DictModelFactory {
             }
 
         }
+        model.complete()
         return model
     }
 

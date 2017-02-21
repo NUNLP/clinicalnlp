@@ -66,15 +66,13 @@ class DictAnnotatorImpl {
             anns.each { Annotation ann ->
                 tokens << (caseInsensitive ? ann.coveredText.toLowerCase() : ann.coveredText)
             }
-            Collection<TokenMatch<DictEntry>> matches = this.dict.matches(tokens,
-                    new MinEditDist(),
-                    tolerance, maxRawScore)
+            Collection<TokenMatch> matches = this.dict.matches(tokens, tolerance, maxRawScore)
             matches.each { TokenMatch m ->
                 Collection<Annotation> matched = new ArrayList<>()
                 for (int i = m.begin; i <= m.end; i++) {
                     matched << anns.get(i)
                 }
-                DictMatch dictMatch = jcas.create(type:DictMatch,
+                jcas.create(type:DictMatch,
                     begin:matched[0].begin,
                     end:matched[matched.size()-1].end,
                     canonical:m.value.canonical,
