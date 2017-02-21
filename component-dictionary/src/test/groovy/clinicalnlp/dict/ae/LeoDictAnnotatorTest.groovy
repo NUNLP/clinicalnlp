@@ -84,7 +84,7 @@ class LeoDictAnnotatorTest {
                 .setTokenClassName('clinicalnlp.types.Token')
                 .setDictionaryType(TrieDictModel.canonicalName)
                 .setTolerance(0.0)
-                .setMaxRawScore(0)
+                .setMaxDistance(0)
                 .setLeoTypeSystemDescription(types)
                 .getLeoAEDescriptor()
         )

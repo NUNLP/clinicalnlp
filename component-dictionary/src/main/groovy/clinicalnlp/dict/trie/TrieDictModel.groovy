@@ -93,9 +93,9 @@ class TrieDictModel implements DictModel {
 
 
 	@Override
-	TreeSet<TokenMatch> matches(final Collection<CharSequence> tokens,
+	TreeSet<TokenMatch> matches(final List<CharSequence> tokens,
 								final Float tolerance,
-								final Integer maxRawScore) {
+								final Integer maxDistance) {
 
 		DynamicStringDist dist = new MinEditDist()
 
@@ -115,7 +115,7 @@ class TrieDictModel implements DictModel {
 				dist.pop(); agenda.pop()
 			}
 			// evaluate top search state
-			else if (dist.push(topSS.node.next[topSS.index].c) > maxRawScore) {
+			else if (dist.push(topSS.node.next[topSS.index].c) > maxDistance) {
 				dist.pop()
 			}
 			// examine current search state and look for matches
@@ -123,7 +123,7 @@ class TrieDictModel implements DictModel {
 				Node nextNode = topSS.node.next[topSS.index]
 				agenda.push(new SearchState(nextNode))
 				if (nextNode.value != null) {
-					Collection strm = dist.matches(maxRawScore)
+					Collection strm = dist.matches(maxDistance)
 					for (Match m : strm) {
                         Float normScore = m.score/m.matchString.length()
                         if (normScore <= tolerance) {

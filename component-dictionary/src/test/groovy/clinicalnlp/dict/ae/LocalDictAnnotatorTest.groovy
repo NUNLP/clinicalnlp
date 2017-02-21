@@ -1,7 +1,5 @@
 package clinicalnlp.dict.ae
 
-import clinicalnlp.dict.DictEntry
-import clinicalnlp.dict.DictModelFactory
 import clinicalnlp.dict.automata.LevenshteinAutomatonModel
 import clinicalnlp.dict.trie.TrieDictModel
 import clinicalnlp.sent.ae.LocalSentenceDetector
@@ -13,7 +11,6 @@ import gov.va.vinci.leo.sentence.types.Sentence
 import groovy.util.logging.Log4j
 import org.apache.log4j.BasicConfigurator
 import org.apache.log4j.Level
-import org.apache.lucene.util.automaton.LevenshteinAutomata
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.fit.factory.AggregateBuilder
 import org.apache.uima.fit.factory.ExternalResourceFactory
@@ -104,7 +101,7 @@ class LocalDictAnnotatorTest {
         // -------------------------------------------------------------------
         // Load a different dictionary
         // -------------------------------------------------------------------
-        engine.setConfigParameterValue('gov.va.queri.dict.ae.LocalDictAnnotator/dictionaryPath',
+        engine.setConfigParameterValue('gov.va.queri.dictModel.ae.LocalDictAnnotator/dictionaryPath',
                 'classpath:abstractionSchema/morphology-abstraction-schema.json')
         engine.reconfigure()
 
@@ -157,7 +154,7 @@ class LocalDictAnnotatorTest {
                 LocalDictAnnotator.PARAM_TOKEN_CLASS,
                 'clinicalnlp.types.Token',
                 LocalDictAnnotator.PARAM_TOLERANCE, new Float(0),
-                LocalDictAnnotator.PARAM_MAX_RAW_SCORE, new Integer(0),
+                LocalDictAnnotator.PARAM_MAX_DISTANCE, new Integer(0),
                 LocalDictAnnotator.TOKEN_MODEL_KEY, tokenResDesc,
                 LocalDictAnnotator.PARAM_DICTIONARY_PATH,
                 'classpath:abstractionSchema/histology-abstraction-schema.json',
@@ -184,8 +181,8 @@ class LocalDictAnnotatorTest {
         assert matches.size() == 0
 
         // run the pipeline again with looser tolerance
-        engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/tolerance', new Float(0.1))
-        engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/maxRawScore', new Integer(3))
+        engine.setConfigParameterValue('clinicalnlp.dictModel.ae.LocalDictAnnotator/tolerance', new Float(0.1))
+        engine.setConfigParameterValue('clinicalnlp.dictModel.ae.LocalDictAnnotator/maxDistance', new Integer(3))
         engine.reconfigure()
 
         jcas.reset()
@@ -212,30 +209,18 @@ class LocalDictAnnotatorTest {
         ExternalResourceDescription tokenResDesc = ExternalResourceFactory.createExternalResourceDescription(
             opennlp.uima.tokenize.TokenizerModelResourceImpl, "file:clinicalnlp/models/en-token.bin")
 
-        ExternalResourceDescription sentResDesc = ExternalResourceFactory.createExternalResourceDescription(
-            opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
-
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
-            add(createEngineDescription(
-                LocalSentenceDetector,
-                LocalSentenceDetector.SENT_MODEL_KEY, sentResDesc
-            ))
-            add(createEngineDescription(
-                LocalTokenAnnotator,
+            add(createEngineDescription(LocalTokenAnnotator,
                 LocalTokenAnnotator.PARAM_CONTAINER_TYPE,
-                'gov.va.vinci.leo.sentence.types.Sentence',
+                Segment.canonicalName,
                 LocalTokenAnnotator.TOKEN_MODEL_KEY, tokenResDesc
             ))
-            add(createEngineDescription(
-                LocalDictAnnotator,
-                LocalDictAnnotator.PARAM_CONTAINER_CLASS,
-                'gov.va.vinci.leo.sentence.types.Sentence',
-                LocalDictAnnotator.PARAM_TOKEN_CLASS,
-                'clinicalnlp.types.Token',
+            add(createEngineDescription(LocalDictAnnotator,
+                LocalDictAnnotator.PARAM_CONTAINER_CLASS, Segment.canonicalName,
+                LocalDictAnnotator.PARAM_TOKEN_CLASS, Token.canonicalName,
                 LocalDictAnnotator.TOKEN_MODEL_KEY, tokenResDesc,
-                LocalDictAnnotator.PARAM_DICTIONARY_PATH,
-                'classpath:abstractionSchema/histology-abstraction-schema.json',
+                LocalDictAnnotator.PARAM_DICTIONARY_PATH, 'classpath:abstractionSchema/histology-abstraction-schema.json',
                 LocalDictAnnotator.PARAM_DICTIONARY_TYPE, LevenshteinAutomatonModel.canonicalName
             ))
         }
@@ -252,8 +237,8 @@ class LocalDictAnnotatorTest {
         // -------------------------------------------------------------------
         // Test results
         // -------------------------------------------------------------------
-        Collection<Sentence> sents = jcas.select(type:Sentence)
-        assert sents.size() == 3
+        Collection<Segment> segs = jcas.select(type:Segment)
+        assert segs.size() == 1
 
         Collection<Token> tokens = jcas.select(type:Token)
         assert tokens.size() == 31
@@ -264,7 +249,7 @@ class LocalDictAnnotatorTest {
         // -------------------------------------------------------------------
         // Load a different dictionary
         // -------------------------------------------------------------------
-        engine.setConfigParameterValue('gov.va.queri.dict.ae.LocalDictAnnotator/dictionaryPath',
+        engine.setConfigParameterValue('gov.va.queri.dictModel.ae.LocalDictAnnotator/dictionaryPath',
             'classpath:abstractionSchema/morphology-abstraction-schema.json')
         engine.reconfigure()
 

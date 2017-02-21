@@ -1,7 +1,6 @@
 package clinicalnlp.dict.ae
 
 import clinicalnlp.dict.*
-import clinicalnlp.dict.stringdist.MinEditDist
 import clinicalnlp.dsl.DSL
 import clinicalnlp.types.DictMatch
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -17,7 +16,7 @@ import org.springframework.core.io.Resource
 
 @Log4j
 class DictAnnotatorImpl {
-    private DictModel dict
+    private DictModel dictModel
     private Script postScript
 
     void initialize(String dictionaryPath,
@@ -31,10 +30,9 @@ class DictAnnotatorImpl {
         DefaultResourceLoader loader = new DefaultResourceLoader(ClassLoader.getSystemClassLoader());
         Resource schemaResource = loader.getResource(dictionaryPath)
         AbstractionSchema schema = mapper.readValue(schemaResource.inputStream, AbstractionSchema);
-        this.dict = DictModelFactory.make(dictionaryType, schema, tokenizer, caseInsensitive)
+        this.dictModel = DictModelFactory.make(dictionaryType, schema, tokenizer, caseInsensitive)
 
         if (postScriptFile) {
-            log.info "Loading groovy config post-script file: ${bindingScriptFile}"
             CompilerConfiguration config = new CompilerConfiguration()
             config.setScriptBaseClass("clinicalnlp.dsl.DSL")
             GroovyShell shell = new GroovyShell(config)
@@ -42,7 +40,6 @@ class DictAnnotatorImpl {
                     Resources.getResource(postScriptFile),
                     org.apache.commons.io.Charsets.UTF_8))
             if (bindingScriptFile) {
-                log.info "Loading groovy config binding file: ${bindingScriptFile}"
                 Script bindingsScript = shell.parse(Resources.toString(
                     Resources.getResource(bindingScriptFile), Charsets.UTF_8))
                 this.postScript.setBinding(new Binding(bindingsScript.run()))
@@ -53,9 +50,10 @@ class DictAnnotatorImpl {
     void process(JCas jcas,
                  Boolean caseInsensitive,
                  Float tolerance,
-                 Integer maxRawScore,
+                 Integer maxDistance,
                  String containerClassName,
                  String tokenClassName) {
+
         Class<Annotation> ContainerClass = Class.forName(containerClassName)
         Class<Annotation> TokenClass = Class.forName(tokenClassName)
 
@@ -66,8 +64,7 @@ class DictAnnotatorImpl {
             anns.each { Annotation ann ->
                 tokens << (caseInsensitive ? ann.coveredText.toLowerCase() : ann.coveredText)
             }
-            Collection<TokenMatch> matches = this.dict.matches(tokens, tolerance, maxRawScore)
-            matches.each { TokenMatch m ->
+            this.dictModel.matches(tokens, tolerance, maxDistance).each { TokenMatch m ->
                 Collection<Annotation> matched = new ArrayList<>()
                 for (int i = m.begin; i <= m.end; i++) {
                     matched << anns.get(i)

@@ -17,7 +17,7 @@ class WordnetTest {
     @Test
     public void testDictionary() throws IOException {
         // construct the URL to the Wordnet dictionary directory
-        URL url = Resources.getResource('clinicalnlp/models/wordnet/dict')
+        URL url = Resources.getResource('clinicalnlp/models/wordnet/dictModel')
 
         // construct the dictionary object and open it
         IRAMDictionary dict = new RAMDictionary(url, ILoadPolicy.IMMEDIATE_LOAD)

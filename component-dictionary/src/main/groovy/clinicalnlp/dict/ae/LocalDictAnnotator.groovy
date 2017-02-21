@@ -38,9 +38,9 @@ class LocalDictAnnotator extends JCasAnnotator_ImplBase {
 	@ConfigurationParameter(name='tolerance', mandatory=false, defaultValue='0.0')
 	private Float tolerance
 
-	public static final String PARAM_MAX_RAW_SCORE = 'maxRawScore'
-	@ConfigurationParameter(name='maxRawScore', mandatory=false, defaultValue='0')
-	private Integer maxRawScore
+	public static final String PARAM_MAX_DISTANCE = 'maxDistance'
+	@ConfigurationParameter(name='maxDistance', mandatory=false, defaultValue='0')
+	private Integer maxDistance
 
 	public static final String PARAM_CASE_INSENSITIVE = 'caseInsensitive'
 	@ConfigurationParameter(name='caseInsensitive', mandatory=true, defaultValue='false')
@@ -76,7 +76,7 @@ class LocalDictAnnotator extends JCasAnnotator_ImplBase {
         this.impl.process(jcas,
 			this.caseInsensitive,
 			this.tolerance,
-			this.maxRawScore,
+			this.maxDistance,
 			this.containerClassName,
 			this.tokenClassName)
 	}

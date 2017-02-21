@@ -10,8 +10,8 @@ interface DictModel {
 
 	void complete()
 
-	TreeSet<TokenMatch> matches (final Collection<CharSequence> tokens,
+	TreeSet<TokenMatch> matches (final List<CharSequence> tokens,
 								 final Float tolerance,
-								 final Integer maxRawScore
+								 final Integer maxDistance
 								 )
 }

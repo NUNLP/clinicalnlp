@@ -1,7 +1,5 @@
 package clinicalnlp.dict.ae
 
-import clinicalnlp.dict.DictModel
-import clinicalnlp.dict.DictModelFactory
 import gov.va.vinci.leo.ae.LeoBaseAnnotator
 import gov.va.vinci.leo.descriptors.LeoConfigurationParameter
 import groovy.util.logging.Log4j
@@ -32,7 +30,7 @@ class LeoDictAnnotator extends LeoBaseAnnotator {
     private Float tolerance = 0
 
     @LeoConfigurationParameter(mandatory = false)
-    private Integer maxRawScore = 0
+    private Integer maxDistance = 0
 
     @LeoConfigurationParameter(mandatory = false)
     private Boolean caseInsensitive = false
@@ -86,8 +84,8 @@ class LeoDictAnnotator extends LeoBaseAnnotator {
         return this
     }
 
-    LeoDictAnnotator setMaxRawScore(Integer maxRawScore) {
-        this.maxRawScore = maxRawScore
+    LeoDictAnnotator setMaxDistance(Integer maxDistance) {
+        this.maxDistance = maxDistance
         return this
     }
 
@@ -120,7 +118,7 @@ class LeoDictAnnotator extends LeoBaseAnnotator {
         this.impl.process(jcas,
             this.caseInsensitive,
             this.tolerance,
-            this.maxRawScore,
+            this.maxDistance,
             this.containerClassName,
             this.tokenClassName)
     }
