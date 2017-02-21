@@ -1,22 +1,23 @@
 package clinicalnlp.dict.automata
 
+import clinicalnlp.dict.DictEntry
 import clinicalnlp.dict.DictModel
 import clinicalnlp.dict.TokenMatch
 import clinicalnlp.dict.stringdist.DynamicStringDist
 
-class LevenshteinAutomatonModel<Value> implements DictModel<Value> {
+class LevenshteinAutomatonModel implements DictModel {
     @Override
     Integer getNumEntries() {
         return null
     }
 
     @Override
-    Value get(Collection<CharSequence> tokens) {
+    DictEntry get(Collection<CharSequence> tokens) {
         return null
     }
 
     @Override
-    void put(Collection<CharSequence> tokens, Value entry) {
+    void put(Collection<CharSequence> tokens, DictEntry entry) {
 
     }
 

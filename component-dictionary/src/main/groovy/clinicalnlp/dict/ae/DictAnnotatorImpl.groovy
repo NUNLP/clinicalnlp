@@ -10,7 +10,6 @@ import groovy.util.logging.Log4j
 import opennlp.tools.tokenize.TokenizerME
 import org.apache.commons.io.Charsets
 import org.apache.uima.jcas.JCas
-import org.apache.uima.jcas.cas.StringArray
 import org.apache.uima.jcas.tcas.Annotation
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.springframework.core.io.DefaultResourceLoader

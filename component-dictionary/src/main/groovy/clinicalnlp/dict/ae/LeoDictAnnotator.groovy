@@ -37,18 +37,14 @@ class LeoDictAnnotator extends LeoBaseAnnotator {
     @LeoConfigurationParameter(mandatory = false)
     private Boolean caseInsensitive = false
 
-    @LeoConfigurationParameter(mandatory = false)
-    private String dictionaryType = DictModelFactory.DICT_MODEL_TYPE_TRIE
+    @LeoConfigurationParameter(mandatory = true)
+    private String dictionaryType
 
     @LeoConfigurationParameter(mandatory = false)
     private String bindingScriptFile
 
     @LeoConfigurationParameter(mandatory = false)
     private String postScriptFile
-
-    private DictModel dict
-    private Script bindingScript
-    private Script postScript
 
     LeoDictAnnotator setDictionaryPath(String dictionaryPath) {
         this.dictionaryPath = dictionaryPath
@@ -107,8 +103,8 @@ class LeoDictAnnotator extends LeoBaseAnnotator {
         super.initialize(aContext)
 
         // TODO: use external resource, same as one supplied to tokenizer annotator
-        DefaultResourceLoader loader = new DefaultResourceLoader(ClassLoader.getSystemClassLoader());
-        Resource resource = loader.getResource('classpath:clinicalnlp/models/en-token.bin');
+        DefaultResourceLoader loader = new DefaultResourceLoader(ClassLoader.getSystemClassLoader())
+        Resource resource = loader.getResource('classpath:clinicalnlp/models/en-token.bin')
 
         this.impl = new DictAnnotatorImpl()
         this.impl.initialize(this.dictionaryPath,

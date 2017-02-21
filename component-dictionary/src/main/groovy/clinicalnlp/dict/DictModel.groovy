@@ -2,13 +2,13 @@ package clinicalnlp.dict
 
 import clinicalnlp.dict.stringdist.DynamicStringDist
 
-interface DictModel<Value> {
+interface DictModel {
 	
 	Integer getNumEntries()
 	
-	Value get (final Collection<CharSequence> tokens)
+	DictEntry get (final Collection<CharSequence> tokens)
 	
-	void put (final Collection<CharSequence> tokens, final Value entry)
+	void put (final Collection<CharSequence> tokens, final DictEntry entry)
 	
 	TreeSet<TokenMatch> matches (final Collection<CharSequence> tokens)
 	

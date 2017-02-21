@@ -1,6 +1,8 @@
 package clinicalnlp.dict.ae
 
+import clinicalnlp.dict.DictEntry
 import clinicalnlp.dict.DictModelFactory
+import clinicalnlp.dict.trie.TrieDictModel
 import clinicalnlp.sent.ae.LocalSentenceDetector
 import clinicalnlp.token.ae.LocalTokenAnnotator
 import clinicalnlp.types.DictMatch
@@ -72,8 +74,7 @@ class LocalDictAnnotatorTest {
                 LocalDictAnnotator.TOKEN_MODEL_KEY, tokenResDesc,
                 LocalDictAnnotator.PARAM_DICTIONARY_PATH,
                 'classpath:abstractionSchema/histology-abstraction-schema.json',
-                LocalDictAnnotator.PARAM_DICTIONARY_TYPE,
-                DictModelFactory.DICT_MODEL_TYPE_TRIE
+                LocalDictAnnotator.PARAM_DICTIONARY_TYPE, TrieDictModel.canonicalName
             ))
         }
         AnalysisEngine engine = builder.createAggregate()
@@ -158,8 +159,7 @@ class LocalDictAnnotatorTest {
                 LocalDictAnnotator.TOKEN_MODEL_KEY, tokenResDesc,
                 LocalDictAnnotator.PARAM_DICTIONARY_PATH,
                 'classpath:abstractionSchema/histology-abstraction-schema.json',
-                LocalDictAnnotator.PARAM_DICTIONARY_TYPE,
-                DictModelFactory.DICT_MODEL_TYPE_TRIE
+                LocalDictAnnotator.PARAM_DICTIONARY_TYPE, TrieDictModel
             ))
         }
         AnalysisEngine engine = builder.createAggregate()

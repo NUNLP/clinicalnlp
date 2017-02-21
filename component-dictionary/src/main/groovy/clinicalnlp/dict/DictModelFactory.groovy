@@ -1,7 +1,5 @@
 package clinicalnlp.dict
 
-import clinicalnlp.dict.phrase.PhraseDictModel
-import clinicalnlp.dict.trie.TrieDictModel
 import opennlp.tools.tokenize.Tokenizer
 import opennlp.tools.tokenize.TokenizerME
 import opennlp.tools.util.Span
@@ -10,25 +8,12 @@ class DictModelFactory {
 
     static public CharSequence TOKEN_SEP = ' '
 
-    public static String DICT_MODEL_TYPE_PHRASE = "Phrase"
-    public static String DICT_MODEL_TYPE_TRIE = "Trie"
-
     static DictModel make(final String dictModelType,
-                                 final AbstractionSchema schema,
-                                 final Tokenizer tokenizer,
-                                 final Boolean caseInsensitive) {
+                          final AbstractionSchema schema,
+                          final Tokenizer tokenizer,
+                          final Boolean caseInsensitive) {
 
-        DictModel model
-
-        switch (dictModelType) {
-            case DICT_MODEL_TYPE_TRIE:
-                model = new TrieDictModel<DictEntry>()
-                break
-
-            case DICT_MODEL_TYPE_PHRASE:
-                model = new PhraseDictModel<DictEntry>()
-                break
-        }
+        DictModel model = Class.forName(dictModelType).newInstance()
 
         schema.object_values.each { ObjectValue objVal ->
             DictEntry entry = new DictEntry()

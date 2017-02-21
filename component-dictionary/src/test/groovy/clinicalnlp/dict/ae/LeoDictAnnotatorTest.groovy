@@ -1,5 +1,6 @@
 package clinicalnlp.dict.ae
 
+import clinicalnlp.dict.trie.TrieDictModel
 import clinicalnlp.dsl.ae.LeoDSLAnnotator
 import clinicalnlp.listener.TestListener
 import clinicalnlp.reader.TestCollectionReader
@@ -81,6 +82,7 @@ class LeoDictAnnotatorTest {
                 .setTokenModelPath('classpath:clinicalnlp/models/en-token.bin')
                 .setContainerClassName('gov.va.vinci.leo.sentence.types.Sentence')
                 .setTokenClassName('clinicalnlp.types.Token')
+                .setDictionaryType(TrieDictModel.canonicalName)
                 .setTolerance(0.0)
                 .setMaxRawScore(0)
                 .setLeoTypeSystemDescription(types)

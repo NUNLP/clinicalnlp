@@ -14,8 +14,8 @@ import org.junit.Test
 
 @Log4j
 class TrieDictTest {
-	DictModel<DictEntry> dict;
-	Map<Collection<CharSequence>, DictEntry> entries;
+	DictModel dict
+	Map<Collection<CharSequence>, DictEntry> entries
 	
 	@BeforeClass
 	static void setupClass() {
@@ -27,7 +27,7 @@ class TrieDictTest {
 	void setup() {
 		log.setLevel(Level.INFO)
 		
-		this.dict = new TrieDictModel<DictEntry>()
+		this.dict = new TrieDictModel()
 		this.entries = [
 			['bee']:(new DictEntry(vocab:'V1', code:'C1', canonical:['bee'])),
 			['bees']:(new DictEntry(vocab:'V1', code:'C2', canonical:['bees']))
