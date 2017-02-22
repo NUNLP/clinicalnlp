@@ -4,6 +4,7 @@ import clinicalnlp.dict.DictEntry
 import clinicalnlp.dict.DictModel
 import clinicalnlp.dict.DictModelFactory
 import clinicalnlp.dict.TokenMatch
+import com.github.liblevenshtein.transducer.Algorithm
 import com.github.liblevenshtein.transducer.Candidate
 import com.github.liblevenshtein.transducer.ITransducer
 import com.github.liblevenshtein.transducer.factory.TransducerBuilder
@@ -37,7 +38,7 @@ class LevenshteinAutomatonModel implements DictModel {
     @Override
     void complete() {
 //        sortedDawg.addAll(this.entries.keySet())
-        TransducerBuilder builder = new TransducerBuilder()
+        TransducerBuilder builder = new TransducerBuilder().algorithm(Algorithm.TRANSPOSITION)
         builder.dictionary(this.entries.keySet())
         transducer = builder.build()
     }

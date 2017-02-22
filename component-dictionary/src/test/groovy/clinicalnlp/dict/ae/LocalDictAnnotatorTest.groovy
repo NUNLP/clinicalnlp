@@ -25,6 +25,9 @@ import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
 @Log4j
 class LocalDictAnnotatorTest {
+
+    AnalysisEngine engine
+
     @BeforeClass
     static void setupClass() {
         Class.forName('clinicalnlp.dsl.DSL')
@@ -34,14 +37,6 @@ class LocalDictAnnotatorTest {
     @Before
     void setUp() throws Exception {
         log.setLevel(Level.INFO)
-    }
-
-	@Test
-	void trieDictTest() {
-        String text = """\
-        The patient has a diagnosis of spongioblastoma multiforme.  GBM does not have a good prognosis.
-        But I can't rule out meningioma in the brain and spinal cord.
-        """
 
         // -------------------------------------------------------------------
         // Construct the pipeline
@@ -54,29 +49,30 @@ class LocalDictAnnotatorTest {
 
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
-            add(createEngineDescription(
-                LocalSentenceDetector,
-                LocalSentenceDetector.SENT_MODEL_KEY, sentResDesc
-            ))
-            add(createEngineDescription(
-                LocalTokenAnnotator,
-                LocalTokenAnnotator.PARAM_CONTAINER_TYPE,
-                'gov.va.vinci.leo.sentence.types.Sentence',
-                LocalTokenAnnotator.TOKEN_MODEL_KEY, tokenResDesc
-            ))
-            add(createEngineDescription(
-                LocalDictAnnotator,
-                LocalDictAnnotator.PARAM_CONTAINER_CLASS,
-                'gov.va.vinci.leo.sentence.types.Sentence',
-                LocalDictAnnotator.PARAM_TOKEN_CLASS,
-                'clinicalnlp.types.Token',
+            add(createEngineDescription(LocalSentenceDetector,
+                LocalSentenceDetector.SENT_MODEL_KEY, sentResDesc)
+            )
+            add(createEngineDescription(LocalTokenAnnotator,
+                LocalTokenAnnotator.PARAM_CONTAINER_TYPE, Sentence.canonicalName,
+                LocalTokenAnnotator.TOKEN_MODEL_KEY, tokenResDesc)
+            )
+            add(createEngineDescription(LocalDictAnnotator,
+                LocalDictAnnotator.PARAM_CONTAINER_CLASS, Sentence.canonicalName,
+                LocalDictAnnotator.PARAM_TOKEN_CLASS, Token.canonicalName,
                 LocalDictAnnotator.TOKEN_MODEL_KEY, tokenResDesc,
-                LocalDictAnnotator.PARAM_DICTIONARY_PATH,
-                'classpath:abstractionSchema/histology-abstraction-schema.json',
-                LocalDictAnnotator.PARAM_DICTIONARY_TYPE, TrieDictModel.canonicalName
-            ))
+                LocalDictAnnotator.PARAM_DICTIONARY_PATH, 'classpath:abstractionSchema/histology.json',
+                LocalDictAnnotator.PARAM_DICTIONARY_TYPE, TrieDictModel.canonicalName)
+            )
         }
-        AnalysisEngine engine = builder.createAggregate()
+        this.engine = builder.createAggregate()
+    }
+
+	@Test
+	void trieDictTest() {
+        String text = """\
+        The patient has a diagnosis of spongioblastoma multiforme.  GBM does not have a good prognosis.
+        But I can't rule out meningioma in the brain and spinal cord.
+        """
 
         // -------------------------------------------------------------------
         // Run the pipeline
@@ -101,8 +97,8 @@ class LocalDictAnnotatorTest {
         // -------------------------------------------------------------------
         // Load a different dictionary
         // -------------------------------------------------------------------
-        engine.setConfigParameterValue('gov.va.queri.dictModel.ae.LocalDictAnnotator/dictionaryPath',
-                'classpath:abstractionSchema/morphology-abstraction-schema.json')
+        engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/dictionaryPath',
+                'classpath:abstractionSchema/morphology.json')
         engine.reconfigure()
 
         // -------------------------------------------------------------------
@@ -120,7 +116,7 @@ class LocalDictAnnotatorTest {
         assert tokens.size() == 31
 
         matches = jcas.select(type:DictMatch)
-        assert matches.size() == 2
+        assert matches.size() == 3
     }
 
     @Test
@@ -129,39 +125,6 @@ class LocalDictAnnotatorTest {
         The patient has a diagnosis of spngioblastoma multifourme.  GBM does not have a good prognosis.
         But I can't rule out meningiomal.
         """
-
-        // construct the pipeline
-        ExternalResourceDescription tokenResDesc = ExternalResourceFactory.createExternalResourceDescription(
-            opennlp.uima.tokenize.TokenizerModelResourceImpl.class, "file:clinicalnlp/models/en-token.bin")
-
-        ExternalResourceDescription sentResDesc = ExternalResourceFactory.createExternalResourceDescription(
-            opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
-
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(
-                LocalSentenceDetector,
-                LocalSentenceDetector.SENT_MODEL_KEY, sentResDesc))
-            add(createEngineDescription(
-                LocalTokenAnnotator,
-                LocalTokenAnnotator.PARAM_CONTAINER_TYPE,
-                'gov.va.vinci.leo.sentence.types.Sentence',
-                LocalTokenAnnotator.TOKEN_MODEL_KEY, tokenResDesc))
-            add(createEngineDescription(
-                LocalDictAnnotator,
-                LocalDictAnnotator.PARAM_CONTAINER_CLASS,
-                'gov.va.vinci.leo.sentence.types.Sentence',
-                LocalDictAnnotator.PARAM_TOKEN_CLASS,
-                'clinicalnlp.types.Token',
-                LocalDictAnnotator.PARAM_TOLERANCE, new Float(0),
-                LocalDictAnnotator.PARAM_MAX_DISTANCE, new Integer(0),
-                LocalDictAnnotator.TOKEN_MODEL_KEY, tokenResDesc,
-                LocalDictAnnotator.PARAM_DICTIONARY_PATH,
-                'classpath:abstractionSchema/histology-abstraction-schema.json',
-                LocalDictAnnotator.PARAM_DICTIONARY_TYPE, TrieDictModel
-            ))
-        }
-        AnalysisEngine engine = builder.createAggregate()
 
         // run the pipeline
         JCas jcas = engine.newJCas()
@@ -181,8 +144,8 @@ class LocalDictAnnotatorTest {
         assert matches.size() == 0
 
         // run the pipeline again with looser tolerance
-        engine.setConfigParameterValue('clinicalnlp.dictModel.ae.LocalDictAnnotator/tolerance', new Float(0.1))
-        engine.setConfigParameterValue('clinicalnlp.dictModel.ae.LocalDictAnnotator/maxDistance', new Integer(3))
+        engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/tolerance', new Float(0.1))
+        engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/maxDistance', new Integer(3))
         engine.reconfigure()
 
         jcas.reset()
@@ -192,7 +155,6 @@ class LocalDictAnnotatorTest {
 
         // test results
         matches = jcas.select(type:DictMatch)
-        matches.each { println it.coveredText }
         assert matches.size() == 2
     }
 
@@ -204,27 +166,13 @@ class LocalDictAnnotatorTest {
         """
 
         // -------------------------------------------------------------------
-        // Construct the pipeline
+        // Load a LevenshteinAutomatonModel dictionary
         // -------------------------------------------------------------------
-        ExternalResourceDescription tokenResDesc = ExternalResourceFactory.createExternalResourceDescription(
-            opennlp.uima.tokenize.TokenizerModelResourceImpl, "file:clinicalnlp/models/en-token.bin")
 
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(LocalTokenAnnotator,
-                LocalTokenAnnotator.PARAM_CONTAINER_TYPE,
-                Segment.canonicalName,
-                LocalTokenAnnotator.TOKEN_MODEL_KEY, tokenResDesc
-            ))
-            add(createEngineDescription(LocalDictAnnotator,
-                LocalDictAnnotator.PARAM_CONTAINER_CLASS, Segment.canonicalName,
-                LocalDictAnnotator.PARAM_TOKEN_CLASS, Token.canonicalName,
-                LocalDictAnnotator.TOKEN_MODEL_KEY, tokenResDesc,
-                LocalDictAnnotator.PARAM_DICTIONARY_PATH, 'classpath:abstractionSchema/histology-abstraction-schema.json',
-                LocalDictAnnotator.PARAM_DICTIONARY_TYPE, LevenshteinAutomatonModel.canonicalName
-            ))
-        }
-        AnalysisEngine engine = builder.createAggregate()
+        engine.setConfigParameterValue(
+            "clinicalnlp.dict.ae.LocalDictAnnotator/${LocalDictAnnotator.PARAM_DICTIONARY_TYPE}",
+            LevenshteinAutomatonModel.canonicalName)
+        engine.reconfigure()
 
         // -------------------------------------------------------------------
         // Run the pipeline
@@ -249,8 +197,8 @@ class LocalDictAnnotatorTest {
         // -------------------------------------------------------------------
         // Load a different dictionary
         // -------------------------------------------------------------------
-        engine.setConfigParameterValue('gov.va.queri.dictModel.ae.LocalDictAnnotator/dictionaryPath',
-            'classpath:abstractionSchema/morphology-abstraction-schema.json')
+        engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/dictionaryPath',
+            'classpath:abstractionSchema/morphology.json')
         engine.reconfigure()
 
         // -------------------------------------------------------------------
@@ -268,6 +216,6 @@ class LocalDictAnnotatorTest {
         assert tokens.size() == 31
 
         matches = jcas.select(type:DictMatch)
-        assert matches.size() == 2
+        assert matches.size() == 3
     }
 }

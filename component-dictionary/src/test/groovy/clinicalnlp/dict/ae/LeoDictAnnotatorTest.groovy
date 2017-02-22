@@ -78,7 +78,7 @@ class LeoDictAnnotatorTest {
         )
         pipeline.addDelegate(
             new LeoDictAnnotator()
-                .setDictionaryPath('/abstractionSchema/histology-abstraction-schema.json')
+                .setDictionaryPath('/abstractionSchema/histology.json')
                 .setTokenModelPath('classpath:clinicalnlp/models/en-token.bin')
                 .setContainerClassName('gov.va.vinci.leo.sentence.types.Sentence')
                 .setTokenClassName('clinicalnlp.types.Token')
