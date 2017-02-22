@@ -14,6 +14,7 @@ import org.springframework.core.io.Resource
 
 @Log4j
 class LeoDictAnnotator extends LeoBaseAnnotator {
+
     @LeoConfigurationParameter(mandatory = true)
     protected String dictionaryPath
 
@@ -94,16 +95,14 @@ class LeoDictAnnotator extends LeoBaseAnnotator {
         return this
     }
 
-    DictAnnotatorImpl impl;
+    DictAnnotatorImpl impl
 
     @Override
     void initialize(UimaContext aContext) throws ResourceInitializationException {
         super.initialize(aContext)
-
         // TODO: use external resource, same as one supplied to tokenizer annotator
         DefaultResourceLoader loader = new DefaultResourceLoader(ClassLoader.getSystemClassLoader())
         Resource resource = loader.getResource('classpath:clinicalnlp/models/en-token.bin')
-
         this.impl = new DictAnnotatorImpl()
         this.impl.initialize(this.dictionaryPath,
             this.dictionaryType,
