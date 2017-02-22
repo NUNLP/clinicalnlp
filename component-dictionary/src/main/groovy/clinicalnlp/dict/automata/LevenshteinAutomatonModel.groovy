@@ -49,8 +49,8 @@ class LevenshteinAutomatonModel implements DictModel {
                                 Integer maxDistance) {
         Set<TokenMatch> matches = new TreeSet<>()
         for (int i = 0; i < tokens.size(); i++) {
-            for (int j = 1; j <= maxEntryLength; j++) {
-                if (i + j > tokens.size()) {
+            for (int j = 1; j <= maxEntryLength+3; j++) {
+                if (i+j > tokens.size()) {
                     break
                 }
                 String token$string = DictModelFactory.join(tokens.subList(i, i+j))

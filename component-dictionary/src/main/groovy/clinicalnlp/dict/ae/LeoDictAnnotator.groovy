@@ -39,7 +39,7 @@ class LeoDictAnnotator extends LeoBaseAnnotator {
     private String dictionaryType
 
     @LeoConfigurationParameter(mandatory = false)
-    private String bindingScriptFile
+    private String initScriptFile
 
     @LeoConfigurationParameter(mandatory = false)
     private String postScriptFile
@@ -69,8 +69,8 @@ class LeoDictAnnotator extends LeoBaseAnnotator {
         return this
     }
 
-    LeoDictAnnotator setBindingScriptFile(String bindingScriptFile) {
-        this.bindingScriptFile = bindingScriptFile
+    LeoDictAnnotator setInitScriptFile(String initScriptFile) {
+        this.initScriptFile = initScriptFile
         return this
     }
 
@@ -109,7 +109,7 @@ class LeoDictAnnotator extends LeoBaseAnnotator {
             this.dictionaryType,
             new TokenizerME(new TokenizerModel(resource.getInputStream())),
             this.caseInsensitive,
-            this.bindingScriptFile,
+            this.initScriptFile,
             this.postScriptFile)
     }
 

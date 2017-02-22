@@ -23,7 +23,7 @@ class DictAnnotatorImpl {
                     String dictionaryType,
                     TokenizerME tokenizer,
                     Boolean caseInsensitive,
-                    String bindingScriptFile,
+                    String initScriptFile,
                     String postScriptFile) {
 
         ObjectMapper mapper = new ObjectMapper()
@@ -39,9 +39,9 @@ class DictAnnotatorImpl {
             this.postScript = shell.parse(Resources.toString(
                     Resources.getResource(postScriptFile),
                     org.apache.commons.io.Charsets.UTF_8))
-            if (bindingScriptFile) {
+            if (initScriptFile) {
                 Script bindingsScript = shell.parse(Resources.toString(
-                    Resources.getResource(bindingScriptFile), Charsets.UTF_8))
+                    Resources.getResource(initScriptFile), Charsets.UTF_8))
                 this.postScript.setBinding(new Binding(bindingsScript.run()))
             }
         }
