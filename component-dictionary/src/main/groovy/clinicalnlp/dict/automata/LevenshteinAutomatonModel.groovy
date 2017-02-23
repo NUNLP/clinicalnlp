@@ -12,7 +12,6 @@ import com.github.liblevenshtein.transducer.factory.TransducerBuilder
 class LevenshteinAutomatonModel implements DictModel {
     Integer maxEntryLength = 0
     final Map<String, Set<DictEntry>> entries = new TreeMap<>()
-//    final SortedDawg sortedDawg = new SortedDawg()
     ITransducer transducer
 
     @Override
@@ -37,7 +36,6 @@ class LevenshteinAutomatonModel implements DictModel {
 
     @Override
     void complete() {
-//        sortedDawg.addAll(this.entries.keySet())
         TransducerBuilder builder = new TransducerBuilder().algorithm(Algorithm.TRANSPOSITION)
         builder.dictionary(this.entries.keySet())
         transducer = builder.build()

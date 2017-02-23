@@ -1,5 +1,6 @@
 package clinicalnlp.dict
 
+import com.mifmif.common.regex.Generex
 import opennlp.tools.tokenize.Tokenizer
 import opennlp.tools.tokenize.TokenizerME
 import opennlp.tools.util.Span
@@ -12,9 +13,7 @@ class DictModelFactory {
                           final AbstractionSchema schema,
                           final Tokenizer tokenizer,
                           final Boolean caseInsensitive) {
-
         DictModel model = Class.forName(dictModelType).newInstance()
-
         schema.object_values.each { ObjectValue objVal ->
             DictEntry entry = new DictEntry()
             entry.vocab = objVal.vocabulary
@@ -22,7 +21,15 @@ class DictModelFactory {
             entry.canonical = objVal.value
             model.put(tokenize(entry.canonical, tokenizer, caseInsensitive), entry)
             objVal.object_value_variants.each { ObjectValueVariant variant ->
-                model.put(tokenize(variant.value, tokenizer, caseInsensitive), entry)
+                if (variant.regex == true) {
+                    Generex generex = new Generex(variant.value)
+                    generex.getAllMatchedStrings().each {
+                        model.put(tokenize(it, tokenizer, caseInsensitive), entry)
+                    }
+                }
+                else {
+                    model.put(tokenize(variant.value, tokenizer, caseInsensitive), entry)
+                }
             }
 
         }

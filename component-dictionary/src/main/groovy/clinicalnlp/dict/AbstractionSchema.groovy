@@ -7,12 +7,13 @@ import groovy.transform.ToString
 @EqualsAndHashCode
 class ObjectValueVariant {
 	String value
+	Boolean regex = false
 }
 
 @ToString(includeNames=true)
 @EqualsAndHashCode
 class ObjectValue {
-	String value;
+	String value
 	Map<String, String> properties
 	String vocabulary_code
 	String vocabulary

@@ -166,9 +166,11 @@ project(':component-dictionary') {
         compile project(':library-types')
         compile project(':component-groovy-dsl')
         compile project(':component-tokenizer')
-        compile fileTree(dir: 'lib', include: '*.jar')
+
         compile 'info.debatty:java-string-similarity:0.19'
         compile 'com.github.universal-automata:liblevenshtein:3.0.0'
+        compile 'com.github.mifmif:generex:1.0.2'
+
         testCompile project(':library-test')
         testCompile project(':component-segmenter')
         testCompile project(':component-context')
