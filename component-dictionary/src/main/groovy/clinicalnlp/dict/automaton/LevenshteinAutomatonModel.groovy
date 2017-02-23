@@ -10,7 +10,7 @@ import com.github.liblevenshtein.transducer.ITransducer
 import com.github.liblevenshtein.transducer.factory.TransducerBuilder
 
 class LevenshteinAutomatonModel implements DictModel {
-    Integer maxTokenWindow = 0
+    Integer maxTermTokenSize = 0
     final Map<String, Set<DictEntry>> entries = new TreeMap<>()
     ITransducer transducer
 
@@ -26,7 +26,7 @@ class LevenshteinAutomatonModel implements DictModel {
 
     @Override
     void put(Collection<CharSequence> tokens, DictEntry entry) {
-        maxTokenWindow = (tokens.size() > maxTokenWindow ? tokens.size() : maxTokenWindow)
+        maxTermTokenSize = (tokens.size() > maxTermTokenSize ? tokens.size() : maxTermTokenSize)
         String term = DictModelFactory.join(tokens)
         if (this.entries[term] == null) {
             this.entries[term] = []
@@ -39,7 +39,6 @@ class LevenshteinAutomatonModel implements DictModel {
         TransducerBuilder builder = new TransducerBuilder().algorithm(Algorithm.TRANSPOSITION)
         builder.dictionary(this.entries.keySet())
         transducer = builder.build()
-        maxTokenWindow += 2 // add extra window length
     }
 
     @Override
@@ -47,6 +46,7 @@ class LevenshteinAutomatonModel implements DictModel {
                                 Float tolerance,
                                 Integer maxDistance) {
         Set<TokenMatch> matches = new TreeSet<>()
+        Integer maxTokenWindow = this.maxTermTokenSize+maxDistance
         for (int i = 0; i < tokens.size(); i++) {
             for (int j = 1; j <= maxTokenWindow; j++) {
                 if (i+j > tokens.size()) {

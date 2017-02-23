@@ -30,7 +30,9 @@ class DictModelFactory {
                         if (regexCount++ > MAX_REGEX_GEN_COUNT) {
                             throw new IllegalArgumentException("Regex generaring too many strings: ${variant.value}")
                         }
-                        model.put(tokenize(genIter.next(), tokenizer, caseInsensitive), entry)
+                        String next = genIter.next()
+                        ////println "Regex '${variant.value}' generated string: '${next}'"
+                        model.put(tokenize(next, tokenizer, caseInsensitive), entry)
                     }
                 }
                 else {

@@ -1,0 +1,2 @@
+// TODO: dictionaries comprised of multiple, composed of automata
+// TODO: handle misspellings where token boundaries are missing (run-on words)
