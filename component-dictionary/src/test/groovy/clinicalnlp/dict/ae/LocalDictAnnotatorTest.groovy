@@ -1,6 +1,6 @@
 package clinicalnlp.dict.ae
 
-import clinicalnlp.dict.automata.LevenshteinAutomatonModel
+import clinicalnlp.dict.automaton.LevenshteinAutomatonModel
 import clinicalnlp.dict.trie.TrieDictModel
 import clinicalnlp.sent.ae.LocalSentenceDetector
 import clinicalnlp.token.ae.LocalTokenAnnotator

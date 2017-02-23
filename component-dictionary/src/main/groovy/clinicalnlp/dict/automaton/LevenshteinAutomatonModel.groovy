@@ -1,4 +1,4 @@
-package clinicalnlp.dict.automata
+package clinicalnlp.dict.automaton
 
 import clinicalnlp.dict.DictEntry
 import clinicalnlp.dict.DictModel
@@ -10,7 +10,7 @@ import com.github.liblevenshtein.transducer.ITransducer
 import com.github.liblevenshtein.transducer.factory.TransducerBuilder
 
 class LevenshteinAutomatonModel implements DictModel {
-    Integer maxEntryLength = 0
+    Integer maxTokenWindow = 0
     final Map<String, Set<DictEntry>> entries = new TreeMap<>()
     ITransducer transducer
 
@@ -26,7 +26,7 @@ class LevenshteinAutomatonModel implements DictModel {
 
     @Override
     void put(Collection<CharSequence> tokens, DictEntry entry) {
-        maxEntryLength = (tokens.size() > maxEntryLength ? tokens.size() : maxEntryLength)
+        maxTokenWindow = (tokens.size() > maxTokenWindow ? tokens.size() : maxTokenWindow)
         String term = DictModelFactory.join(tokens)
         if (this.entries[term] == null) {
             this.entries[term] = []
@@ -39,6 +39,7 @@ class LevenshteinAutomatonModel implements DictModel {
         TransducerBuilder builder = new TransducerBuilder().algorithm(Algorithm.TRANSPOSITION)
         builder.dictionary(this.entries.keySet())
         transducer = builder.build()
+        maxTokenWindow += 2 // add extra window length
     }
 
     @Override
@@ -47,9 +48,9 @@ class LevenshteinAutomatonModel implements DictModel {
                                 Integer maxDistance) {
         Set<TokenMatch> matches = new TreeSet<>()
         for (int i = 0; i < tokens.size(); i++) {
-            for (int j = 1; j <= maxEntryLength+3; j++) {
+            for (int j = 1; j <= maxTokenWindow; j++) {
                 if (i+j > tokens.size()) {
-                    break
+                    break // encountered end of token sequence
                 }
                 String token$string = DictModelFactory.join(tokens.subList(i, i+j))
                 this.transducer.transduce(token$string, maxDistance).each { Candidate candidate ->

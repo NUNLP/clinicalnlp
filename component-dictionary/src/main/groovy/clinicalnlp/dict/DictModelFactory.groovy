@@ -1,13 +1,15 @@
 package clinicalnlp.dict
 
 import com.mifmif.common.regex.Generex
+import com.mifmif.common.regex.GenerexIterator
 import opennlp.tools.tokenize.Tokenizer
 import opennlp.tools.tokenize.TokenizerME
 import opennlp.tools.util.Span
 
 class DictModelFactory {
 
-    static public CharSequence TOKEN_SEP = ' '
+    static public CharSequence TOKEN_SEP = '\u0020'
+    static public Integer MAX_REGEX_GEN_COUNT = 100
 
     static DictModel make(final String dictModelType,
                           final AbstractionSchema schema,
@@ -22,9 +24,13 @@ class DictModelFactory {
             model.put(tokenize(entry.canonical, tokenizer, caseInsensitive), entry)
             objVal.object_value_variants.each { ObjectValueVariant variant ->
                 if (variant.regex == true) {
-                    Generex generex = new Generex(variant.value)
-                    generex.getAllMatchedStrings().each {
-                        model.put(tokenize(it, tokenizer, caseInsensitive), entry)
+                    GenerexIterator genIter = new Generex(variant.value).iterator()
+                    int regexCount = 0
+                    while (genIter.hasNext()) {
+                        if (regexCount++ > MAX_REGEX_GEN_COUNT) {
+                            throw new IllegalArgumentException("Regex generaring too many strings: ${variant.value}")
+                        }
+                        model.put(tokenize(genIter.next(), tokenizer, caseInsensitive), entry)
                     }
                 }
                 else {
