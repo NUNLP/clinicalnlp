@@ -1,0 +1,429 @@
+{
+  "predicate": null,
+  "display_name": null,
+  "abstractor_object_type": null,
+  "preferred_name": null,
+  "predicate_variants": null,
+  "object_values": [
+    {
+      "value": "anus",
+      "properties": null,
+      "vocabulary_code": "53505006",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "anal( (verge|canal))?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "appendicial orifice",
+      "properties": null,
+      "vocabulary_code": "66754008",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "appendic(i|e)al orifice",
+          "regex": true
+        },
+        {
+          "value": "orifice of( the)? appendix",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "appendix",
+      "properties": null,
+      "vocabulary_code": "66754008",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "appendic(i|e)al",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "ascending",
+      "properties": null,
+      "vocabulary_code": "9040008",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "ascend(ing)?",
+          "regex": true
+        },
+        {
+          "value": "as?c\\.?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "cecum",
+      "properties": null,
+      "vocabulary_code": "32713005",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "ca?ecum",
+          "regex": true
+        },
+        {
+          "value": "ca?ecal( strap)?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "colon",
+      "properties": null,
+      "vocabulary_code": "71854001",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "colon(ic)?",
+          "regex": true
+        },
+        {
+          "value": "colo?\\.?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "descending",
+      "properties": null,
+      "vocabulary_code": "32622004",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "descend(\\.|ing)?",
+          "regex": true
+        },
+        {
+          "value": "desc?",
+          "regex": true
+        },
+        {
+          "value": "d\\.?c\\.?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "hepatic",
+      "properties": null,
+      "vocabulary_code": "48338005",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "hep(\\.|atic)?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "ileocecal valve",
+      "properties": null,
+      "vocabulary_code": "23153004",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "ileo-?ca?ecal( valve)?",
+          "regex": true
+        },
+        {
+          "value": "i\\.?c\\.? valve",
+          "regex": true
+        },
+        {
+          "value": "i\\.?c\\.?(v\\.?)?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "ileum",
+      "properties": null,
+      "vocabulary_code": "23153004",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "(terminal )?ileum",
+          "regex": true
+        },
+        {
+          "value": "t\\.?i\\.?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "left",
+      "properties": null,
+      "vocabulary_code": "55572008",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "(distal|left|l\\.?)",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "body",
+      "properties": null,
+      "vocabulary_code": "OTHER",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "anastamosis",
+          "regex": false
+        },
+        {
+          "value": "stomach",
+          "regex": false
+        },
+        {
+          "value": "antrum",
+          "regex": false
+        },
+        {
+          "value": "gastric",
+          "regex": false
+        },
+        {
+          "value": "duodenum",
+          "regex": false
+        },
+        {
+          "value": "duodenal",
+          "regex": false
+        },
+        {
+          "value": "esophagus",
+          "regex": false
+        },
+        {
+          "value": "esophageal",
+          "regex": false
+        },
+        {
+          "value": "jejunum",
+          "regex": false
+        },
+        {
+          "value": "pre-pyloric",
+          "regex": false
+        },
+        {
+          "value": "cv",
+          "regex": false
+        },
+        {
+          "value": "ge",
+          "regex": false
+        }
+      ]
+    },
+    {
+      "value": "rectosigmoid",
+      "properties": null,
+      "vocabulary_code": "81922002",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "(rectal|recto|rect\\.?)(-| )?(sig(m\\.?|\\.|moid)?)",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "rectum",
+      "properties": null,
+      "vocabulary_code": "34402009",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "rect(a|al|o|\\.)?( vault)?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "right",
+      "properties": null,
+      "vocabulary_code": "51342009",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "(proximal|right|rt\\.?|r\\.?|prox\\.?)",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "sigmoid",
+      "properties": null,
+      "vocabulary_code": "60184004",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "sig(m\\.?|\\.|moid)?",
+          "regex": true
+        },
+        {
+          "value": "s\\.?c\\.?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "small bowel",
+      "properties": null,
+      "vocabulary_code": "23153004",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "small intest(ine)?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "splenic",
+      "properties": null,
+      "vocabulary_code": "245428003",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "splen(ic)?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "transverse",
+      "properties": null,
+      "vocabulary_code": "485005",
+      "vocabulary": "SNOMED",
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "(mid|high|low)?trans?v?(\\.|erse)?",
+          "regex": true
+        },
+        {
+          "value": "tr\\.?",
+          "regex": true
+        },
+        {
+          "value": "t\\.?c\\.?",
+          "regex": true
+        }
+      ]
+    },
+    {
+      "value": "flexure",
+      "properties": null,
+      "vocabulary_code": "FLEXURE",
+      "vocabulary": null,
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "fl(ex)?\\.?",
+          "regex": true
+        },
+        {
+          "value": "region",
+          "regex": false
+        },
+        {
+          "value": "juncture",
+          "regex": false
+        },
+        {
+          "value": "junction",
+          "regex": false
+        }
+      ]
+    },
+    {
+      "value": "middle",
+      "properties": null,
+      "vocabulary_code": "REGION",
+      "vocabulary": null,
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "mid",
+          "regex": false
+        }
+      ]
+    },
+    {
+      "value": "high",
+      "properties": null,
+      "vocabulary_code": "REGION",
+      "vocabulary": null,
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "higher",
+          "regex": false
+        },
+        {
+          "value": "upper",
+          "regex": false
+        }
+      ]
+    },
+    {
+      "value": "low",
+      "properties": null,
+      "vocabulary_code": "REGION",
+      "vocabulary": null,
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "lower",
+          "regex": false
+        }
+      ]
+    },
+    {
+      "value": "entire",
+      "properties": null,
+      "vocabulary_code": "REGION",
+      "vocabulary": null,
+      "vocabulary_version": null,
+      "object_value_variants": [
+        {
+          "value": "random",
+          "regex": false
+        }
+      ]
+    }
+  ]
+}

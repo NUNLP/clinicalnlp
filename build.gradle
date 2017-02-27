@@ -170,6 +170,7 @@ project(':component-dictionary') {
         compile 'info.debatty:java-string-similarity:0.19'
         compile 'com.github.universal-automata:liblevenshtein:3.0.0'
         compile 'com.github.mifmif:generex:1.0.2'
+        compile 'com.hankcs:aho-corasick-double-array-trie:1.0.1'
 
         testCompile project(':library-test')
         testCompile project(':component-segmenter')

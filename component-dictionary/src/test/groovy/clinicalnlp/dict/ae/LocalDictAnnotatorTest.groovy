@@ -1,5 +1,6 @@
 package clinicalnlp.dict.ae
 
+import clinicalnlp.dict.automaton.AhoCorasickModel
 import clinicalnlp.dict.automaton.LevenshteinAutomatonModel
 import clinicalnlp.dict.trie.TrieDictModel
 import clinicalnlp.sent.ae.LocalSentenceDetector
@@ -18,6 +19,7 @@ import org.apache.uima.jcas.JCas
 import org.apache.uima.resource.ExternalResourceDescription
 import org.junit.Before
 import org.junit.BeforeClass
+import org.junit.Ignore
 import org.junit.Test
 
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
@@ -217,5 +219,107 @@ class LocalDictAnnotatorTest {
 
         matches = jcas.select(type:DictMatch)
         assert matches.size() == 3
+    }
+
+    @Ignore
+    @Test
+    void ahoCorasickDictTest() {
+        String text = """\
+        The patient has a diagnosis of spongioblastoma multiforme.  GBM does not have a good prognosis.
+        But I can't rule out meningioma in the brain and spinal cord.
+        """
+
+        // -------------------------------------------------------------------
+        // Load the AhoCorasickModel
+        // -------------------------------------------------------------------
+
+        engine.setConfigParameterValue(
+            "clinicalnlp.dict.ae.LocalDictAnnotator/${LocalDictAnnotator.PARAM_DICTIONARY_TYPE}",
+            AhoCorasickModel.canonicalName)
+        engine.reconfigure()
+
+        // -------------------------------------------------------------------
+        // Run the pipeline
+        // -------------------------------------------------------------------
+        JCas jcas = engine.newJCas()
+        jcas.setDocumentText(text)
+        jcas.create(type:Segment, begin:0, end:text.length())
+        runPipeline(jcas, engine)
+
+        // -------------------------------------------------------------------
+        // Test results
+        // -------------------------------------------------------------------
+        Collection<Segment> segs = jcas.select(type:Segment)
+        assert segs.size() == 1
+
+        Collection<Token> tokens = jcas.select(type:Token)
+        assert tokens.size() == 31
+
+        Collection<DictMatch> matches = jcas.select(type:DictMatch)
+        assert matches.size() == 2
+
+        // -------------------------------------------------------------------
+        // Load a different dictionary
+        // -------------------------------------------------------------------
+        engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/dictionaryPath',
+            'classpath:abstractionSchema/morphology.json')
+        engine.reconfigure()
+
+        // -------------------------------------------------------------------
+        // Run the pipeline
+        // -------------------------------------------------------------------
+        jcas.reset()
+        jcas.setDocumentText(text)
+        jcas.create(type:Segment, begin:0, end:text.length())
+        runPipeline(jcas, engine)
+
+        // -------------------------------------------------------------------
+        // Test results
+        // -------------------------------------------------------------------
+        tokens = jcas.select(type:Token)
+        assert tokens.size() == 31
+
+        matches = jcas.select(type:DictMatch)
+        assert matches.size() == 3
+    }
+
+    @Ignore
+    @Test
+    void ahoCorasickDictTest2() {
+        String text = """\
+        sigmoid colon
+        """
+
+        // -------------------------------------------------------------------
+        // Load the AhoCorasickModel
+        // -------------------------------------------------------------------
+
+        engine.setConfigParameterValue('clinicalnlp.dict.ae.LocalDictAnnotator/dictionaryPath',
+            'classpath:abstractionSchema/anatomicalsite.json')
+        engine.setConfigParameterValue(
+            "clinicalnlp.dict.ae.LocalDictAnnotator/${LocalDictAnnotator.PARAM_DICTIONARY_TYPE}",
+            AhoCorasickModel.canonicalName)
+        engine.reconfigure()
+
+        // -------------------------------------------------------------------
+        // Run the pipeline
+        // -------------------------------------------------------------------
+        JCas jcas = engine.newJCas()
+        jcas.setDocumentText(text)
+        jcas.create(type:Segment, begin:0, end:text.length())
+        runPipeline(jcas, engine)
+
+        // -------------------------------------------------------------------
+        // Test results
+        // -------------------------------------------------------------------
+        Collection<Segment> segs = jcas.select(type:Segment)
+        assert segs.size() == 1
+
+        Collection<Token> tokens = jcas.select(type:Token)
+        assert tokens.size() == 2
+
+        Collection<DictMatch> matches = jcas.select(type:DictMatch)
+        assert matches.size() == 1
+        matches.each { println it }
     }
 }

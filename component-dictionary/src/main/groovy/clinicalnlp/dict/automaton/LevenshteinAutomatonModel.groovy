@@ -54,6 +54,7 @@ class LevenshteinAutomatonModel implements DictModel {
                 }
                 String token$string = DictModelFactory.join(tokens.subList(i, i+j))
                 this.transducer.transduce(token$string, maxDistance).each { Candidate candidate ->
+                    // TODO: if exact match is found, stop searching and move to next step
                     Float normScore = candidate.distance()/token$string.length()
                     if (normScore <= tolerance) {
                         this.entries[candidate.term()].each { DictEntry dictEntry ->
