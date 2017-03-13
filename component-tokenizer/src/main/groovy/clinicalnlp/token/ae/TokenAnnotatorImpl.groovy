@@ -1,6 +1,5 @@
 package clinicalnlp.token.ae
 
-import clinicalnlp.types.Token
 import opennlp.tools.lemmatizer.SimpleLemmatizer
 import opennlp.tools.postag.POSTagger
 import opennlp.tools.stemmer.Stemmer
@@ -20,12 +19,14 @@ class TokenAnnotatorImpl {
     Stemmer stemmer;
     Pattern splitPattern;
     Class<Annotation> containerType;
+    Class<Annotation> tokenType;
 
     TokenAnnotatorImpl(Tokenizer tokenizer,
                        POSTagger posTagger,
                        SimpleLemmatizer lemmatizer,
                        Stemmer stemmer,
                        String containerTypeName,
+                       String tokenTypeName,
                        String splitPatternStr) {
         this.tokenizer = tokenizer
         this.posTagger = posTagger
@@ -36,6 +37,7 @@ class TokenAnnotatorImpl {
                 this.splitPattern = Pattern.compile(splitPatternStr)
             }
             this.containerType = Class.forName(containerTypeName)
+            this.tokenType = Class.forName(tokenTypeName)
         }
         catch (Exception e) {
             throw new ResourceInitializationException(e)
@@ -45,7 +47,6 @@ class TokenAnnotatorImpl {
     void process(JCas jcas) {
         jcas.select(type: (this.containerType)).each { Annotation ann ->
             List<Span> tokenSpans = []
-
             if (this.splitPattern) {
                 (tokenizer.tokenizePos(ann.coveredText)).each {
                     tokenSpans.addAll(this.splitSpan(it, ann.coveredText, this.splitPattern))
@@ -59,7 +60,7 @@ class TokenAnnotatorImpl {
                 final List<String> tokenStrings = tokenSpans.collect { ann.coveredText.substring(it.start, it.end) }
                 final List<String> posTags = this.posTagger.tag(tokenStrings)
                 tokenSpans.eachWithIndex { Span span, int i ->
-                    jcas.create(type:Token, begin:ann.begin+span.start, end:ann.begin+span.end, pos:posTags.get(i),
+                    jcas.create(type:this.tokenType, begin:ann.begin+span.start, end:ann.begin+span.end, pos:posTags.get(i),
                         lemma:(this.lemmatizer ? lemmatizer.lemmatize(tokenStrings.get(i), posTags.get(i)): null),
                         stem:(this.stemmer ? stemmer.stem(tokenStrings.get(i)) : null)
                     )
@@ -67,7 +68,7 @@ class TokenAnnotatorImpl {
             }
             else {
                 tokenSpans.each { Span span ->
-                    jcas.create(type:Token, begin:ann.begin+span.start, end:ann.begin+span.end)
+                    jcas.create(type:this.tokenType, begin:ann.begin+span.start, end:ann.begin+span.end)
                 }
             }
         }

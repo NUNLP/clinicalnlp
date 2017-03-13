@@ -1,5 +1,6 @@
 package clinicalnlp.token.ae
 
+import clinicalnlp.types.Token
 import groovy.util.logging.Log4j
 import opennlp.tools.lemmatizer.SimpleLemmatizer
 import opennlp.tools.postag.POSTagger
@@ -29,8 +30,13 @@ final class LocalTokenAnnotator extends JCasAnnotator_ImplBase {
     @ExternalResource(key = 'pos_model', mandatory=false)
     POSModelResource posModelResource;
 
+    public static final String PARAM_TOKEN_TYPE = 'tokenTypeName'
+    @ConfigurationParameter(name = 'tokenTypeName', mandatory = true,
+        defaultValue = 'clinicalnlp.types.Token')
+    private String tokenTypeName;
+
     public static final String PARAM_CONTAINER_TYPE = 'containerTypeName'
-    @ConfigurationParameter(name = 'containerTypeName', mandatory = false,
+    @ConfigurationParameter(name = 'containerTypeName', mandatory = true,
         defaultValue = 'org.apache.uima.jcas.tcas.DocumentAnnotation')
     private String containerTypeName;
 
@@ -83,12 +89,13 @@ final class LocalTokenAnnotator extends JCasAnnotator_ImplBase {
             lemmatizer,
             stemmer,
             this.containerTypeName,
+            this.tokenTypeName,
             this.splitPatternStr
         )
     }
 
     @Override
-    public void process(JCas aJCas) throws AnalysisEngineProcessException {
+    void process(JCas aJCas) throws AnalysisEngineProcessException {
         this.impl.process(aJCas)
     }
 }

@@ -29,8 +29,11 @@ class LeoTokenAnnotator extends LeoBaseAnnotator {
     @LeoConfigurationParameter(mandatory = false)
     protected String posModelPath
 
-    @LeoConfigurationParameter(mandatory = false)
+    @LeoConfigurationParameter(mandatory = true)
     private String containerTypeName = 'org.apache.uima.jcas.tcas.DocumentAnnotation'
+
+    @LeoConfigurationParameter(mandatory = true)
+    private String tokenTypeName = 'clinicalnlp.types.Token'
 
     @LeoConfigurationParameter(mandatory = false)
     protected String splitPatternStr
@@ -107,6 +110,7 @@ class LeoTokenAnnotator extends LeoBaseAnnotator {
             lemmatizer,
             stemmer,
             this.containerTypeName,
+            this.tokenTypeName,
             this.splitPatternStr
         )
     }
