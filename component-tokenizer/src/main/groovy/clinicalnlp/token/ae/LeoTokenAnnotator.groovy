@@ -59,6 +59,11 @@ class LeoTokenAnnotator extends LeoBaseAnnotator {
         return this
     }
 
+    LeoTokenAnnotator setTokenTypeName(String tokenTypeName) {
+        this.tokenTypeName = tokenTypeName
+        return this
+    }
+
     LeoTokenAnnotator setSplitPattern(String splitPatternStr) {
         this.splitPatternStr = splitPatternStr
         return this
