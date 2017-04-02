@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
-    <name>leoTypeDescription_9a248754-1f04-4121-a14d-003e6bea1304</name>
+    <name>leoTypeDescription_5bdad212-e03e-4e66-9927-4c8c06e34b9c</name>
     <types>
         <typeDescription>
             <name>gov.va.vinci.leo.types.CSI</name>
@@ -253,8 +253,8 @@
             <supertypeName>uima.tcas.Annotation</supertypeName>
             <features>
                 <featureDescription>
-                    <name>concepts</name>
-                    <description>array of concepts</description>
+                    <name>mentions</name>
+                    <description>array of mentions</description>
                     <rangeTypeName>uima.cas.FSArray</rangeTypeName>
                     <elementType>clinicalnlp.types.NamedEntityMention</elementType>
                     <multipleReferencesAllowed>false</multipleReferencesAllowed>

@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Sat Feb 11 11:23:44 CST 2017 */
+/* First created by JCasGen Sun Apr 02 14:59:24 CDT 2017 */
 package gov.va.vinci.leo.sentence.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** Sentence Type
- * Updated by JCasGen Sat Feb 11 11:23:44 CST 2017
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_116007de-f8ce-4535-baaa-b13aa71dd24e5550980219044642548.xml
+ * Updated by JCasGen Sun Apr 02 14:59:24 CDT 2017
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_22e5a908-e296-40b9-9a7f-1901296f63715280762021609735894.xml
  * @generated */
 public class Sentence extends Annotation {
   /** @generated

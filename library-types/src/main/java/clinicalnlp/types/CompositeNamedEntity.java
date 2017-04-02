@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Sat Feb 11 11:23:44 CST 2017 */
+/* First created by JCasGen Sun Apr 02 14:59:24 CDT 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -12,8 +12,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Sat Feb 11 11:23:44 CST 2017
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_116007de-f8ce-4535-baaa-b13aa71dd24e5550980219044642548.xml
+ * Updated by JCasGen Sun Apr 02 14:59:24 CDT 2017
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_22e5a908-e296-40b9-9a7f-1901296f63715280762021609735894.xml
  * @generated */
 public class CompositeNamedEntity extends Annotation {
   /** @generated
@@ -78,47 +78,47 @@ public class CompositeNamedEntity extends Annotation {
  
     
   //*--------------*
-  //* Feature: concepts
+  //* Feature: mentions
 
-  /** getter for concepts - gets array of concepts
+  /** getter for mentions - gets array of mentions
    * @generated
    * @return value of the feature 
    */
-  public FSArray getConcepts() {
-    if (CompositeNamedEntity_Type.featOkTst && ((CompositeNamedEntity_Type)jcasType).casFeat_concepts == null)
-      jcasType.jcas.throwFeatMissing("concepts", "clinicalnlp.types.CompositeNamedEntity");
-    return (FSArray)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((CompositeNamedEntity_Type)jcasType).casFeatCode_concepts)));}
+  public FSArray getMentions() {
+    if (CompositeNamedEntity_Type.featOkTst && ((CompositeNamedEntity_Type)jcasType).casFeat_mentions == null)
+      jcasType.jcas.throwFeatMissing("mentions", "clinicalnlp.types.CompositeNamedEntity");
+    return (FSArray)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((CompositeNamedEntity_Type)jcasType).casFeatCode_mentions)));}
     
-  /** setter for concepts - sets array of concepts 
+  /** setter for mentions - sets array of mentions 
    * @generated
    * @param v value to set into the feature 
    */
-  public void setConcepts(FSArray v) {
-    if (CompositeNamedEntity_Type.featOkTst && ((CompositeNamedEntity_Type)jcasType).casFeat_concepts == null)
-      jcasType.jcas.throwFeatMissing("concepts", "clinicalnlp.types.CompositeNamedEntity");
-    jcasType.ll_cas.ll_setRefValue(addr, ((CompositeNamedEntity_Type)jcasType).casFeatCode_concepts, jcasType.ll_cas.ll_getFSRef(v));}    
+  public void setMentions(FSArray v) {
+    if (CompositeNamedEntity_Type.featOkTst && ((CompositeNamedEntity_Type)jcasType).casFeat_mentions == null)
+      jcasType.jcas.throwFeatMissing("mentions", "clinicalnlp.types.CompositeNamedEntity");
+    jcasType.ll_cas.ll_setRefValue(addr, ((CompositeNamedEntity_Type)jcasType).casFeatCode_mentions, jcasType.ll_cas.ll_getFSRef(v));}    
     
-  /** indexed getter for concepts - gets an indexed value - array of concepts
+  /** indexed getter for mentions - gets an indexed value - array of mentions
    * @generated
    * @param i index in the array to get
    * @return value of the element at index i 
    */
-  public NamedEntityMention getConcepts(int i) {
-    if (CompositeNamedEntity_Type.featOkTst && ((CompositeNamedEntity_Type)jcasType).casFeat_concepts == null)
-      jcasType.jcas.throwFeatMissing("concepts", "clinicalnlp.types.CompositeNamedEntity");
-    jcasType.jcas.checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr, ((CompositeNamedEntity_Type)jcasType).casFeatCode_concepts), i);
-    return (NamedEntityMention)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefArrayValue(jcasType.ll_cas.ll_getRefValue(addr, ((CompositeNamedEntity_Type)jcasType).casFeatCode_concepts), i)));}
+  public NamedEntityMention getMentions(int i) {
+    if (CompositeNamedEntity_Type.featOkTst && ((CompositeNamedEntity_Type)jcasType).casFeat_mentions == null)
+      jcasType.jcas.throwFeatMissing("mentions", "clinicalnlp.types.CompositeNamedEntity");
+    jcasType.jcas.checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr, ((CompositeNamedEntity_Type)jcasType).casFeatCode_mentions), i);
+    return (NamedEntityMention)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefArrayValue(jcasType.ll_cas.ll_getRefValue(addr, ((CompositeNamedEntity_Type)jcasType).casFeatCode_mentions), i)));}
 
-  /** indexed setter for concepts - sets an indexed value - array of concepts
+  /** indexed setter for mentions - sets an indexed value - array of mentions
    * @generated
    * @param i index in the array to set
    * @param v value to set into the array 
    */
-  public void setConcepts(int i, NamedEntityMention v) { 
-    if (CompositeNamedEntity_Type.featOkTst && ((CompositeNamedEntity_Type)jcasType).casFeat_concepts == null)
-      jcasType.jcas.throwFeatMissing("concepts", "clinicalnlp.types.CompositeNamedEntity");
-    jcasType.jcas.checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr, ((CompositeNamedEntity_Type)jcasType).casFeatCode_concepts), i);
-    jcasType.ll_cas.ll_setRefArrayValue(jcasType.ll_cas.ll_getRefValue(addr, ((CompositeNamedEntity_Type)jcasType).casFeatCode_concepts), i, jcasType.ll_cas.ll_getFSRef(v));}
+  public void setMentions(int i, NamedEntityMention v) { 
+    if (CompositeNamedEntity_Type.featOkTst && ((CompositeNamedEntity_Type)jcasType).casFeat_mentions == null)
+      jcasType.jcas.throwFeatMissing("mentions", "clinicalnlp.types.CompositeNamedEntity");
+    jcasType.jcas.checkArrayBounds(jcasType.ll_cas.ll_getRefValue(addr, ((CompositeNamedEntity_Type)jcasType).casFeatCode_mentions), i);
+    jcasType.ll_cas.ll_setRefArrayValue(jcasType.ll_cas.ll_getRefValue(addr, ((CompositeNamedEntity_Type)jcasType).casFeatCode_mentions), i, jcasType.ll_cas.ll_getFSRef(v));}
   }
 
     

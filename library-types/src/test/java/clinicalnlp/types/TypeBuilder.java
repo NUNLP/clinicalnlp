@@ -61,7 +61,7 @@ public class TypeBuilder {
 
         TypeDescription_impl composite = new TypeDescription_impl("clinicalnlp.types.CompositeNamedEntity",
                 "", "uima.tcas.Annotation");
-        composite.addFeature("concepts", "array of concepts", "uima.cas.FSArray",
+        composite.addFeature("mentions", "array of mentions", "uima.cas.FSArray",
                 "clinicalnlp.types.NamedEntityMention", false);
         types.addType(composite);
 

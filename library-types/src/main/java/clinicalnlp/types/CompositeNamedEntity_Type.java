@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Sat Feb 11 11:23:44 CST 2017 */
+/* First created by JCasGen Sun Apr 02 14:59:24 CDT 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas;
@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Sat Feb 11 11:23:44 CST 2017
+ * Updated by JCasGen Sun Apr 02 14:59:24 CDT 2017
  * @generated */
 public class CompositeNamedEntity_Type extends Annotation_Type {
   /** @generated 
@@ -47,39 +47,39 @@ public class CompositeNamedEntity_Type extends Annotation_Type {
   public final static boolean featOkTst = JCasRegistry.getFeatOkTst("clinicalnlp.types.CompositeNamedEntity");
  
   /** @generated */
-  final Feature casFeat_concepts;
+  final Feature casFeat_mentions;
   /** @generated */
-  final int     casFeatCode_concepts;
+  final int     casFeatCode_mentions;
   /** @generated
    * @param addr low level Feature Structure reference
    * @return the feature value 
    */ 
-  public int getConcepts(int addr) {
-        if (featOkTst && casFeat_concepts == null)
-      jcas.throwFeatMissing("concepts", "clinicalnlp.types.CompositeNamedEntity");
-    return ll_cas.ll_getRefValue(addr, casFeatCode_concepts);
+  public int getMentions(int addr) {
+        if (featOkTst && casFeat_mentions == null)
+      jcas.throwFeatMissing("mentions", "clinicalnlp.types.CompositeNamedEntity");
+    return ll_cas.ll_getRefValue(addr, casFeatCode_mentions);
   }
   /** @generated
    * @param addr low level Feature Structure reference
    * @param v value to set 
    */    
-  public void setConcepts(int addr, int v) {
-        if (featOkTst && casFeat_concepts == null)
-      jcas.throwFeatMissing("concepts", "clinicalnlp.types.CompositeNamedEntity");
-    ll_cas.ll_setRefValue(addr, casFeatCode_concepts, v);}
+  public void setMentions(int addr, int v) {
+        if (featOkTst && casFeat_mentions == null)
+      jcas.throwFeatMissing("mentions", "clinicalnlp.types.CompositeNamedEntity");
+    ll_cas.ll_setRefValue(addr, casFeatCode_mentions, v);}
     
    /** @generated
    * @param addr low level Feature Structure reference
    * @param i index of item in the array
    * @return value at index i in the array 
    */
-  public int getConcepts(int addr, int i) {
-        if (featOkTst && casFeat_concepts == null)
-      jcas.throwFeatMissing("concepts", "clinicalnlp.types.CompositeNamedEntity");
+  public int getMentions(int addr, int i) {
+        if (featOkTst && casFeat_mentions == null)
+      jcas.throwFeatMissing("mentions", "clinicalnlp.types.CompositeNamedEntity");
     if (lowLevelTypeChecks)
-      return ll_cas.ll_getRefArrayValue(ll_cas.ll_getRefValue(addr, casFeatCode_concepts), i, true);
-    jcas.checkArrayBounds(ll_cas.ll_getRefValue(addr, casFeatCode_concepts), i);
-	return ll_cas.ll_getRefArrayValue(ll_cas.ll_getRefValue(addr, casFeatCode_concepts), i);
+      return ll_cas.ll_getRefArrayValue(ll_cas.ll_getRefValue(addr, casFeatCode_mentions), i, true);
+    jcas.checkArrayBounds(ll_cas.ll_getRefValue(addr, casFeatCode_mentions), i);
+	return ll_cas.ll_getRefArrayValue(ll_cas.ll_getRefValue(addr, casFeatCode_mentions), i);
   }
    
   /** @generated
@@ -87,13 +87,13 @@ public class CompositeNamedEntity_Type extends Annotation_Type {
    * @param i index of item in the array
    * @param v value to set
    */ 
-  public void setConcepts(int addr, int i, int v) {
-        if (featOkTst && casFeat_concepts == null)
-      jcas.throwFeatMissing("concepts", "clinicalnlp.types.CompositeNamedEntity");
+  public void setMentions(int addr, int i, int v) {
+        if (featOkTst && casFeat_mentions == null)
+      jcas.throwFeatMissing("mentions", "clinicalnlp.types.CompositeNamedEntity");
     if (lowLevelTypeChecks)
-      ll_cas.ll_setRefArrayValue(ll_cas.ll_getRefValue(addr, casFeatCode_concepts), i, v, true);
-    jcas.checkArrayBounds(ll_cas.ll_getRefValue(addr, casFeatCode_concepts), i);
-    ll_cas.ll_setRefArrayValue(ll_cas.ll_getRefValue(addr, casFeatCode_concepts), i, v);
+      ll_cas.ll_setRefArrayValue(ll_cas.ll_getRefValue(addr, casFeatCode_mentions), i, v, true);
+    jcas.checkArrayBounds(ll_cas.ll_getRefValue(addr, casFeatCode_mentions), i);
+    ll_cas.ll_setRefArrayValue(ll_cas.ll_getRefValue(addr, casFeatCode_mentions), i, v);
   }
  
 
@@ -109,8 +109,8 @@ public class CompositeNamedEntity_Type extends Annotation_Type {
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 
  
-    casFeat_concepts = jcas.getRequiredFeatureDE(casType, "concepts", "uima.cas.FSArray", featOkTst);
-    casFeatCode_concepts  = (null == casFeat_concepts) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_concepts).getCode();
+    casFeat_mentions = jcas.getRequiredFeatureDE(casType, "mentions", "uima.cas.FSArray", featOkTst);
+    casFeatCode_mentions  = (null == casFeat_mentions) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_mentions).getCode();
 
   }
 }
