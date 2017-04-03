@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Sun Apr 02 14:59:24 CDT 2017 */
+/* First created by JCasGen Mon Apr 03 09:18:32 CDT 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Sun Apr 02 14:59:24 CDT 2017
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_22e5a908-e296-40b9-9a7f-1901296f63715280762021609735894.xml
+ * Updated by JCasGen Mon Apr 03 09:18:32 CDT 2017
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_a68e51c0-812b-407b-b25c-9c2db16cd0435850215536891765445.xml
  * @generated */
 public class LeftWindow extends Annotation {
   /** @generated

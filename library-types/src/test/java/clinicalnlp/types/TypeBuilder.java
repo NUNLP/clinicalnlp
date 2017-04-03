@@ -55,6 +55,7 @@ public class TypeBuilder {
         nem.addFeature("norm", "", "uima.cas.String");
         nem.addFeature("code", "", "uima.cas.String");
         nem.addFeature("codeSystem", "", "uima.cas.String");
+        nem.addFeature("semClass", "", "uima.cas.String");
         nem.addFeature("provenance", "", "uima.cas.String");
         nem.addFeature("polarity", "", "uima.cas.Integer");
         types.addType(nem);

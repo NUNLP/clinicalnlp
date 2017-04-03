@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
-    <name>leoTypeDescription_5bdad212-e03e-4e66-9927-4c8c06e34b9c</name>
+    <name>leoTypeDescription_166a41fe-4e53-4286-8f18-b3f32352ed76</name>
     <types>
         <typeDescription>
             <name>gov.va.vinci.leo.types.CSI</name>
@@ -232,6 +232,11 @@
                 </featureDescription>
                 <featureDescription>
                     <name>codeSystem</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>semClass</name>
                     <description/>
                     <rangeTypeName>uima.cas.String</rangeTypeName>
                 </featureDescription>

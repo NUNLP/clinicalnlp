@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Sun Apr 02 14:59:24 CDT 2017 */
+/* First created by JCasGen Mon Apr 03 09:18:32 CDT 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas;
@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Sun Apr 02 14:59:24 CDT 2017
+ * Updated by JCasGen Mon Apr 03 09:18:32 CDT 2017
  * @generated */
 public class NamedEntityMention_Type extends Annotation_Type {
   /** @generated 
@@ -119,6 +119,30 @@ public class NamedEntityMention_Type extends Annotation_Type {
   
  
   /** @generated */
+  final Feature casFeat_semClass;
+  /** @generated */
+  final int     casFeatCode_semClass;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public String getSemClass(int addr) {
+        if (featOkTst && casFeat_semClass == null)
+      jcas.throwFeatMissing("semClass", "clinicalnlp.types.NamedEntityMention");
+    return ll_cas.ll_getStringValue(addr, casFeatCode_semClass);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setSemClass(int addr, String v) {
+        if (featOkTst && casFeat_semClass == null)
+      jcas.throwFeatMissing("semClass", "clinicalnlp.types.NamedEntityMention");
+    ll_cas.ll_setStringValue(addr, casFeatCode_semClass, v);}
+    
+  
+ 
+  /** @generated */
   final Feature casFeat_provenance;
   /** @generated */
   final int     casFeatCode_provenance;
@@ -188,6 +212,10 @@ public class NamedEntityMention_Type extends Annotation_Type {
  
     casFeat_codeSystem = jcas.getRequiredFeatureDE(casType, "codeSystem", "uima.cas.String", featOkTst);
     casFeatCode_codeSystem  = (null == casFeat_codeSystem) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_codeSystem).getCode();
+
+ 
+    casFeat_semClass = jcas.getRequiredFeatureDE(casType, "semClass", "uima.cas.String", featOkTst);
+    casFeatCode_semClass  = (null == casFeat_semClass) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_semClass).getCode();
 
  
     casFeat_provenance = jcas.getRequiredFeatureDE(casType, "provenance", "uima.cas.String", featOkTst);
