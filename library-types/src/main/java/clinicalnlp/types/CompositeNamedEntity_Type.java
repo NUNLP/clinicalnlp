@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Mon Apr 03 09:18:32 CDT 2017 */
+/* First created by JCasGen Mon Apr 03 09:28:01 CDT 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas;
@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Mon Apr 03 09:18:32 CDT 2017
+ * Updated by JCasGen Mon Apr 03 09:28:01 CDT 2017
  * @generated */
 public class CompositeNamedEntity_Type extends Annotation_Type {
   /** @generated 
@@ -45,6 +45,30 @@ public class CompositeNamedEntity_Type extends Annotation_Type {
      @modifiable */
   @SuppressWarnings ("hiding")
   public final static boolean featOkTst = JCasRegistry.getFeatOkTst("clinicalnlp.types.CompositeNamedEntity");
+ 
+  /** @generated */
+  final Feature casFeat_semClass;
+  /** @generated */
+  final int     casFeatCode_semClass;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public String getSemClass(int addr) {
+        if (featOkTst && casFeat_semClass == null)
+      jcas.throwFeatMissing("semClass", "clinicalnlp.types.CompositeNamedEntity");
+    return ll_cas.ll_getStringValue(addr, casFeatCode_semClass);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setSemClass(int addr, String v) {
+        if (featOkTst && casFeat_semClass == null)
+      jcas.throwFeatMissing("semClass", "clinicalnlp.types.CompositeNamedEntity");
+    ll_cas.ll_setStringValue(addr, casFeatCode_semClass, v);}
+    
+  
  
   /** @generated */
   final Feature casFeat_mentions;
@@ -107,6 +131,10 @@ public class CompositeNamedEntity_Type extends Annotation_Type {
   public CompositeNamedEntity_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
+
+ 
+    casFeat_semClass = jcas.getRequiredFeatureDE(casType, "semClass", "uima.cas.String", featOkTst);
+    casFeatCode_semClass  = (null == casFeat_semClass) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_semClass).getCode();
 
  
     casFeat_mentions = jcas.getRequiredFeatureDE(casType, "mentions", "uima.cas.FSArray", featOkTst);

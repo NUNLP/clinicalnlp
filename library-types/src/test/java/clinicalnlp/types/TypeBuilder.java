@@ -17,14 +17,14 @@ public class TypeBuilder {
         //-----------------------------------------------------------------------------
         // Leo types
         //-----------------------------------------------------------------------------
-        types.addType(TypeLibrarian.getCSITypeSystemDescription());
-        types.addType(TypeLibrarian.getRelationshipAnnotationTypeSystemDescription());
-        types.addType(TypeLibrarian.getValidationAnnotationTypeSystemDescription());
-        types.addTypeSystemDescription(new WindowAnnotator().getLeoTypeSystemDescription());
-        types.addTypeSystemDescription(new RegexAnnotator().getLeoTypeSystemDescription());
-        types.addTypeSystemDescription(new AnnotationPatternAnnotator().getLeoTypeSystemDescription());
-        types.addTypeSystemDescription(new SentenceAnnotator().getLeoTypeSystemDescription());
-        types.addTypeSystemDescription(new AnchoredSentenceAnnotator().getLeoTypeSystemDescription());
+//        types.addType(TypeLibrarian.getCSITypeSystemDescription());
+//        types.addType(TypeLibrarian.getRelationshipAnnotationTypeSystemDescription());
+//        types.addType(TypeLibrarian.getValidationAnnotationTypeSystemDescription());
+//        types.addTypeSystemDescription(new WindowAnnotator().getLeoTypeSystemDescription());
+//        types.addTypeSystemDescription(new RegexAnnotator().getLeoTypeSystemDescription());
+//        types.addTypeSystemDescription(new AnnotationPatternAnnotator().getLeoTypeSystemDescription());
+//        types.addTypeSystemDescription(new SentenceAnnotator().getLeoTypeSystemDescription());
+//        types.addTypeSystemDescription(new AnchoredSentenceAnnotator().getLeoTypeSystemDescription());
 
         //-----------------------------------------------------------------------------
         // Token types
@@ -62,6 +62,7 @@ public class TypeBuilder {
 
         TypeDescription_impl composite = new TypeDescription_impl("clinicalnlp.types.CompositeNamedEntity",
                 "", "uima.tcas.Annotation");
+        composite.addFeature("semClass", "", "uima.cas.String");
         composite.addFeature("mentions", "array of mentions", "uima.cas.FSArray",
                 "clinicalnlp.types.NamedEntityMention", false);
         types.addType(composite);

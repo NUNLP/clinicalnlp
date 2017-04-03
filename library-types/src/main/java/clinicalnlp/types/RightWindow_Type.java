@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Mon Apr 03 09:18:32 CDT 2017 */
+/* First created by JCasGen Mon Apr 03 09:28:01 CDT 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas;
@@ -12,7 +12,7 @@ import org.apache.uima.cas.Type;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Mon Apr 03 09:18:32 CDT 2017
+ * Updated by JCasGen Mon Apr 03 09:28:01 CDT 2017
  * @generated */
 public class RightWindow_Type extends Annotation_Type {
   /** @generated 

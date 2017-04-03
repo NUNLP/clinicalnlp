@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Mon Apr 03 09:18:32 CDT 2017 */
+/* First created by JCasGen Mon Apr 03 09:28:01 CDT 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Mon Apr 03 09:18:32 CDT 2017
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_a68e51c0-812b-407b-b25c-9c2db16cd0435850215536891765445.xml
+ * Updated by JCasGen Mon Apr 03 09:28:01 CDT 2017
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_4c64e559-5736-4c58-afc4-1116786ee212200507943477133410.xml
  * @generated */
 public class Token extends Annotation {
   /** @generated
