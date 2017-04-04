@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Mon Apr 03 09:28:01 CDT 2017 */
+/* First created by JCasGen Tue Apr 04 08:23:19 CDT 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas;
@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Mon Apr 03 09:28:01 CDT 2017
+ * Updated by JCasGen Tue Apr 04 08:23:19 CDT 2017
  * @generated */
 public class DictMatch_Type extends Annotation_Type {
   /** @generated 

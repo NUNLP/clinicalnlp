@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
-    <name>leoTypeDescription_0f9a1bcb-1702-42a1-b2ac-582896dc11f7</name>
+    <name>leoTypeDescription_8357cbfb-fe29-4d08-96e8-e51c561ca5aa</name>
     <types>
         <typeDescription>
             <name>clinicalnlp.types.Token</name>
@@ -51,7 +51,7 @@
             <supertypeName>uima.tcas.Annotation</supertypeName>
             <features>
                 <featureDescription>
-                    <name>norm</name>
+                    <name>cite</name>
                     <description/>
                     <rangeTypeName>uima.cas.String</rangeTypeName>
                 </featureDescription>

@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Mon Apr 03 09:28:01 CDT 2017 */
+/* First created by JCasGen Tue Apr 04 08:23:19 CDT 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas;
@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Mon Apr 03 09:28:01 CDT 2017
+ * Updated by JCasGen Tue Apr 04 08:23:19 CDT 2017
  * @generated */
 public class NamedEntityMention_Type extends Annotation_Type {
   /** @generated 
@@ -47,26 +47,26 @@ public class NamedEntityMention_Type extends Annotation_Type {
   public final static boolean featOkTst = JCasRegistry.getFeatOkTst("clinicalnlp.types.NamedEntityMention");
  
   /** @generated */
-  final Feature casFeat_norm;
+  final Feature casFeat_cite;
   /** @generated */
-  final int     casFeatCode_norm;
+  final int     casFeatCode_cite;
   /** @generated
    * @param addr low level Feature Structure reference
    * @return the feature value 
    */ 
-  public String getNorm(int addr) {
-        if (featOkTst && casFeat_norm == null)
-      jcas.throwFeatMissing("norm", "clinicalnlp.types.NamedEntityMention");
-    return ll_cas.ll_getStringValue(addr, casFeatCode_norm);
+  public String getCite(int addr) {
+        if (featOkTst && casFeat_cite == null)
+      jcas.throwFeatMissing("cite", "clinicalnlp.types.NamedEntityMention");
+    return ll_cas.ll_getStringValue(addr, casFeatCode_cite);
   }
   /** @generated
    * @param addr low level Feature Structure reference
    * @param v value to set 
    */    
-  public void setNorm(int addr, String v) {
-        if (featOkTst && casFeat_norm == null)
-      jcas.throwFeatMissing("norm", "clinicalnlp.types.NamedEntityMention");
-    ll_cas.ll_setStringValue(addr, casFeatCode_norm, v);}
+  public void setCite(int addr, String v) {
+        if (featOkTst && casFeat_cite == null)
+      jcas.throwFeatMissing("cite", "clinicalnlp.types.NamedEntityMention");
+    ll_cas.ll_setStringValue(addr, casFeatCode_cite, v);}
     
   
  
@@ -202,8 +202,8 @@ public class NamedEntityMention_Type extends Annotation_Type {
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 
  
-    casFeat_norm = jcas.getRequiredFeatureDE(casType, "norm", "uima.cas.String", featOkTst);
-    casFeatCode_norm  = (null == casFeat_norm) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_norm).getCode();
+    casFeat_cite = jcas.getRequiredFeatureDE(casType, "cite", "uima.cas.String", featOkTst);
+    casFeatCode_cite  = (null == casFeat_cite) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_cite).getCode();
 
  
     casFeat_code = jcas.getRequiredFeatureDE(casType, "code", "uima.cas.String", featOkTst);

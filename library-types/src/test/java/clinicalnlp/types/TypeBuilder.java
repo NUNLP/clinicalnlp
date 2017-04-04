@@ -52,7 +52,7 @@ public class TypeBuilder {
         //-----------------------------------------------------------------------------
         TypeDescription_impl nem = new TypeDescription_impl("clinicalnlp.types.NamedEntityMention",
             "", "uima.tcas.Annotation");
-        nem.addFeature("norm", "", "uima.cas.String");
+        nem.addFeature("cite", "", "uima.cas.String");
         nem.addFeature("code", "", "uima.cas.String");
         nem.addFeature("codeSystem", "", "uima.cas.String");
         nem.addFeature("semClass", "", "uima.cas.String");

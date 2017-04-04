@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Mon Apr 03 09:28:01 CDT 2017 */
+/* First created by JCasGen Tue Apr 04 08:23:19 CDT 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Mon Apr 03 09:28:01 CDT 2017
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_4c64e559-5736-4c58-afc4-1116786ee212200507943477133410.xml
+ * Updated by JCasGen Tue Apr 04 08:23:19 CDT 2017
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_74183225-ecbc-4e39-9a56-de3d0b60eca42330662473058446668.xml
  * @generated */
 public class NamedEntityMention extends Annotation {
   /** @generated
@@ -77,25 +77,25 @@ public class NamedEntityMention extends Annotation {
  
     
   //*--------------*
-  //* Feature: norm
+  //* Feature: cite
 
-  /** getter for norm - gets 
+  /** getter for cite - gets 
    * @generated
    * @return value of the feature 
    */
-  public String getNorm() {
-    if (NamedEntityMention_Type.featOkTst && ((NamedEntityMention_Type)jcasType).casFeat_norm == null)
-      jcasType.jcas.throwFeatMissing("norm", "clinicalnlp.types.NamedEntityMention");
-    return jcasType.ll_cas.ll_getStringValue(addr, ((NamedEntityMention_Type)jcasType).casFeatCode_norm);}
+  public String getCite() {
+    if (NamedEntityMention_Type.featOkTst && ((NamedEntityMention_Type)jcasType).casFeat_cite == null)
+      jcasType.jcas.throwFeatMissing("cite", "clinicalnlp.types.NamedEntityMention");
+    return jcasType.ll_cas.ll_getStringValue(addr, ((NamedEntityMention_Type)jcasType).casFeatCode_cite);}
     
-  /** setter for norm - sets  
+  /** setter for cite - sets  
    * @generated
    * @param v value to set into the feature 
    */
-  public void setNorm(String v) {
-    if (NamedEntityMention_Type.featOkTst && ((NamedEntityMention_Type)jcasType).casFeat_norm == null)
-      jcasType.jcas.throwFeatMissing("norm", "clinicalnlp.types.NamedEntityMention");
-    jcasType.ll_cas.ll_setStringValue(addr, ((NamedEntityMention_Type)jcasType).casFeatCode_norm, v);}    
+  public void setCite(String v) {
+    if (NamedEntityMention_Type.featOkTst && ((NamedEntityMention_Type)jcasType).casFeat_cite == null)
+      jcasType.jcas.throwFeatMissing("cite", "clinicalnlp.types.NamedEntityMention");
+    jcasType.ll_cas.ll_setStringValue(addr, ((NamedEntityMention_Type)jcasType).casFeatCode_cite, v);}    
    
     
   //*--------------*
