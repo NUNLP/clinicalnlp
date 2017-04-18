@@ -1,5 +1,6 @@
 package clinicalnlp.token.ae
 
+import clinicalnlp.dsl.DSL
 import opennlp.tools.lemmatizer.SimpleLemmatizer
 import opennlp.tools.postag.POSTagger
 import opennlp.tools.stemmer.Stemmer
@@ -13,13 +14,13 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 class TokenAnnotatorImpl {
-    Tokenizer tokenizer;
-    POSTagger posTagger;
-    SimpleLemmatizer lemmatizer;
-    Stemmer stemmer;
-    Pattern splitPattern;
-    Class<Annotation> containerType;
-    Class<Annotation> tokenType;
+    Tokenizer tokenizer
+    POSTagger posTagger
+    SimpleLemmatizer lemmatizer
+    Stemmer stemmer
+    Pattern splitPattern
+    Class<Annotation> containerType
+    Class<Annotation> tokenType
 
     TokenAnnotatorImpl(Tokenizer tokenizer,
                        POSTagger posTagger,
@@ -45,6 +46,7 @@ class TokenAnnotatorImpl {
     }
 
     void process(JCas jcas) {
+        Class.forName('clinicalnlp.dsl.DSL')
         jcas.select(type: (this.containerType)).each { Annotation ann ->
             List<Span> tokenSpans = []
             if (this.splitPattern) {

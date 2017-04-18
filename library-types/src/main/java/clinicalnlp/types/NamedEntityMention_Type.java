@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Tue Apr 04 08:23:19 CDT 2017 */
+/* First created by JCasGen Sat Apr 08 14:06:49 CDT 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas;
@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Tue Apr 04 08:23:19 CDT 2017
+ * Updated by JCasGen Sat Apr 08 14:06:49 CDT 2017
  * @generated */
 public class NamedEntityMention_Type extends Annotation_Type {
   /** @generated 

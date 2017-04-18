@@ -1,6 +1,5 @@
 package clinicalnlp.token.ae
 
-import clinicalnlp.types.Token
 import groovy.util.logging.Log4j
 import opennlp.tools.lemmatizer.SimpleLemmatizer
 import opennlp.tools.postag.POSTagger

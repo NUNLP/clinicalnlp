@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Tue Apr 04 08:23:19 CDT 2017 */
+/* First created by JCasGen Sat Apr 08 14:06:49 CDT 2017 */
 package clinicalnlp.types;
 
 import org.apache.uima.jcas.JCas; 
@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Tue Apr 04 08:23:19 CDT 2017
- * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_74183225-ecbc-4e39-9a56-de3d0b60eca42330662473058446668.xml
+ * Updated by JCasGen Sat Apr 08 14:06:49 CDT 2017
+ * XML source: /var/folders/k0/jcxw1d05549c48zgccrbj_q40000gp/T/leoTypeDescription_74ca6609-13a8-457d-87fc-67361ad32bce4256313613514362286.xml
  * @generated */
 public class SegmentHeading extends Annotation {
   /** @generated

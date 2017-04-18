@@ -1,8 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
-    <name>leoTypeDescription_8357cbfb-fe29-4d08-96e8-e51c561ca5aa</name>
+    <name>leoTypeDescription_18d66704-b227-4b6f-acb3-650f95e348da</name>
     <types>
+        <typeDescription>
+            <name>gov.va.vinci.leo.types.CSI</name>
+            <description>CSI Annotation</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>ID</name>
+                    <description>ID</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>Locator</name>
+                    <description>Locator for document.</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>RowData</name>
+                    <description>Row data for document (if any)</description>
+                    <rangeTypeName>uima.cas.StringArray</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>PropertiesKeys</name>
+                    <description>Property keys</description>
+                    <rangeTypeName>uima.cas.StringArray</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>PropertiesValues</name>
+                    <description>Property Values</description>
+                    <rangeTypeName>uima.cas.StringArray</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>gov.va.vinci.leo.types.RelationshipAnnotation</name>
+            <description>RelationshipAnnotation Annotation</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>Source</name>
+                    <description>Source</description>
+                    <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>Target</name>
+                    <description>Target</description>
+                    <rangeTypeName>uima.cas.FSArray</rangeTypeName>
+                    <elementType>uima.tcas.Annotation</elementType>
+                    <multipleReferencesAllowed>false</multipleReferencesAllowed>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>gov.va.vinci.leo.types.ValidationAnnotation</name>
+            <description>Validation Annotations</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>ReferenceAnnotationGuid</name>
+                    <description>The GUID of the annotation this validation annotation references.</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>ValidationValue</name>
+                    <description>The validation value for this annotation.</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>ValidationComment</name>
+                    <description>The validation comment (if any) for this annotation.</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>CreatedBy</name>
+                    <description>The userId that created this annotation.</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>gov.va.vinci.leo.window.types.Window</name>
+            <description>Window Type</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>Anchor</name>
+                    <description>Anchor annotation around which the window was created</description>
+                    <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>gov.va.vinci.leo.regex.types.RegularExpressionType</name>
+            <description/>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>pattern</name>
+                    <description>The regular expression pattern than matched. </description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>concept</name>
+                    <description>A user settable concept label.</description>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>group</name>
+                    <description>The group array of values from a regex that contains group identifiers.</description>
+                    <rangeTypeName>uima.cas.StringArray</rangeTypeName>
+                    <elementType>uima.cas.String</elementType>
+                    <multipleReferencesAllowed>false</multipleReferencesAllowed>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>gov.va.vinci.leo.annotationpattern.types.AnnotationPatternType</name>
+            <description/>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>anchor</name>
+                    <description/>
+                    <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>anchorPattern</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>pattern</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>target</name>
+                    <description/>
+                    <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>targetPattern</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>gov.va.vinci.leo.sentence.types.Sentence</name>
+            <description>Sentence Type</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>Anchor</name>
+                    <description>Anchor Annotation around which the sentence was created</description>
+                    <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>gov.va.vinci.leo.sentence.types.AnchoredSentence</name>
+            <description>Sentence Type</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>Anchor</name>
+                    <description>Anchor Annotation around which the sentence was created</description>
+                    <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
+                </featureDescription>
+            </features>
+        </typeDescription>
         <typeDescription>
             <name>clinicalnlp.types.Token</name>
             <description/>

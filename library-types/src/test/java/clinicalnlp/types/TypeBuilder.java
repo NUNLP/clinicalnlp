@@ -17,14 +17,14 @@ public class TypeBuilder {
         //-----------------------------------------------------------------------------
         // Leo types
         //-----------------------------------------------------------------------------
-//        types.addType(TypeLibrarian.getCSITypeSystemDescription());
-//        types.addType(TypeLibrarian.getRelationshipAnnotationTypeSystemDescription());
-//        types.addType(TypeLibrarian.getValidationAnnotationTypeSystemDescription());
-//        types.addTypeSystemDescription(new WindowAnnotator().getLeoTypeSystemDescription());
-//        types.addTypeSystemDescription(new RegexAnnotator().getLeoTypeSystemDescription());
-//        types.addTypeSystemDescription(new AnnotationPatternAnnotator().getLeoTypeSystemDescription());
-//        types.addTypeSystemDescription(new SentenceAnnotator().getLeoTypeSystemDescription());
-//        types.addTypeSystemDescription(new AnchoredSentenceAnnotator().getLeoTypeSystemDescription());
+        types.addType(TypeLibrarian.getCSITypeSystemDescription());
+        types.addType(TypeLibrarian.getRelationshipAnnotationTypeSystemDescription());
+        types.addType(TypeLibrarian.getValidationAnnotationTypeSystemDescription());
+        types.addTypeSystemDescription(new WindowAnnotator().getLeoTypeSystemDescription());
+        types.addTypeSystemDescription(new RegexAnnotator().getLeoTypeSystemDescription());
+        types.addTypeSystemDescription(new AnnotationPatternAnnotator().getLeoTypeSystemDescription());
+        types.addTypeSystemDescription(new SentenceAnnotator().getLeoTypeSystemDescription());
+        types.addTypeSystemDescription(new AnchoredSentenceAnnotator().getLeoTypeSystemDescription());
 
         //-----------------------------------------------------------------------------
         // Token types

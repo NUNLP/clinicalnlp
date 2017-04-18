@@ -46,8 +46,13 @@
                                 <supertypeName>uima.tcas.Annotation</supertypeName>
                                 <features>
                                     <featureDescription>
-                                        <name>concepts</name>
-                                        <description>array of concepts</description>
+                                        <name>semClass</name>
+                                        <description/>
+                                        <rangeTypeName>uima.cas.String</rangeTypeName>
+                                    </featureDescription>
+                                    <featureDescription>
+                                        <name>mentions</name>
+                                        <description>array of mentions</description>
                                         <rangeTypeName>uima.cas.FSArray</rangeTypeName>
                                         <elementType>clinicalnlp.types.NamedEntityMention</elementType>
                                         <multipleReferencesAllowed>false</multipleReferencesAllowed>
@@ -102,7 +107,7 @@
                                 <supertypeName>uima.tcas.Annotation</supertypeName>
                                 <features>
                                     <featureDescription>
-                                        <name>norm</name>
+                                        <name>cite</name>
                                         <description/>
                                         <rangeTypeName>uima.cas.String</rangeTypeName>
                                     </featureDescription>
@@ -113,6 +118,11 @@
                                     </featureDescription>
                                     <featureDescription>
                                         <name>codeSystem</name>
+                                        <description/>
+                                        <rangeTypeName>uima.cas.String</rangeTypeName>
+                                    </featureDescription>
+                                    <featureDescription>
+                                        <name>semClass</name>
                                         <description/>
                                         <rangeTypeName>uima.cas.String</rangeTypeName>
                                     </featureDescription>
@@ -464,8 +474,13 @@
                                 <supertypeName>uima.tcas.Annotation</supertypeName>
                                 <features>
                                     <featureDescription>
-                                        <name>concepts</name>
-                                        <description>array of concepts</description>
+                                        <name>semClass</name>
+                                        <description/>
+                                        <rangeTypeName>uima.cas.String</rangeTypeName>
+                                    </featureDescription>
+                                    <featureDescription>
+                                        <name>mentions</name>
+                                        <description>array of mentions</description>
                                         <rangeTypeName>uima.cas.FSArray</rangeTypeName>
                                         <elementType>clinicalnlp.types.NamedEntityMention</elementType>
                                         <multipleReferencesAllowed>false</multipleReferencesAllowed>
@@ -520,7 +535,7 @@
                                 <supertypeName>uima.tcas.Annotation</supertypeName>
                                 <features>
                                     <featureDescription>
-                                        <name>norm</name>
+                                        <name>cite</name>
                                         <description/>
                                         <rangeTypeName>uima.cas.String</rangeTypeName>
                                     </featureDescription>
@@ -531,6 +546,11 @@
                                     </featureDescription>
                                     <featureDescription>
                                         <name>codeSystem</name>
+                                        <description/>
+                                        <rangeTypeName>uima.cas.String</rangeTypeName>
+                                    </featureDescription>
+                                    <featureDescription>
+                                        <name>semClass</name>
                                         <description/>
                                         <rangeTypeName>uima.cas.String</rangeTypeName>
                                     </featureDescription>
