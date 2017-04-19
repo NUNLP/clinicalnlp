@@ -1,7 +1,9 @@
 package clinicalnlp.token.ae
 
 import groovy.util.logging.Log4j
-import opennlp.tools.lemmatizer.SimpleLemmatizer
+import opennlp.tools.lemmatizer.Lemmatizer
+import opennlp.tools.lemmatizer.LemmatizerME
+import opennlp.tools.lemmatizer.LemmatizerModel
 import opennlp.tools.postag.POSTagger
 import opennlp.tools.postag.POSTaggerME
 import opennlp.tools.stemmer.Stemmer
@@ -54,7 +56,7 @@ final class LocalTokenAnnotator extends JCasAnnotator_ImplBase {
         description = 'Flag to use or not use stemmer')
     private Boolean useStemmer;
 
-    private TokenAnnotatorImpl impl;
+    private TokenAnnotatorImpl impl
 
     @Override
     void initialize(UimaContext context) throws ResourceInitializationException {
@@ -62,7 +64,7 @@ final class LocalTokenAnnotator extends JCasAnnotator_ImplBase {
 
         Tokenizer tokenizer;
         POSTagger posTagger;
-        SimpleLemmatizer lemmatizer;
+        Lemmatizer lemmatizer;
         Stemmer stemmer;
 
         try {
@@ -71,12 +73,13 @@ final class LocalTokenAnnotator extends JCasAnnotator_ImplBase {
                 stemmer = new SnowballStemmer(SnowballStemmer.ALGORITHM.ENGLISH)
             }
             if (posModelResource) {
-                posTagger = new POSTaggerME( posModelResource.getModel(), POSTaggerME.DEFAULT_BEAM_SIZE, 0)
+                posTagger = new POSTaggerME( posModelResource.getModel())
             }
             if (this.lemmatizerDict) {
-                InputStream is = getClass().getResourceAsStream(this.lemmatizerDict)
-                lemmatizer = new SimpleLemmatizer(is)
-                is.close()
+//                InputStream is = getClass().getResourceAsStream(this.lemmatizerDict)
+//                LemmatizerModel lemmatizerModel = new LemmatizerModel(is)
+//                lemmatizer = new LemmatizerME(lemmatizerModel)
+//                is.close()
             }
         } catch (ResourceAccessException e) {
             throw new ResourceInitializationException(e)

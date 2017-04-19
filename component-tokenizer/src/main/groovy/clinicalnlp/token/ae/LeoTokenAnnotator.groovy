@@ -4,7 +4,9 @@ import gov.va.vinci.leo.ae.LeoBaseAnnotator
 import gov.va.vinci.leo.descriptors.LeoConfigurationParameter
 import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription
 import groovy.util.logging.Log4j
-import opennlp.tools.lemmatizer.SimpleLemmatizer
+import opennlp.tools.lemmatizer.Lemmatizer
+import opennlp.tools.lemmatizer.LemmatizerME
+import opennlp.tools.lemmatizer.LemmatizerModel
 import opennlp.tools.postag.POSTagger
 import opennlp.tools.postag.POSTaggerME
 import opennlp.tools.stemmer.Stemmer
@@ -84,10 +86,10 @@ class LeoTokenAnnotator extends LeoBaseAnnotator {
     @Override
 	void initialize(UimaContext aContext) throws ResourceInitializationException {
 		super.initialize(aContext)
-        Tokenizer tokenizer;
-        POSTagger posTagger;
-        SimpleLemmatizer lemmatizer;
-        Stemmer stemmer;
+        Tokenizer tokenizer
+        POSTagger posTagger
+        Lemmatizer lemmatizer
+        Stemmer stemmer
 
         try {
             DefaultResourceLoader loader = new DefaultResourceLoader(ClassLoader.getSystemClassLoader())
@@ -98,12 +100,13 @@ class LeoTokenAnnotator extends LeoBaseAnnotator {
             }
             if (this.posModelPath) {
                 Resource posModelResource = loader.getResource(this.posModelPath)
-                posTagger = new POSTaggerME(posModelResource.getInputStream(), POSTaggerME.DEFAULT_BEAM_SIZE, 0)
+                posTagger = new POSTaggerME(posModelResource.getInputStream())
             }
             if (this.lemmatizerDict) {
-                InputStream is = getClass().getResourceAsStream(this.lemmatizerDict)
-                lemmatizer = new SimpleLemmatizer(is)
-                is.close()
+//                InputStream is = getClass().getResourceAsStream(this.lemmatizerDict)
+//                LemmatizerModel lemmatizerModel = new LemmatizerModel(is)
+//                lemmatizer = new LemmatizerME(lemmatizerModel)
+//                is.close()
             }
         } catch (ResourceAccessException e) {
             throw new ResourceInitializationException(e)

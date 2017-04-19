@@ -11,6 +11,7 @@ import org.apache.uima.fit.factory.ExternalResourceFactory
 import org.apache.uima.jcas.JCas
 import org.apache.uima.resource.ExternalResourceDescription
 import org.junit.BeforeClass
+import org.junit.Ignore
 import org.junit.Test
 
 @Log4j
@@ -45,7 +46,8 @@ class LocalTokenAnnotatorTest {
         Collection<Token> tokens = jcas.select(type:Token)
         assert tokens.size() == 10
     }
-    
+
+    @Ignore
     @Test
     void smokeTest() {
 		
