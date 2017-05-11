@@ -1,6 +1,7 @@
 package clinicalnlp.token.ae
 
-import opennlp.tools.lemmatizer.Lemmatizer
+import clinicalnlp.dsl.DSL
+import opennlp.tools.lemmatizer.SimpleLemmatizer
 import opennlp.tools.postag.POSTagger
 import opennlp.tools.stemmer.Stemmer
 import opennlp.tools.tokenize.Tokenizer
@@ -15,7 +16,7 @@ import java.util.regex.Pattern
 class TokenAnnotatorImpl {
     Tokenizer tokenizer
     POSTagger posTagger
-    Lemmatizer lemmatizer
+    SimpleLemmatizer lemmatizer
     Stemmer stemmer
     Pattern splitPattern
     Class<Annotation> containerType
@@ -23,7 +24,7 @@ class TokenAnnotatorImpl {
 
     TokenAnnotatorImpl(Tokenizer tokenizer,
                        POSTagger posTagger,
-                       Lemmatizer lemmatizer,
+                       SimpleLemmatizer lemmatizer,
                        Stemmer stemmer,
                        String containerTypeName,
                        String tokenTypeName,
@@ -58,14 +59,14 @@ class TokenAnnotatorImpl {
             }
 
             if (this.posTagger) {
-//                final List<String> tokenStrings = tokenSpans.collect { ann.coveredText.substring(it.start, it.end) }
-//                final String[] posTags = this.posTagger.tag(tokenStrings as String[])
-//                tokenSpans.eachWithIndex { Span span, int i ->
-//                    jcas.create(type:this.tokenType, begin:ann.begin+span.start, end:ann.begin+span.end, pos:posTags.get(i),
-//                        lemma:(this.lemmatizer ? lemmatizer.lemmatize(tokenStrings.get(i), posTags.get(i)): null),
-//                        stem:(this.stemmer ? stemmer.stem(tokenStrings.get(i)) : null)
-//                    )
-//                }
+                final List<String> tokenStrings = tokenSpans.collect { ann.coveredText.substring(it.start, it.end) }
+                final List<String> posTags = this.posTagger.tag(tokenStrings)
+                tokenSpans.eachWithIndex { Span span, int i ->
+                    jcas.create(type:this.tokenType, begin:ann.begin+span.start, end:ann.begin+span.end, pos:posTags.get(i),
+                        lemma:(this.lemmatizer ? lemmatizer.lemmatize(tokenStrings.get(i), posTags.get(i)): null),
+                        stem:(this.stemmer ? stemmer.stem(tokenStrings.get(i)) : null)
+                    )
+                }
             }
             else {
                 tokenSpans.each { Span span ->
