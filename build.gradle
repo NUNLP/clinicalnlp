@@ -4,7 +4,7 @@ allprojects {
     apply plugin: 'maven'
 
     group 'clinicalnlp'
-    version '1.1'
+    version '1.2-SNAPSHOT'
 
     repositories {
         mavenCentral()
@@ -19,7 +19,7 @@ allprojects {
         compile 'org.codehaus.groovy:groovy-all:2.4.7'
         compile 'com.google.guava:guava:20.0'
         compile 'org.apache.commons:commons-lang3:3.5'
-        compile 'org.apache.logging.log4j:log4j-core:2.8'
+//        compile 'org.apache.logging.log4j:log4j-core:2.8'
         compile 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
 
         compile 'org.apache.uima:uimaj-core:2.8.1'
@@ -31,9 +31,9 @@ allprojects {
         compile 'org.apache.opennlp:opennlp-uima:1.6.0'
         compile 'org.apache.opennlp:opennlp-maxent:3.0.3'
 
-        compile 'gov.va.vinci.leo:leo-core:2017.03.0'
-        compile 'gov.va.vinci.leo:leo-service:2017.03.0'
-        compile 'gov.va.vinci.leo:leo-client:2017.03.0'
+        compile 'gov.va.vinci.leo:leo-core:2016.10.0'
+        compile 'gov.va.vinci.leo:leo-service:2016.10.0'
+        compile 'gov.va.vinci.leo:leo-client:2016.10.0'
         compile 'gov.va.vinci:leo-annotation-librarian:2016.10.0'
         compile 'gov.va.vinci:leo-annotation-pattern:2016.11.0'
         compile 'gov.va.vinci:leo-annotation-filter:2016.05.3'
