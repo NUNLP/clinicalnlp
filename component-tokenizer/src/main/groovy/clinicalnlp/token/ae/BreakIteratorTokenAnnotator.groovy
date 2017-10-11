@@ -2,7 +2,6 @@ package clinicalnlp.token.ae
 
 import clinicalnlp.types.Token
 import com.ibm.icu.text.BreakIterator
-import groovy.util.logging.Log4j
 import org.apache.uima.UimaContext
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase
@@ -13,7 +12,6 @@ import org.apache.uima.resource.ResourceInitializationException
 
 import static com.ibm.icu.text.BreakIterator.wordInstance
 
-@Log4j
 final class BreakIteratorTokenAnnotator extends JCasAnnotator_ImplBase {
     public static final String PARAM_CONTAINER_TYPE = 'containerTypeName'
     @ConfigurationParameter(name = 'containerTypeName', mandatory = false,

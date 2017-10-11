@@ -6,9 +6,6 @@ import clinicalnlp.types.TextSpan
 import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
 import gov.va.vinci.leo.window.types.Window
-import groovy.util.logging.Log4j
-import org.apache.log4j.Level
-import org.apache.log4j.PropertyConfigurator
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase
@@ -22,13 +19,9 @@ import org.junit.Test
 
 import java.util.regex.Matcher
 
-import static clinicalnlp.pattern.AnnotationPattern.$A
-import static clinicalnlp.pattern.AnnotationPattern.$N
-import static clinicalnlp.pattern.AnnotationPattern.$LA
-import static clinicalnlp.pattern.AnnotationPattern.$LB
+import static clinicalnlp.pattern.AnnotationPattern.*
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
 
-@Log4j
 class AnnotationRegexMatcherTests {
 
     /**
@@ -72,7 +65,6 @@ class AnnotationRegexMatcherTests {
     static void setupClass() {
         def config = new ConfigSlurper().parse(
             AnnotationRegexMatcherTests.class.getResource('/config.groovy').text)
-        PropertyConfigurator.configure(config.toProperties())
         Class.forName('clinicalnlp.dsl.DSL')
     }
 
@@ -80,7 +72,6 @@ class AnnotationRegexMatcherTests {
 
     @Before
     void setUp() throws Exception {
-        log.setLevel(Level.INFO)
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
             add(createEngineDescription(TestAnnotator))

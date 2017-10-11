@@ -1,6 +1,5 @@
 package clinicalnlp.token.ae
 
-import clinicalnlp.dsl.DSL
 import opennlp.tools.lemmatizer.SimpleLemmatizer
 import opennlp.tools.postag.POSTagger
 import opennlp.tools.stemmer.Stemmer

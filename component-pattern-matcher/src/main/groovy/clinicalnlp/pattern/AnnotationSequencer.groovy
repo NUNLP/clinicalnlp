@@ -1,6 +1,5 @@
 package clinicalnlp.pattern
 
-import groovy.util.logging.Log4j
 import org.apache.uima.jcas.JCas
 import org.apache.uima.jcas.tcas.Annotation
 
@@ -9,7 +8,6 @@ import static org.apache.uima.fit.util.JCasUtil.selectCovered
 /**
  * AnnotationSequencer class definition
  */
-@Log4j
 class AnnotationSequencer implements Iterable<List<? extends Annotation>> {
     // -----------------------------------------------------------------------------------------------------------------
     // Instance Fields

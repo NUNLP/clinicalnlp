@@ -3,29 +3,20 @@ package clinicalnlp.pattern
 import clinicalnlp.types.NamedEntityMention
 import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
-import groovy.util.logging.Log4j
-import org.apache.log4j.BasicConfigurator
-import org.apache.log4j.Level
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 
-import static clinicalnlp.pattern.AnnotationPattern.$A
-import static clinicalnlp.pattern.AnnotationPattern.$N
-import static clinicalnlp.pattern.AnnotationPattern.$LA
-import static clinicalnlp.pattern.AnnotationPattern.$LB
+import static clinicalnlp.pattern.AnnotationPattern.*
 
-@Log4j
 class AnnotationPatternTests {
 
     @BeforeClass
     static void setupClass() {
-        BasicConfigurator.configure()
     }
 
     @Before
     void setUp() throws Exception {
-        log.setLevel(Level.INFO)
     }
 
     @Test

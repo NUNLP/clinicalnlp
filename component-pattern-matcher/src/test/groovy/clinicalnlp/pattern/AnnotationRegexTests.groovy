@@ -3,9 +3,6 @@ package clinicalnlp.pattern
 import clinicalnlp.types.NamedEntityMention
 import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
-import groovy.util.logging.Log4j
-import org.apache.log4j.Level
-import org.apache.log4j.PropertyConfigurator
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
@@ -13,19 +10,16 @@ import org.junit.Test
 import static clinicalnlp.pattern.AnnotationPattern.$A
 import static clinicalnlp.pattern.AnnotationPattern.$N
 
-@Log4j
 class AnnotationRegexTests {
 
     @BeforeClass
     static void setupClass() {
         def config = new ConfigSlurper().parse(
             AnnotationRegexTests.class.getResource('/config.groovy').text)
-        PropertyConfigurator.configure(config.toProperties())
     }
 
     @Before
     void setUp() throws Exception {
-        log.setLevel(Level.INFO)
     }
 
     @Test

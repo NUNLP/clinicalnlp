@@ -1,6 +1,5 @@
 package clinicalnlp.pattern
 
-import groovy.util.logging.Log4j
 import org.apache.uima.jcas.tcas.Annotation
 
 import java.util.regex.Pattern
@@ -8,7 +7,6 @@ import java.util.regex.Pattern
 /**
  * AnnotationRegex class definition
  */
-@Log4j
 class AnnotationRegex {
     // -----------------------------------------------------------------------------------------------------------------
     // Static fields

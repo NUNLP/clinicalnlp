@@ -4,9 +4,6 @@ import clinicalnlp.types.NamedEntityMention
 import clinicalnlp.types.Segment
 import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
-import groovy.util.logging.Log4j
-import org.apache.log4j.Level
-import org.apache.log4j.PropertyConfigurator
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.fit.factory.AggregateBuilder
 import org.apache.uima.jcas.JCas
@@ -18,7 +15,6 @@ import org.junit.Test
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
 import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
-@Log4j
 class AnnotationSequencerTests {
 
     JCas jcas;
@@ -27,14 +23,11 @@ class AnnotationSequencerTests {
     static void setupClass() {
         def config = new ConfigSlurper().parse(
             AnnotationRegexTests.class.getResource('/config.groovy').text)
-        PropertyConfigurator.configure(config.toProperties())
         Class.forName('clinicalnlp.dsl.DSL')
     }
 
     @Before
     void setUp() throws Exception {
-        log.setLevel(Level.INFO)
-
         // construct a pipeline
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {

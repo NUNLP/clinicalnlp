@@ -1,12 +1,10 @@
 package clinicalnlp.pattern
 
-import groovy.util.logging.Log4j
 import org.apache.uima.jcas.tcas.Annotation
 
 /**
  * AnnotationPattern class definition
  */
-@Log4j
 abstract class AnnotationPattern {
     //------------------------------------------------------------------------------------------------------------------
     // Factory Methods
@@ -129,7 +127,6 @@ abstract class AnnotationPattern {
 /**
  * AtomicAnnotationPattern class definition
  */
-@Log4j
 class AtomicAnnotationPattern extends AnnotationPattern {
     final Class<? extends Annotation> type
     final Map<String, String> features
@@ -159,7 +156,6 @@ class AtomicAnnotationPattern extends AnnotationPattern {
 /**
  * SequenceAnnotationPattern class definition
  */
-@Log4j
 class SequenceAnnotationPattern extends AnnotationPattern {
     List<AnnotationPattern> children = new ArrayList<AnnotationPattern>()
 
@@ -192,7 +188,6 @@ class SequenceAnnotationPattern extends AnnotationPattern {
 /**
  * OptionAnnotationPattern class definition
  */
-@Log4j
 class OptionAnnotationPattern extends AnnotationPattern {
     List<AnnotationPattern> children = new ArrayList<AnnotationPattern>()
 

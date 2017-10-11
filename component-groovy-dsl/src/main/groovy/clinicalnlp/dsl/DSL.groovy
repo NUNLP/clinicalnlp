@@ -2,7 +2,6 @@ package clinicalnlp.dsl
 
 import clinicalnlp.types.DictMatch
 import clinicalnlp.types.NamedEntityMention
-import gov.va.vinci.leo.tools.AnnotationComparator
 import org.apache.uima.cas.text.AnnotationFS
 import org.apache.uima.fit.util.JCasUtil
 import org.apache.uima.jcas.JCas
@@ -71,7 +70,6 @@ class DSL extends Script {
             Comparator<Annotation> comparator = args.comparator
 
             // first remove duplicate annotations, picking one (at random) to keep
-            if (comparator == null) { comparator = new AnnotationComparator() }
             TreeSet<Annotation> uniques = new TreeSet<Annotation>(comparator)
             anns.each { Annotation ann ->
                 uniques.add(ann)
@@ -201,13 +199,6 @@ class DSL extends Script {
                     mentions << mention
                 }
             }
-        }
-
-        if (longestMatch) {
-            jcas.removeCovered(
-                    anns:jcas.select(type:type),
-                    types:[type]
-            )
         }
 
         return mentions

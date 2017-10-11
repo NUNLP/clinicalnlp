@@ -6,10 +6,7 @@ import clinicalnlp.types.Segment
 import com.google.common.base.Charsets
 import com.google.common.io.Resources
 import gov.va.vinci.leo.sentence.types.Sentence
-import groovy.util.logging.Log4j
 import opennlp.uima.util.UimaUtil
-import org.apache.log4j.BasicConfigurator
-import org.apache.log4j.Level
 import org.apache.uima.UimaContext
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.analysis_engine.AnalysisEngineDescription
@@ -32,7 +29,6 @@ import java.util.regex.Pattern
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
 import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
-@Log4j
 class LocalSentenceDetectorTest {
     static class NamedEntityMentionMatcher extends JCasAnnotator_ImplBase {
         public static final String PATTERN = 'patternStr'
@@ -50,7 +46,7 @@ class LocalSentenceDetectorTest {
         }
 
         @Override
-        public void process(JCas jCas) throws AnalysisEngineProcessException {
+        void process(JCas jCas) throws AnalysisEngineProcessException {
             Matcher matcher = jCas.documentText =~ this.pattern
             matcher.each {
                 NamedEntityMention nem = new NamedEntityMention(jCas)
@@ -65,12 +61,10 @@ class LocalSentenceDetectorTest {
     @BeforeClass
     static void setupClass() {
         Class.forName('clinicalnlp.dsl.DSL')
-        BasicConfigurator.configure()
     }
     
     @Before
     void setUp() throws Exception {
-        log.setLevel(Level.INFO)
     }
 
     @Test
@@ -111,7 +105,6 @@ class LocalSentenceDetectorTest {
         engine.process(jcas)
         Collection<Sentence> sents = jcas.select(type:Sentence)
         assert sents.size() == 21
-        sents.each { log.info "Sentence: $it.coveredText" }
     }
 
     @Test
@@ -142,7 +135,6 @@ class LocalSentenceDetectorTest {
         engine.process(jcas)
         Collection<Sentence> sents = jcas.select(type:Sentence)
         assert sents.size() == 8
-        sents.each { log.info "Sentence: $it.coveredText" }
     }
 
     @Test
@@ -175,7 +167,6 @@ class LocalSentenceDetectorTest {
         engine.process(jcas)
         Collection<Sentence> sents = jcas.select(type:Sentence)
         assert sents.size() == 6
-        sents.each { log.info "Sentence: $it.coveredText" }
     }
 
     @Test
@@ -207,7 +198,6 @@ class LocalSentenceDetectorTest {
         engine.process(jcas)
         Collection<Sentence> sents = jcas.select(type:Sentence)
         assert sents.size() == 13
-        sents.each { log.info "Sentence: $it.coveredText" }
     }
 
     @Test
@@ -239,44 +229,5 @@ class LocalSentenceDetectorTest {
         engine.process(jcas)
         Collection<Sentence> sents = jcas.select(type:Sentence)
         assert sents.size() == 28
-        sents.each { log.info "Sentence: $it.coveredText" }
-    }
-
-    @Test
-    void testAnchoredSentenceDetection() {
-
-        def text = """\
-        Patient has fever but no cough and pneumonia is ruled out.
-        There is no increase in weakness.
-        Patient does not have measles.
-        """
-
-        // construct the pipeline
-        ExternalResourceDescription extDesc = ExternalResourceFactory.createExternalResourceDescription(
-                opennlp.uima.sentdetect.SentenceModelResourceImpl, "file:clinicalnlp/models/sd-med-model.zip")
-        AggregateBuilder builder = new AggregateBuilder()
-        builder.with {
-            add(createEngineDescription(NamedEntityMentionMatcher,
-                    NamedEntityMentionMatcher.PATTERN, '(?i)(cough|pneumonia|measles)'
-            ))
-            add(createEngineDescription(
-                    LocalSentenceDetector,
-                    LocalSentenceDetector.ANCHOR_TYPES, [NamedEntityMention],
-                    LocalSentenceDetector.SPAN_SIZE, 150,
-                    LocalSentenceDetector.PARAM_SPLIT_PATTERN, '[\\n\\r:]+',
-                    LocalSentenceDetector.SENT_MODEL_KEY, extDesc))
-        }
-        AnalysisEngine engine = builder.createAggregate()
-
-        // run the pipeline
-        JCas jcas = engine.newJCas()
-        jcas.setDocumentText(text)
-        jcas.create(type:Segment, begin:0, end:text.length())
-        runPipeline(jcas, engine)
-
-        // test results
-        Collection<Sentence> sents = jcas.select(type:Sentence)
-        assert sents.size() == 2
-        sents.each { log.info "Sentence: $it.coveredText" }
     }
 }

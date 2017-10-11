@@ -8,9 +8,6 @@ allprojects {
 
     repositories {
         mavenCentral()
-        maven {
-            url 'http://decipher.chpc.utah.edu/nexus/content/groups/public'
-        }
     }
 
     dependencies {
@@ -18,8 +15,8 @@ allprojects {
 
         compile 'org.codehaus.groovy:groovy-all:2.4.7'
         compile 'com.google.guava:guava:20.0'
-        compile 'org.apache.logging.log4j:log4j-core:2.8'
         compile 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
+//        compile 'org.apache.logging.log4j:log4j-core:2.8'
 
         compile 'org.apache.uima:uimaj-core:2.8.1'
         compile 'org.apache.uima:uimaj-document-annotation:2.8.1'
@@ -29,17 +26,6 @@ allprojects {
         compile 'org.apache.opennlp:opennlp-tools:1.6.0'
         compile 'org.apache.opennlp:opennlp-uima:1.6.0'
         compile 'org.apache.opennlp:opennlp-maxent:3.0.3'
-
-        compile 'gov.va.vinci.leo:leo-core:2016.10.0'
-        compile 'gov.va.vinci.leo:leo-service:2016.10.0'
-        compile 'gov.va.vinci.leo:leo-client:2016.10.0'
-        compile 'gov.va.vinci:leo-annotation-librarian:2016.10.0'
-        compile 'gov.va.vinci:leo-annotation-pattern:2016.11.0'
-        compile 'gov.va.vinci:leo-annotation-filter:2016.05.3'
-        compile 'gov.va.vinci:leo-regex:2016.09.0'
-        compile 'gov.va.vinci:leo-window:2016.05.1'
-        compile 'gov.va.vinci:leo-whitespace-tokenizer:2016.05.1'
-        compile 'gov.va.vinci:leo-sentence:2016.05.0'
 
         testCompile 'org.apache.uima:uimaj-tools:2.8.1'
         testCompile 'junit:junit:4.12'
@@ -52,15 +38,11 @@ project(':') {
         compile project(':library-types')
         compile project(':library-models')
         compile project(':component-groovy-dsl')
+        compile project(':component-pattern-matcher')
         compile project(':component-segmenter')
         compile project(':component-context')
         compile project(':component-sentence-detector')
         compile project(':component-tokenizer')
-        compile project(':component-dictionary')
-        compile project(':component-chunker')
-        compile project(':component-wsd')
-
-        compile project(':component-pattern-matcher')
 
         testCompile project(':library-test')
     }
@@ -68,8 +50,6 @@ project(':') {
 
 project(':library-types') {
     dependencies {
-//        compile 'gov.va.vinci.leo:leo-core:2016.05.2'
-//        compile 'org.apache.ctakes:ctakes-type-system:3.2.2'
     }
 }
 
@@ -129,45 +109,5 @@ project(':component-tokenizer') {
         testCompile project(':library-test')
         testCompile project(':component-segmenter')
         testCompile project(':component-sentence-detector')
-    }
-}
-
-project(':component-chunker') {
-    dependencies {
-        compile project(':library-types')
-        compile project(':library-models')
-        compile project(':component-groovy-dsl')
-        compile project(':component-tokenizer')
-        testCompile project(':library-test')
-    }
-}
-
-project(':component-dictionary') {
-    dependencies {
-        compile project(':library-types')
-        compile project(':component-groovy-dsl')
-        compile project(':component-tokenizer')
-
-        compile 'info.debatty:java-string-similarity:0.19'
-        compile 'com.github.universal-automata:liblevenshtein:3.0.0'
-        compile 'com.github.mifmif:generex:1.0.2'
-        compile 'com.hankcs:aho-corasick-double-array-trie:1.0.1'
-
-        testCompile project(':library-test')
-        testCompile project(':component-segmenter')
-        testCompile project(':component-context')
-        testCompile project(':component-sentence-detector')
-    }
-}
-
-project(':component-wsd') {
-    dependencies {
-        compile project(':library-types')
-        compile project(':library-models')
-        compile project(':component-groovy-dsl')
-        compile project(':component-tokenizer')
-        compile fileTree(dir: 'lib', include: '*.jar')
-        testCompile project(':library-test')
-        testCompile project(':component-dictionary')
     }
 }

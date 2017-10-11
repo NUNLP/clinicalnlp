@@ -1,6 +1,5 @@
 package clinicalnlp.token.ae
 
-import groovy.util.logging.Log4j
 import opennlp.tools.lemmatizer.SimpleLemmatizer
 import opennlp.tools.postag.POSTagger
 import opennlp.tools.postag.POSTaggerME
@@ -19,7 +18,6 @@ import org.apache.uima.jcas.JCas
 import org.apache.uima.resource.ResourceAccessException
 import org.apache.uima.resource.ResourceInitializationException
 
-@Log4j
 final class LocalTokenAnnotator extends JCasAnnotator_ImplBase {
     public static final String TOKEN_MODEL_KEY = 'token_model'
     @ExternalResource(key = 'token_model', mandatory = true)

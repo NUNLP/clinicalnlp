@@ -1,12 +1,10 @@
 package clinicalnlp.dsl.ae
 
-import groovy.util.logging.Log4j
 import org.apache.uima.UimaContext
 import org.apache.uima.fit.descriptor.ConfigurationParameter
 import org.apache.uima.jcas.JCas
 import org.apache.uima.resource.ResourceInitializationException
 
-@Log4j
 class LocalDSLAnnotator extends org.apache.uima.fit.component.JCasAnnotator_ImplBase {
 
     public static final String PARAM_SCRIPT_FILE = 'scriptFileName'

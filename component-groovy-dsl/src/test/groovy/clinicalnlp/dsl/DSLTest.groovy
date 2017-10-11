@@ -2,10 +2,7 @@ package clinicalnlp.dsl
 
 import clinicalnlp.types.NamedEntityMention
 import clinicalnlp.types.Token
-import gov.va.vinci.leo.AnnotationLibrarian
 import gov.va.vinci.leo.sentence.types.Sentence
-import groovy.util.logging.Log4j
-import org.apache.log4j.Level
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase
@@ -19,11 +16,10 @@ import org.junit.Test
 
 import java.util.regex.Matcher
 
-import static DSL.*
+import static clinicalnlp.dsl.DSL.*
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
 import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
-@Log4j
 class DSLTest {
     static class NamedEntityMentionMatcher extends JCasAnnotator_ImplBase {
         @Override
@@ -56,7 +52,6 @@ class DSLTest {
 
     @Before
     void setUp() throws Exception {
-        log.setLevel(Level.INFO)
         AggregateBuilder builder = new AggregateBuilder()
         builder.with {
             add(createEngineDescription(NamedEntityMentionMatcher))
@@ -126,49 +121,6 @@ The patient does not have pneumonia or sepsis.
 
         assert jcas.select(type:NamedEntityMention,
                 filter:after(60)).size() == 1
-    }
-
-    @Test
-    void testAnnotationLibrarian() {
-        // -------------------------------------------------------------------
-        // run pipeline to generate annotations
-        // -------------------------------------------------------------------
-        def text = """\
-        Patient has fever but no cough and pneumonia is ruled out.
-        There is no increase in weakness.
-        Patient does not have measles.
-        """
-        JCas jcas = engine.newJCas()
-        jcas.setDocumentText(text)
-        runPipeline(jcas, engine)
-
-        // -------------------------------------------------------------------
-        // test the results by selecting annotations with
-        // miscellaneous filter arguments
-        // -------------------------------------------------------------------
-        Collection<Annotation> sents = jcas.select(type:Sentence)
-        sents.each { sent ->
-            println "Sentence: ${sent.coveredText}"
-        }
-
-        Collection<Annotation> nems = jcas.select(type:NamedEntityMention)
-        nems.each { nem ->
-            println "NamedEntityMention: ${nem.coveredText}"
-        }
-
-        assert AnnotationLibrarian.completelyCovers(sents[0], nems[0])
-        assert AnnotationLibrarian.completelyCovers(sents[0], nems[1])
-        assert AnnotationLibrarian.completelyCovers(sents[0], nems[2])
-        assert !AnnotationLibrarian.completelyCovers(sents[0], nems[3])
-        assert !AnnotationLibrarian.completelyCovers(sents[1], nems[0])
-        assert !AnnotationLibrarian.completelyCovers(sents[1], nems[1])
-        assert !AnnotationLibrarian.completelyCovers(sents[1], nems[2])
-        assert AnnotationLibrarian.completelyCovers(sents[1], nems[3])
-        assert !AnnotationLibrarian.completelyCovers(sents[2], nems[0])
-        assert !AnnotationLibrarian.completelyCovers(sents[2], nems[1])
-        assert !AnnotationLibrarian.completelyCovers(sents[2], nems[2])
-        assert !AnnotationLibrarian.completelyCovers(sents[2], nems[3])
-        assert AnnotationLibrarian.completelyCovers(nems[3], nems[3])
     }
 
     @Test

@@ -1,6 +1,5 @@
 package clinicalnlp.sent.ae
 
-import groovy.util.logging.Log4j
 import opennlp.tools.sentdetect.SentenceDetectorME
 import opennlp.uima.sentdetect.SentenceModelResource
 import org.apache.uima.UimaContext
@@ -11,7 +10,6 @@ import org.apache.uima.fit.descriptor.ExternalResource
 import org.apache.uima.jcas.JCas
 import org.apache.uima.resource.ResourceInitializationException
 
-@Log4j
 class LocalSentenceDetector extends JCasAnnotator_ImplBase {
 
     public static final String SD_SEGMENTS_TO_PARSE = 'segmentsToParse'
@@ -42,7 +40,7 @@ class LocalSentenceDetector extends JCasAnnotator_ImplBase {
     private SentenceDetectorImpl impl
 
     @Override
-    public void initialize(UimaContext aContext) throws ResourceInitializationException {
+    void initialize(UimaContext aContext) throws ResourceInitializationException {
         super.initialize(aContext)
         try {
             SentenceDetectorME sentDetect = new SentenceDetectorME(modelResource.getModel())
@@ -57,7 +55,7 @@ class LocalSentenceDetector extends JCasAnnotator_ImplBase {
     }
 
     @Override
-    public void process(JCas jcas) throws AnalysisEngineProcessException {
+    void process(JCas jcas) throws AnalysisEngineProcessException {
         this.impl.process(jcas)
     }
 }

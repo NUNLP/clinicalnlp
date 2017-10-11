@@ -7,9 +7,5 @@ include 'component-segmenter'
 include 'component-context'
 include 'component-sentence-detector'
 include 'component-tokenizer'
-include 'component-dictionary'
-include 'component-chunker'
-include 'component-wsd'
-
 include 'component-pattern-matcher'
 

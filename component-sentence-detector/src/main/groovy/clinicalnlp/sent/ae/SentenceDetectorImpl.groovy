@@ -3,7 +3,6 @@ package clinicalnlp.sent.ae
 import clinicalnlp.types.Segment
 import com.google.common.io.Resources
 import gov.va.vinci.leo.sentence.types.Sentence
-import groovy.util.logging.Log4j
 import opennlp.tools.sentdetect.SentenceDetectorME
 import opennlp.tools.util.Span
 import org.apache.commons.lang.math.IntRange
@@ -11,12 +10,12 @@ import org.apache.uima.jcas.JCas
 import org.apache.uima.jcas.tcas.Annotation
 import org.codehaus.groovy.control.CompilerConfiguration
 
+import java.nio.charset.Charset
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 import static clinicalnlp.dsl.DSL.between
 
-@Log4j
 class SentenceDetectorImpl {
 
     private SentenceDetectorME sentDetect
@@ -37,7 +36,7 @@ class SentenceDetectorImpl {
             config.setScriptBaseClass('clinicalnlp.dsl.DSL')
             GroovyShell shell = new GroovyShell(config)
             def scriptContents = Resources.toString(Resources.getResource(segScriptFile),
-                    org.apache.commons.io.Charsets.UTF_8)
+                Charset.forName("UTF-8"))
             this.segSelectScript = shell.parse(scriptContents)
         }
     }

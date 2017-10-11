@@ -2,8 +2,6 @@ package clinicalnlp.token.ae
 
 import clinicalnlp.types.Token
 import gov.va.vinci.leo.sentence.types.Sentence
-import groovy.util.logging.Log4j
-import org.apache.log4j.BasicConfigurator
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.analysis_engine.AnalysisEngineDescription
 import org.apache.uima.fit.factory.AnalysisEngineFactory
@@ -14,12 +12,10 @@ import org.junit.BeforeClass
 import org.junit.Ignore
 import org.junit.Test
 
-@Log4j
 class LocalTokenAnnotatorTest {
 
     @BeforeClass
     static void setupClass() {
-        BasicConfigurator.configure()
         Class.forName('clinicalnlp.dsl.DSL')
     }
 

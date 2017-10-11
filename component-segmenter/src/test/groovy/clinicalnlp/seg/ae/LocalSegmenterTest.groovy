@@ -2,9 +2,6 @@ package clinicalnlp.seg.ae
 
 import clinicalnlp.dsl.ae.LocalDSLAnnotator
 import clinicalnlp.types.Segment
-import groovy.util.logging.Log4j
-import org.apache.log4j.BasicConfigurator
-import org.apache.log4j.Level
 import org.apache.uima.analysis_engine.AnalysisEngine
 import org.apache.uima.fit.factory.AggregateBuilder
 import org.apache.uima.fit.factory.TypeSystemDescriptionFactory
@@ -18,25 +15,22 @@ import org.junit.Test
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription
 import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline
 
-@Log4j
 class LocalSegmenterTest {
 	
 	@BeforeClass
-	public static void setupClass() {
-		BasicConfigurator.configure()
+	static void setupClass() {
     }
 	
 	@Before
-	public void setUp() throws Exception {
-		log.setLevel(Level.INFO)
+	void setUp() throws Exception {
 	}
 
 	@After
-	public void tearDown() throws Exception {
+	void tearDown() throws Exception {
 	}
 
     @Test
-    public void testSegmenter() {
+    void testSegmenter() {
 
         //build type system description
         TypeSystemDescription tsd = TypeSystemDescriptionFactory.createTypeSystemDescription()
