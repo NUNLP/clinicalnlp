@@ -18,7 +18,6 @@ allprojects {
 
         compile 'org.codehaus.groovy:groovy-all:2.4.7'
         compile 'com.google.guava:guava:20.0'
-        compile 'org.apache.commons:commons-lang3:3.5'
         compile 'org.apache.logging.log4j:log4j-core:2.8'
         compile 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
 
