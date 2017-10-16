@@ -49,7 +49,7 @@ class DSL extends Script {
             Class type = args.type
             Closure filter = args.filter
             Collection<AnnotationFS> annotations = (type != null ? JCasUtil.select(getDelegate(), type) :
-                    JCasUtil.selectAll(getDelegate()))
+                JCasUtil.selectAll(getDelegate()))
             if (filter) {
                 Collection<Annotation> filtered = []
                 annotations.each {
@@ -70,6 +70,7 @@ class DSL extends Script {
             Comparator<Annotation> comparator = args.comparator
 
             // first remove duplicate annotations, picking one (at random) to keep
+            if (comparator == null) { comparator = new AnnotationComparator() }
             TreeSet<Annotation> uniques = new TreeSet<Annotation>(comparator)
             anns.each { Annotation ann ->
                 uniques.add(ann)
@@ -106,10 +107,10 @@ class DSL extends Script {
             Collection<Annotation> anchors = jcas.select type:AnchorType, filter:DSL.coveredBy(ann)
             anchors.each { Annotation anchor ->
                 Collection<Annotation> beforeTokens = jcas.select type:TokenType,
-                        filter:DSL.between(ann.begin, anchor.begin)
+                    filter:DSL.between(ann.begin, anchor.begin)
                 int beforeCount = [beforeTokens.size(), leftTokenCount].min()
                 Collection<Annotation> afterTokens = jcas.select type:TokenType,
-                        filter:DSL.between(anchor.end, ann.end)
+                    filter:DSL.between(anchor.end, ann.end)
                 int afterCount = [afterTokens.size(), rightTokenCount].min()
 
                 int beginIdx = (beforeCount ? beforeTokens[-beforeCount].begin : anchor.begin)
@@ -130,7 +131,7 @@ class DSL extends Script {
         // -------------------------------------------------------------------------------------------------------------
         DictMatch.metaClass.getMatchedTokens = {
             return (delegate.matched == null ? []:
-                    org.apache.uima.fit.util.JCasUtil.select(delegate.matched, Annotation))
+                org.apache.uima.fit.util.JCasUtil.select(delegate.matched, Annotation))
         }
         DictMatch.metaClass.setMatchedTokens = { anns ->
             if (anns == null) {
@@ -201,6 +202,13 @@ class DSL extends Script {
             }
         }
 
+        if (longestMatch) {
+            jcas.removeCovered(
+                anns:jcas.select(type:type),
+                types:[type]
+            )
+        }
+
         return mentions
     }
 
@@ -242,8 +250,8 @@ class DSL extends Script {
     static coveredBy = { Annotation coveringAnn ->
         { Annotation ann ->
             (ann != coveringAnn &&
-                    coveringAnn.begin <= ann.begin &&
-                    coveringAnn.end >= ann.end)
+                coveringAnn.begin <= ann.begin &&
+                coveringAnn.end >= ann.end)
         }
     }
 
